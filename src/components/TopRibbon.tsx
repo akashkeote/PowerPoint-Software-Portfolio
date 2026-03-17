@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Menu, Home, Layout, MousePointer2, MonitorPlay, FileDown, Save, Undo, Redo, ChevronDown, Search,
+  Home, Layout, MousePointer2, MonitorPlay, FileDown, Save, Undo, Redo, ChevronDown, Search,
   ClipboardPaste, Scissors, Copy, Paintbrush2, PlusSquare, Bold, Italic, Underline, Strikethrough,
   AlignLeft, AlignCenter, AlignRight, AlignJustify, List, ListOrdered, Wand2,
   FileText, FolderOpen, Info, Printer, Share2, Settings, ArrowLeft
@@ -15,6 +15,7 @@ const TABS = ['File', 'Home', 'Insert', 'Draw', 'Design', 'Transitions', 'Animat
 export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => {
   const [activeTab, setActiveTab] = useState('Home');
   const [isFileMenuOpen, setIsFileMenuOpen] = useState(false);
+  const [activeFilePanel, setActiveFilePanel] = useState('Home');
 
   return (
     <>
@@ -81,6 +82,7 @@ export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => 
                 onClick={() => {
                   if (isFile) {
                     setIsFileMenuOpen(true);
+                    setActiveFilePanel('Home');
                   } else {
                     setActiveTab(tab);
                   }
@@ -172,9 +174,11 @@ export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => 
               <MonitorPlay size={28} className="text-[#c0392b] group-hover:scale-110 transition-transform" />
               <span className="text-[11px] font-semibold text-[#c0392b] whitespace-nowrap">Start Presentation</span>
             </div>
-            <div className="flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-white/10 p-2 rounded transition-colors">
+            <div className="flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-white/10 p-2 rounded transition-colors"
+              onClick={() => window.open('/resume.pdf', '_blank')}
+            >
               <FileDown size={24} className="text-[#217346]" />
-              <span className="text-[10px] text-[#ccc] whitespace-nowrap">Save Resume</span>
+              <span className="text-[10px] text-[#ccc] whitespace-nowrap">Download Resume</span>
             </div>
           </div>
 
@@ -201,7 +205,10 @@ export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => 
             </div>
             
             <div className="flex flex-col w-full text-[15px] font-medium">
-              <div className="px-6 py-3 bg-black/20 border-l-4 border-white cursor-pointer flex items-center gap-4">
+              <div
+                onClick={() => setActiveFilePanel('Home')}
+                className={`px-6 py-3 hover:bg-black/20 border-l-4 cursor-pointer flex items-center gap-4 ${activeFilePanel === 'Home' ? 'bg-black/20 border-white' : 'border-transparent'}`}
+              >
                 <Home size={20} /> Home
               </div>
               <div className="px-6 py-3 hover:bg-black/20 border-l-4 border-transparent cursor-pointer flex items-center gap-4">
@@ -227,6 +234,12 @@ export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => 
             </div>
 
             <div className="mt-auto flex flex-col w-full text-[15px] font-medium">
+              <div
+                onClick={() => setActiveFilePanel('Account')}
+                className={`px-6 py-3 hover:bg-black/20 border-l-4 border-transparent cursor-pointer flex items-center gap-4 ${activeFilePanel === 'Account' ? 'bg-black/20 border-white' : ''}`}
+              >
+                <Settings size={20} /> Account
+              </div>
               <div className="px-6 py-3 hover:bg-black/20 border-l-4 border-transparent cursor-pointer flex items-center gap-4">
                 <Settings size={20} /> Options
               </div>
@@ -234,54 +247,124 @@ export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => 
           </div>
 
           {/* Right Main Area */}
-          <div className="flex-1 bg-[#1f1f1f] p-12 overflow-y-auto">
-            <h1 className="text-3xl font-light mb-8">Home</h1>
-            
-            <div className="flex gap-8 mb-12">
-              <div className="flex flex-col items-center gap-2 cursor-pointer group">
-                <div className="w-48 h-32 border border-[#444] bg-[#2d2d2d] group-hover:border-white transition-colors flex items-center justify-center relative overflow-hidden">
-                   <div className="w-full h-full bg-white flex flex-col shadow-sm">
-                      <div className="h-4 bg-[#c0392b] w-full"></div>
-                      <div className="flex-1"></div>
-                   </div>
-                </div>
-                <span className="text-sm font-medium">Blank Presentation</span>
-              </div>
-              
-              <div className="flex flex-col items-center gap-2 cursor-pointer group">
-                <div className="w-48 h-32 border border-[#444] bg-[#2d2d2d] group-hover:border-white transition-colors flex items-center justify-center relative overflow-hidden">
-                   <div className="w-full h-full bg-[#111] flex flex-col shadow-sm border border-[#333]">
-                      <div className="flex-1 p-2 flex flex-col gap-1 items-center justify-center">
-                        <div className="w-16 h-2 bg-[#444] rounded"></div>
-                        <div className="w-10 h-1 bg-[#444] rounded"></div>
+          <div className="flex-1 bg-[#f3f3f3] text-gray-900 p-12 overflow-y-auto">
+            {activeFilePanel === 'Account' ? (
+              <>
+                <h1 className="text-3xl font-light mb-8 text-gray-900">Account</h1>
+                <div className="flex gap-16">
+                  <div className="flex flex-col gap-6">
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-500 mb-3">USER INFORMATION</p>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-[#c0392b] text-white rounded-full flex items-center justify-center font-bold text-sm">AK</div>
+                        <div>
+                          <p className="font-semibold text-gray-900">Akash Keote</p>
+                          <p className="text-sm text-gray-500">keoteakash179@gmail.com</p>
+                        </div>
                       </div>
-                   </div>
+                      <p className="text-[#c0392b] text-sm cursor-pointer hover:underline">Sign out</p>
+                      <p className="text-[#c0392b] text-sm cursor-pointer hover:underline mt-1">Switch account</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-500 mb-2">ACCOUNT PRIVACY</p>
+                      <button className="bg-gray-800 text-white text-xs px-3 py-1.5 font-semibold">Manage Settings</button>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-500 mb-2">PORTFOLIO THEME:</p>
+                      <select className="border border-gray-400 bg-white text-gray-900 text-sm px-2 py-1 w-32">
+                        <option>Dark</option>
+                        <option>Light</option>
+                      </select>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-500 mb-2">CONNECTED SERVICES:</p>
+                      <p className="text-sm text-gray-700">☁ OneDrive – Personal <span className="text-[#c0392b]">keoteakash179@gmail.com</span></p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-6">
+                    <div>
+                      <p className="text-xs font-semibold tracking-widest text-gray-500 mb-3">PRODUCT INFORMATION</p>
+                      <h2 className="text-5xl font-bold text-[#c0392b] mb-1" style={{fontFamily: 'serif'}}>Portfolio</h2>
+                      <p className="text-gray-400 font-medium mb-2">Portfolio Home and Student 2024</p>
+                      <p className="text-sm text-gray-600 mb-4">This product contains</p>
+                      <div className="flex gap-2 mb-6">
+                        {['W','X','P','O'].map((l, i) => (
+                          <div key={i} className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-sm ${['bg-blue-700','bg-gray-700','bg-red-600','bg-orange-600'][i]}`}>{l}</div>
+                        ))}
+                      </div>
+                      <div className="flex flex-col gap-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-5 h-5 mt-0.5 text-[#c0392b] shrink-0">↻</div>
+                          <div>
+                            <p className="text-sm font-semibold text-gray-400">Portfolio Updates</p>
+                            <p className="text-xs text-gray-600">Updates are automatically deployed via Vercel.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="w-5 h-5 mt-0.5 text-gray-400 shrink-0">⊕</div>
+                          <div>
+                            <p className="text-sm font-semibold text-gray-400">Get Add-ins</p>
+                            <p className="text-xs text-gray-600">Find add-ins that add new functionality to this portfolio.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="w-5 h-5 mt-0.5 text-gray-400 shrink-0">?</div>
+                          <div>
+                            <p className="text-sm font-semibold text-gray-400">About Portfolio</p>
+                            <p className="text-xs text-gray-600">Version 2024 (Build 1.0.0) — Akash Keote</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <span className="text-sm font-medium">Portfolio Theme</span>
-              </div>
-            </div>
-
-            <h2 className="text-xl font-medium border-b border-[#444] pb-2 mb-4">Recent</h2>
-            
-            <div className="flex flex-col w-full max-w-4xl">
-               <div className="flex items-center gap-4 p-3 hover:bg-[#333] cursor-pointer rounded">
-                  <FileText size={24} className="text-[#c0392b]" />
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-[15px]">Akash_Developer_Portfolio.pptx</span>
-                    <span className="text-xs text-[#888]">C:\Users\AkashK\Desktop\PowerPoint Software Portfolio</span>
+              </>
+            ) : (
+              <>
+                <h1 className="text-3xl font-light mb-8 text-gray-900">Home</h1>
+                <div className="flex gap-8 mb-12">
+                  <div className="flex flex-col items-center gap-2 cursor-pointer group">
+                    <div className="w-48 h-32 border border-gray-300 bg-gray-100 group-hover:border-gray-500 transition-colors flex items-center justify-center relative overflow-hidden">
+                      <div className="w-full h-full bg-white flex flex-col shadow-sm">
+                        <div className="h-4 bg-[#c0392b] w-full"></div>
+                        <div className="flex-1"></div>
+                      </div>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">Blank Presentation</span>
                   </div>
-                  <span className="ml-auto text-xs text-[#888]">Just now</span>
-               </div>
-               <div className="flex items-center gap-4 p-3 hover:bg-[#333] cursor-pointer rounded">
-                  <FileText size={24} className="text-[#c0392b]" />
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-[15px]">Resume_2024.pdf</span>
-                    <span className="text-xs text-[#888]">C:\Users\AkashK\Documents</span>
+                  <div className="flex flex-col items-center gap-2 cursor-pointer group">
+                    <div className="w-48 h-32 border border-gray-300 bg-gray-100 group-hover:border-gray-500 transition-colors flex items-center justify-center relative overflow-hidden">
+                      <div className="w-full h-full bg-[#111] flex flex-col shadow-sm border border-[#333]">
+                        <div className="flex-1 p-2 flex flex-col gap-1 items-center justify-center">
+                          <div className="w-16 h-2 bg-[#444] rounded"></div>
+                          <div className="w-10 h-1 bg-[#444] rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-sm font-medium text-gray-800">Portfolio Theme</span>
                   </div>
-                  <span className="ml-auto text-xs text-[#888]">Yesterday, 4:20 PM</span>
-               </div>
-            </div>
-
+                </div>
+                <h2 className="text-xl font-medium border-b border-gray-300 pb-2 mb-4 text-gray-900">Recent</h2>
+                <div className="flex flex-col w-full max-w-4xl">
+                  <div className="flex items-center gap-4 p-3 hover:bg-gray-200 cursor-pointer rounded">
+                    <FileText size={24} className="text-[#c0392b]" />
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-[15px] text-gray-900">Akash_Developer_Portfolio.pptx</span>
+                      <span className="text-xs text-gray-500">C:\Users\AkashK\Desktop\PowerPoint Software Portfolio</span>
+                    </div>
+                    <span className="ml-auto text-xs text-gray-500">Just now</span>
+                  </div>
+                  <div className="flex items-center gap-4 p-3 hover:bg-gray-200 cursor-pointer rounded">
+                    <FileText size={24} className="text-[#c0392b]" />
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-[15px] text-gray-900">Resume_2024.pdf</span>
+                      <span className="text-xs text-gray-500">C:\Users\AkashK\Documents</span>
+                    </div>
+                    <span className="ml-auto text-xs text-gray-500">Yesterday, 4:20 PM</span>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -4,7 +4,7 @@ import { FileText } from 'lucide-react';
 
 export const TitleSlide: React.FC = () => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 relative overflow-hidden text-gray-800">
+    <div className="w-full h-full flex flex-col items-center justify-center bg-white relative overflow-hidden text-gray-800">
 
       {/* Decorative Slide Elements */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-bl-full opacity-10 blur-3xl" />

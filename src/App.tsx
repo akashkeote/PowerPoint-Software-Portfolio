@@ -64,7 +64,7 @@ function App() {
 
   // Normal Editor Mode
   return (
-    <div className="flex flex-col h-screen bg-[#1f1f1f] overflow-hidden text-[#e1e1e1] absolute inset-0 font-sans">
+    <div className="flex flex-col h-screen bg-[#1f1f1f] overflow-hidden text-[#e1e1e1] absolute inset-0">
       {/* Top Ribbon area mimicking MS Title bar + Tabs + Toolbar */}
       <TopRibbon onStartPresentation={() => setIsPresentationMode(true)} />
 

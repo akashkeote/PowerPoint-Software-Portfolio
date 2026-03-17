@@ -1,15 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FileText } from 'lucide-react';
 
 export const TitleSlide: React.FC = () => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200 relative overflow-hidden text-gray-800">
-      
+
       {/* Decorative Slide Elements */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-bl-full opacity-10 blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600 rounded-tr-full opacity-5 blur-3xl" />
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -20,14 +21,25 @@ export const TitleSlide: React.FC = () => {
           Akash K
         </h1>
         <div className="h-1 w-32 bg-[#c0392b] mx-auto mb-8 rounded-full" />
-        
+
         <p className="text-2xl md:text-3xl font-light text-gray-600">Full Stack Developer</p>
         <p className="text-lg text-gray-500 mt-4 flex items-center justify-center gap-2">
           📍 Nagpur, India
         </p>
+
+        <motion.button 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="flex items-center gap-3 mx-auto mt-12 bg-gray-900 text-white px-8 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform"
+          onClick={() => window.open('/resume.pdf', '_blank')}
+        >
+          <FileText size={20} />
+          About Me
+        </motion.button>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}

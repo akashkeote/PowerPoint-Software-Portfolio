@@ -7,8 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Nunito:wght@300;400;600;700;800;900&family=Spartan:wght@700;800;900&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
-  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/matter-attractors@0.1.6/build/matter-attractors.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/matter-wrap@0.2.0/build/matter-wrap.min.js"></script>
@@ -17,29 +18,105 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      /* Base / Core PPT Colors */
       --ppt-red:    #c0392b;
       --ppt-orange: #e55039;
+      
+      /* Light Theme (Glassy + Pastel) Defaults */
+      --bg-dark:    rgba(255,255,255,0.85);
+      --bg-darker:  #FEFFF0; /* Pastel Cream */
+      --bg-ribbon:  rgba(245,247,255,0.9);
+      --bg-sidebar: rgba(240,242,250,0.8);
+      --border:     rgba(99,102,241,0.12);
+      --text-main:  #232946;
+      --text-dim:   #555;
+      --text-muted: #888;
+      --slide-bg:   #FEFFF0;
+      --glass-bg:   rgba(255,255,255,0.7);
+      --glass-blur: blur(12px);
+      --highlight:  #6366f1;
+      --box-shadow: rgba(99,102,241,0.15);
+      
+      /* Pastel Brutalist Slide Token (Light Mode) */
+      --brutal-bg: #fff;
+      --brutal-border: 3px solid #111;
+      --brutal-shadow: 6px 6px 0px 0px #111;
+      --brutal-hover-shadow: 8px 8px 0px 0px #111;
+      --brutal-text: #111;
+      --brutal-text-dim: #444;
+
+      /* Okta-style Design Tokens */
+      --okta-bg: linear-gradient(180deg, #fef6ee 0%, #fdf0e2 30%, #fce8d5 60%, #f8d9c0 100%);
+      --okta-card-bg: rgba(255, 255, 255, 0.65);
+      --okta-card-border: 1px solid rgba(255, 255, 255, 0.5);
+      --okta-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      --okta-card-radius: 18px;
+      --okta-card-blur: blur(18px);
+      --okta-heading-color: #1a1a2e;
+      --okta-text-color: #333;
+      --okta-text-dim: #666;
+      --okta-accent: #6366f1;
+      --okta-accent-warm: #e8956a;
+    }
+
+    body.dark-theme {
+      /* Dark Theme (HooBank Cyberpunk) Overrides */
       --bg-dark:    #1f1f1f;
       --bg-darker:  #141414;
       --bg-ribbon:  #2d2d2d;
       --bg-sidebar: #252525;
       --border:     #3a3a3a;
       --text-main:  #e8e8e8;
-      --text-dim:   #999;
-      --text-muted: #666;
-      --slide-bg:   #ffffff;
+      --text-dim:   #ccc;
+      --text-muted: #aaa;
+      --slide-bg:   #00040f;
+      --glass-bg:   rgba(0,0,0,0.7);
+      --glass-blur: blur(0px); /* Remove blur for dark mode to save performance / match old dark mode */
+      --highlight:  #00f6ff;
+      --box-shadow: rgba(0, 246, 255, 0.1);
+      
+      /* Reset Brutalist tokens for dark mode */
+      --brutal-bg: rgba(255, 255, 255, 0.03);
+      --brutal-border: 3px solid #00f6ff;
+      --brutal-shadow: 6px 6px 0px 0px #00f6ff;
+      --brutal-hover-shadow: 6px 6px 0px 0px #00f6ff;
+      --brutal-text: #fff;
+      --brutal-text-dim: rgba(255,255,255,0.6);
+
+      /* Ultra-Premium Dark Mode Overrides */
+      --okta-bg: radial-gradient(circle at 10% 20%, #0d0a18, #050409 50%, #020104 100%);
+      --okta-card-bg: rgba(20, 25, 40, 0.4);
+      --okta-card-border: 1px solid rgba(255, 255, 255, 0.05);
+      --okta-card-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.03);
+      --okta-card-blur: 24px;
+      --okta-heading-color: #f0f0f5;
+      --okta-text-color: #b0b5c0;
+      --okta-text-dim: #7a7f92;
+      --okta-accent: #7b61ff;
+      --okta-accent-warm: #ff7e67;
     }
 
     body {
-      font-family: 'Space Grotesk', 'Segoe UI', 'San Francisco', sans-serif;
-      background: #0f1013; /* Deep dark almost-black base */
+      font-family: 'Segoe UI', 'San Francisco', sans-serif;
+      background: #e0e7ff;
       color: var(--text-main);
       height: 100vh;
       overflow: hidden;
       user-select: none;
+      transition: background 0.3s, color 0.3s;
+    }
+    
+    body.dark-theme {
+      background: #0f1013; /* Deep dark almost-black base */
+      animation: none;
     }
 
     body::before {
+      display: none;
+    }
+    
+    body.dark-theme::before {
+      display: block;
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -238,6 +315,7 @@
     ============================ */
     .title-bar {
       background: var(--bg-dark);
+      backdrop-filter: var(--glass-blur);
       border-bottom: 1px solid var(--border);
       height: 40px;
       display: flex;
@@ -267,29 +345,29 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      color: var(--text-dim);
+      color: var(--text-main);
       font-size: 11px;
       cursor: pointer;
       padding: 2px 6px;
       border-radius: 3px;
     }
-    .autosave-btn:hover { background: rgba(255,255,255,0.08); }
+    .autosave-btn:hover { background: rgba(99,102,241,0.08); }
     .toggle {
       width: 28px; height: 14px;
-      background: #555;
+      background: #bbb;
       border-radius: 7px;
       position: relative;
     }
     .toggle::after {
       content: '';
       width: 10px; height: 10px;
-      background: #888;
+      background: #6366f1;
       border-radius: 50%;
       position: absolute;
       left: 2px; top: 2px;
       transition: left 0.15s;
     }
-    .sep { color: #444; padding: 0 4px; }
+    .sep { color: #ccc; padding: 0 4px; }
     .tb-icons {
       display: flex;
       align-items: center;
@@ -302,10 +380,11 @@
       justify-content: center;
       cursor: pointer;
       border-radius: 3px;
-      color: #bbb;
+      color: #555;
       font-size: 12px;
     }
-    .tb-icon:hover { background: rgba(255,255,255,0.1); }
+    .tb-icon:hover { background: rgba(99,102,241,0.1); }
+    body.dark-theme .tb-icon:hover { background: rgba(255,255,255,0.1); }
     .title-bar-center {
       display: flex;
       align-items: center;
@@ -317,16 +396,17 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #333;
-      border: 1px solid #444;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(99,102,241,0.15);
       border-radius: 4px;
       padding: 4px 12px;
       width: 320px;
       cursor: text;
     }
-    .search-box:hover { background: #3a3a3a; }
-    .search-box span { color: #888; font-size: 11px; }
-    .search-icon { font-size: 12px; color: #777; }
+    .search-box:hover { background: rgba(255,255,255,0.8); }
+    body.dark-theme .search-box:hover { background: #3a3a3a; }
+    .search-box span { color: #555; font-size: 11px; }
+    .search-icon { font-size: 12px; color: #6366f1; }
     .title-text {
       color: var(--text-dim);
       font-size: 11px;
@@ -339,7 +419,7 @@
     }
     .user-badge {
       width: 28px; height: 28px;
-      background: #1a7f4b;
+      background: #6366f1;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -357,9 +437,10 @@
       justify-content: center;
       cursor: pointer;
       font-size: 12px;
-      color: #aaa;
+      color: #666;
     }
-    .win-btn:hover { background: rgba(255,255,255,0.08); }
+    .win-btn:hover { background: rgba(99,102,241,0.1); }
+    body.dark-theme .win-btn:hover { background: rgba(255,255,255,0.08); }
     .win-btn.close:hover { background: #c42b1c; color: white; }
 
     /* ============================
@@ -367,6 +448,7 @@
     ============================ */
     .ribbon-tabs {
       background: var(--bg-dark);
+      backdrop-filter: var(--glass-blur);
       display: flex;
       align-items: flex-end;
       padding: 0 6px;
@@ -379,16 +461,16 @@
     .ribbon-tab {
       padding: 7px 14px;
       font-size: 13px;
-      color: #dfdfdf;
+      color: var(--text-main);
       cursor: pointer;
       position: relative;
       white-space: nowrap;
       border-radius: 3px 3px 0 0;
       transition: color 0.1s, background 0.1s;
     }
-    .ribbon-tab:hover { color: white; background: rgba(255,255,255,0.06); }
+    .ribbon-tab:hover { color: var(--highlight); background: rgba(99,102,241,0.06); }
     .ribbon-tab.active {
-      color: white;
+      color: var(--highlight);
       font-weight: 600;
     }
     .ribbon-tab.active::after {
@@ -405,6 +487,7 @@
     ============================ */
     .ribbon-toolbar {
       background: var(--bg-ribbon);
+      backdrop-filter: var(--glass-blur);
       height: 88px;
       border-bottom: 1px solid var(--border);
       flex-shrink: 0;
@@ -426,7 +509,7 @@
       gap: 2px;
       padding-right: 12px;
       margin-right: 8px;
-      border-right: 1px solid #444;
+      border-right: 1px solid rgba(99,102,241,0.15);
       height: 72px;
     }
     .ribbon-group:last-child { border-right: none; }
@@ -434,22 +517,26 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 4px;
-      padding: 6px 8px;
-      cursor: pointer;
-      border-radius: 4px;
-      min-width: 48px;
-      transition: background 0.15s;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: var(--text-main);
+      transition: background 0.2s;
+      min-width: 68px;
     }
-    .ribbon-btn:hover { background: rgba(255,255,255,0.1); }
+    .ribbon-btn svg {
+      width: 32px !important;
+      height: 32px !important;
+    }
+    .ribbon-btn:hover { background: rgba(99,102,241,0.1); }
     .ribbon-btn .icon {
-      font-size: 22px;
-      line-height: 1;
+      font-size: 32px;
+      color: var(--text-main);
     }
     .ribbon-btn .label {
-      font-size: 10px;
-      color: #ccc;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-main);
       white-space: nowrap;
       text-align: center;
       line-height: 1.2;
@@ -458,6 +545,15 @@
     .ribbon-btn.primary .icon { color: var(--ppt-red); }
     .ribbon-btn.primary .label { color: var(--ppt-red); font-weight: 600; font-size: 10.5px; }
     .ribbon-btn.primary:hover { background: rgba(192,57,43,0.15); }
+
+    /* Dark Mode SVG Overrides */
+    body.dark-theme .ribbon-btn svg [stroke="#bbb"], body.dark-theme .ribbon-btn svg [stroke="#ccc"],
+    body.dark-theme .ribbon-btn svg [stroke="#aaa"], body.dark-theme .ribbon-btn svg [stroke="#555"] { stroke: #d0d0d0; }
+    body.dark-theme .ribbon-btn svg [fill="#bbb"], body.dark-theme .ribbon-btn svg [fill="#ccc"],
+    body.dark-theme .ribbon-btn svg [fill="#aaa"], body.dark-theme .ribbon-btn svg [fill="#555"],
+    body.dark-theme .ribbon-btn svg [fill="#777"] { fill: #d0d0d0; }
+    body.dark-theme .ribbon-btn svg [stroke="#e8e8e8"], body.dark-theme .ribbon-btn svg [stroke="#f0f0f0"] { stroke: #444; }
+    body.dark-theme .ribbon-btn svg [fill="#e8e8e8"], body.dark-theme .ribbon-btn svg [fill="#f0f0f0"] { fill: #444; }
 
     /* ============================
        MAIN CONTENT AREA
@@ -474,6 +570,7 @@
     .sidebar {
       width: 200px;
       background: var(--bg-sidebar);
+      backdrop-filter: var(--glass-blur);
       border-right: 1px solid var(--border);
       overflow-y: auto;
       flex-shrink: 0;
@@ -500,14 +597,14 @@
     .slide-preview {
       flex: 1;
       aspect-ratio: 16/9;
-      border: 1.5px solid #444;
+      border: 1.5px solid rgba(99,102,241,0.2);
       border-radius: 3px;
-      background: #333;
+      background: rgba(255,255,255,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 9px;
-      color: #888;
+      color: #555;
       text-align: center;
       padding: 4px;
       line-height: 1.3;
@@ -517,10 +614,10 @@
     }
     .slide-thumb.active .slide-preview {
       border-color: var(--ppt-orange);
-      box-shadow: none;
-      background: #333;
+      box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+      background: rgba(245,247,255,0.7);
     }
-    .slide-thumb:hover .slide-preview { border-color: #666; background: #3a3a3a; }
+    .slide-thumb:hover .slide-preview { border-color: #6366f1; background: rgba(255,255,255,0.7); }
 
     /* Mini slide color bars */
     .slide-preview::before {
@@ -536,7 +633,7 @@
     ============================ */
     .canvas-area {
       flex: 1;
-      background: #050505; /* Deep dark void for the canvas surround */
+      background: rgba(200, 210, 230, 0.25); /* Soft light canvas area */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -548,7 +645,7 @@
       max-width: 1400px;
       aspect-ratio: 16/9;
       background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.15);
       position: relative;
       overflow: hidden;
     }
@@ -572,6 +669,7 @@
     ============================ */
     .status-bar {
       background: var(--bg-dark);
+      backdrop-filter: var(--glass-blur);
       border-top: 1px solid var(--border);
       height: 24px;
       display: flex;
@@ -590,9 +688,9 @@
       padding: 2px 4px;
       border-radius: 2px;
     }
-    .status-icon:hover { background: rgba(255,255,255,0.1); color: var(--text-main); }
+    .status-icon:hover { background: rgba(99,102,241,0.1); color: var(--text-main); }
     .zoom-bar {
-      width: 60px; height: 3px; background: #444;
+      width: 60px; height: 3px; background: #ccd;
       border-radius: 3px;
       position: relative;
       cursor: pointer;
@@ -600,7 +698,7 @@
     .zoom-thumb {
       position: absolute;
       width: 8px; height: 12px;
-      background: #777;
+      background: #6366f1;
       border-radius: 2px;
       top: -4.5px;
       left: 65%;
@@ -667,13 +765,24 @@
     /* Slide 1 – Title */
     .s-title {
       flex-direction: column;
-      background: #15161c; /* Changed to match Riccardo Zanutta background */
+      background: linear-gradient(135deg, rgba(245,247,255,0.9), rgba(200,220,240,0.7));
+      backdrop-filter: blur(8px);
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: #fff;
+      color: #232946;
       position: relative;
       overflow: hidden;
+    }
+    
+    body.dark-theme .s-title {
+      background: #00040f;
+      color: var(--text-main);
+    }
+    
+    body.dark-theme .s-title .hero-text p, 
+    body.dark-theme #pres-slide-0 .hero-text p {
+      color: var(--text-muted);
     }
     #hero-canvas, #pres-hero-canvas, .physics-canvas {
       position: absolute;
@@ -705,79 +814,133 @@
       object-fit: contain;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
     }
-    .bg-watermark {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -60%);
-      width: clamp(300px, 60vw, 750px);
-      z-index: 1; /* Keep logo behind the text */
-      pointer-events: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0.7; /* Make translucent like a watermark so text is readable */
-      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-    }
-    .bg-watermark svg {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-    @media (max-width: 650px) {
-      .bg-watermark { width: 300px; }
-    }
-    .hero-content {
+
+    .s-title .hero-content, #pres-slide-0 .hero-content {
       position: relative;
       z-index: 5;
       pointer-events: none; 
-      width: 80%;
-      max-width: 1170px;
+      width: 90%;
+      height: 100%;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 2em;
-    }
-    .hero-content h1 {
-      font-size: 4em;
-      font-family: "Spartan", sans-serif;
-      margin: 0;
-      letter-spacing: normal;
-    }
-    .hero-content p {
-      font-family: "Merriweather", serif;
-      font-style: italic;
-      margin: 1.25em 0 2.25em;
-      font-size: 16px;
-      color: #fff;
-    }
-    .hero-content .about-me-btn {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      background: linear-gradient(to right, #1d4ed8, #06b6d4);
-      border-radius: 8px;
-      padding: 10px 24px;
-      font-weight: 700;
-      font-family: "Space Grotesk", sans-serif;
+      justify-content: flex-start;
+    }
+    
+    .s-title .hero-text, #pres-slide-0 .hero-text {
+      flex: 0 1 50%;
+      text-align: left;
+      padding-left: 5%;
+      z-index: 10;
+    }
+
+    .s-title .hero-text h1, #pres-slide-0 .hero-text h1 {
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-family: "Spartan", sans-serif;
+      font-weight: 900;
+      margin: 0;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      text-align: left !important;
+    }
+    
+    .s-title .hero-text p, #pres-slide-0 .hero-text p {
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 1.25em 0 2.25em;
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--brutal-text-dim);
+      text-align: left !important;
+    }
+    
+    .s-title .hero-graphic, #pres-slide-0 .hero-graphic {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50%;
+      display: flex;
+      justify-content: flex-end;
+      z-index: 1;
+      animation: floatLogo 6s ease-in-out infinite;
+    }
+    
+    @keyframes floatLogo {
+      0%, 100% { margin-top: 0; }
+      50% { margin-top: -20px; }
+    }
+    
+    .s-title .hero-logo-large, #pres-slide-0 .hero-logo-large {
+      width: clamp(300px, 50vw, 700px);
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+      opacity: 0.9;
+    }
+    
+    .s-title .hero-logo-large.dark, #pres-slide-0 .hero-logo-large.dark { display: none !important; }
+    .s-title .hero-logo-large.light, #pres-slide-0 .hero-logo-large.light { display: block !important; }
+    
+    body.dark-theme .s-title .hero-logo-large.light, 
+    body.dark-theme #pres-slide-0 .hero-logo-large.light { display: none !important; }
+    
+    body.dark-theme .s-title .hero-logo-large.dark, 
+    body.dark-theme #pres-slide-0 .hero-logo-large.dark { display: block !important; }
+
+    @media (max-width: 900px) {
+      .s-title .hero-content, #pres-slide-0 .hero-content {
+        justify-content: center;
+      }
+      .s-title .hero-text, #pres-slide-0 .hero-text {
+        flex: 1 1 100%;
+        padding-left: 0;
+        text-align: center;
+      }
+      .s-title .hero-text h1, .s-title .hero-text p,
+      #pres-slide-0 .hero-text h1, #pres-slide-0 .hero-text p {
+        text-align: center !important;
+      }
+      .s-title .hero-graphic, #pres-slide-0 .hero-graphic {
+        opacity: 0.15;
+        width: 100%;
+        justify-content: center;
+        right: auto;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .hero-content .about-me-btn {
+      display: inline-block;
+      background: linear-gradient(to left, #1595b6, rgba(31, 38, 103, 0.9));
+      background-color: #4595eb;
+      border-radius: 5px;
+      padding: 0.6em 1.25em;
+      font-weight: 800;
+      font-family: "Nunito", sans-serif;
       font-size: 16px;
       color: #fff;
       position: relative;
       cursor: pointer;
       pointer-events: auto;
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      transition: transform 0.1s ease-in-out;
       border: none;
-      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
-      gap: 12px;
+      box-shadow: none;
     }
     .hero-content .about-me-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+      transform: scale(1.1);
     }
     .hero-content .about-me-btn .right-arrow {
-      display: flex;
-      align-items: center;
-      transition: transform 0.2s ease-in-out;
+      position: absolute;
+      top: 10%;
+      right: -20%;
+      transition: right 0.2s ease-in-out;
     }
     .hero-content .about-me-btn:hover .right-arrow {
-      transform: translateX(4px);
+      right: -25%;
     }
     .social-links {
       position: absolute;
@@ -793,7 +956,7 @@
       margin-top: 0.5em;
     }
     .social-links a {
-      color: #b0b2c3;
+      color: #555;
       transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
       display: block;
       text-decoration: none;
@@ -806,7 +969,7 @@
     }
 
     .text-gradient {
-      background: linear-gradient(157.81deg, #9dedf0 0%, #5ce1e6 50%, #33bbcf 100%);
+      background: linear-gradient(157.81deg, #5ce1e6 0%, #33bbcf 50%, #6366f1 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -814,48 +977,106 @@
     }
 
     /* Slide 2 – About Me / Slide 3 - Skills */
-    .s-about, .s-skills {
+    .s-about, .s-skills, .s-projects, .s-contact {
       flex-direction: column;
-      background: #00040f;
-      padding: 6% 8%;
-      color: #fff;
+      background: var(--okta-bg);
+      padding: 0;
+      color: var(--okta-text-color);
       position: relative;
+      overflow: hidden;
     }
-    .slide-heading { margin-bottom: 5%; }
-    .slide-heading h2 {
-      font-size: clamp(24px, 4vw, 42px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: #fff;
+    /* Removed heavy animated pseudo-element gradients to improve performance */
+    .s-about::before, .s-projects::before, .s-contact::before {
+      display: none;
     }
-    .slide-heading .underline-bar {
-      width: 60px; height: 4px;
-      background: #00f6ff;
-      margin-top: 8px;
-      border-radius: 2px;
+
+    /* Lotus Animation CSS */
+    @keyframes lotusBreathe {
+      0%, 100% { transform: scale(1) translateY(0); filter: drop-shadow(0 0 8px var(--okta-accent)); }
+      50% { transform: scale(1.05) translateY(-5px); filter: drop-shadow(0 0 15px var(--okta-accent-warm)); }
     }
-    .about-layout { display: flex; gap: 5%; flex: 1; }
+    .premium-lotus {
+      width: clamp(28px, 3.5vw, 48px);
+      height: clamp(28px, 3.5vw, 48px);
+      animation: lotusBreathe 4s ease-in-out infinite;
+      margin-bottom: 8px;
+    }
+    .premium-feather {
+      stroke: var(--okta-accent);
+      width: clamp(24px, 3vw, 42px);
+      height: clamp(24px, 3vw, 42px);
+      margin-bottom: 8px;
+    }
+    body:not(.dark-theme) .s-about, body:not(.dark-theme) .s-skills, body:not(.dark-theme) .s-projects, body:not(.dark-theme) .s-contact {
+      background: var(--okta-bg);
+      backdrop-filter: none;
+    }
+
+    /* Okta-style slide heading – clean centered serif heading */
+    .slide-heading {
+      width: 100%;
+      margin: 0;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .slide-heading-bar {
+      display: none; /* Hide old dark bar */
+    }
+    .slide-heading .okta-heading {
+      font-family: 'Space Grotesk', 'Poppins', sans-serif;
+      font-size: clamp(24px, 4vw, 52px);
+      font-weight: 700;
+      color: var(--okta-heading-color);
+      letter-spacing: -0.5px;
+      text-align: center;
+      padding: 5% 8% 2% 8%;
+      line-height: 1.2;
+    }
+    body.dark-theme .slide-heading .okta-heading {
+      color: var(--okta-heading-color);
+    }
+
+    /* Content area below heading gets padding */
+    .slide-content-pad {
+      padding: 2% 6% 4% 6%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
+    /* Hide the old underline bar */
+    .slide-heading .underline-bar { display: none; }
+    /* Okta About Layout */
+    .about-layout { display: flex; gap: 5%; flex: 1; position: relative; z-index: 2; }
     .about-left { flex: 1.2; display: flex; flex-direction: column; justify-content: center; }
-    .about-left h1 { margin-bottom: 20px; line-height: 1.1; }
+    .about-left h1 { margin-bottom: 20px; line-height: 1.1; color: var(--okta-heading-color); }
     .about-left p {
       font-size: clamp(10px, 1.3vw, 15px);
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.7;
+      color: var(--okta-text-dim);
+      line-height: 1.8;
       margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
     }
     .about-right { flex: 0.8; display: flex; flex-direction: column; gap: 15px; justify-content: center; }
     .stat-card {
-      background: linear-gradient(144.39deg, rgba(255, 255, 255, 0.05) -278.56%, rgba(109, 109, 109, 0.05) -78.47%, rgba(17, 16, 29, 0.5) 91.61%);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.05);
-      border-left: 4px solid #00f6ff;
-      padding: 15px 20px;
-      border-radius: 12px;
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+      background: var(--okta-card-bg);
+      backdrop-filter: var(--okta-card-blur);
+      -webkit-backdrop-filter: var(--okta-card-blur);
+      border: var(--okta-card-border);
+      padding: 20px 24px;
+      border-radius: var(--okta-card-radius);
+      box-shadow: var(--okta-card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .stat-card:hover { transform: translateX(8px); border-color: #00f6ff; box-shadow: 0 10px 30px rgba(0, 246, 255, 0.1); }
-    .stat-num { font-size: clamp(20px, 3vw, 32px); font-weight: 800; color: #00f6ff; line-height: 1; margin-bottom: 5px; }
-    .stat-label { font-size: clamp(10px, 1.1vw, 13px); color: rgba(255, 255, 255, 0.7); }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+    body.dark-theme .stat-card:hover { box-shadow: 0 8px 32px rgba(0,246,255,0.08); }
+    .stat-num { font-size: clamp(20px, 3vw, 32px); font-weight: 800; color: var(--okta-accent); line-height: 1; margin-bottom: 5px; }
+    .stat-label { font-size: clamp(10px, 1.1vw, 13px); color: var(--okta-text-dim); font-weight: 600; font-family: 'Poppins', sans-serif; }
 
     .skills-grid {
       display: grid;
@@ -867,11 +1088,19 @@
       padding: 5% 6%;
       display: flex;
       flex-direction: column;
+      background: var(--okta-card-bg);
+      backdrop-filter: var(--okta-card-blur);
+      -webkit-backdrop-filter: var(--okta-card-blur);
+      border: var(--okta-card-border);
+      border-radius: var(--okta-card-radius);
+      box-shadow: var(--okta-card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+    .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
     .skill-card h3 {
       font-size: clamp(12px, 1.5vw, 16px);
       font-weight: 700;
-      color: #fff;
+      color: var(--okta-heading-color);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -880,14 +1109,14 @@
     .skill-card h3::before {
       content: '';
       width: 8px; height: 8px;
-      background: #00f6ff;
+      background: var(--okta-accent);
       border-radius: 50%;
       flex-shrink: 0;
     }
     .skill-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .skill-card li {
       font-size: clamp(10px, 1.2vw, 14px);
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--okta-text-dim);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -895,76 +1124,106 @@
     .skill-card li::before {
       content: '';
       width: 5px; height: 5px;
-      background: #555;
+      background: var(--okta-accent-warm);
       border-radius: 50%;
       flex-shrink: 0;
     }
+    /* Slide 4 – Projects (Okta-style frosted glass cards) */
+    .project-layout {
+      display: flex;
+      gap: 5%;
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+    .project-details {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .project-details h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(16px, 2vw, 28px);
+      font-weight: 700;
+      color: var(--okta-heading-color);
+      margin-bottom: 12px;
+    }
+    .project-details p {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(10px, 1.2vw, 14px);
+      color: var(--okta-text-dim);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .project-features {
+      flex: 0.8;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: center;
+    }
 
-    /* Slide 4 – Projects (Dark Brutalism / Cyberpunk - Tejas structure + HooBank dark) */
+    /* Slide 4 – Projects (Okta-style frosted glass cards) */
     .s-projects {
-      background: #00040f;
-      color: #fff;
-      padding: 5% 6%;
+      background: var(--okta-bg);
+      color: var(--okta-text-color);
+      padding: 0;
       flex-direction: column;
       overflow: hidden;
     }
+    
+    body.dark-theme .s-projects {
+      background: var(--okta-bg) !important;
+    }
+
     .s-projects .nb-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 36px;
-    }
-    .s-projects .nb-header h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(28px, 3.5vw, 48px);
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -1px;
-    }
-    .s-projects .nb-header .sparkle {
-      font-size: clamp(28px, 3.5vw, 48px);
-      color: #00f6ff;
+      display: none; /* Hide old header, using new okta-heading instead */
     }
     .nb-projects-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 16px;
       flex: 1;
+      position: relative;
+      z-index: 2;
     }
     .nb-project-card {
       position: relative;
-      padding: 22px;
+      padding: 24px;
       min-height: 130px;
       cursor: pointer;
-      /* Tejas's signature cut-corner via mask — same structure, dark palette */
-      -webkit-mask-image: linear-gradient(45deg, transparent 24px, #000 24px),
-                          linear-gradient(-135deg, transparent 24px, #000 24px);
-      -webkit-mask-composite: destination-in;
-      mask-image: linear-gradient(45deg, transparent 24px, #000 24px),
-                  linear-gradient(-135deg, transparent 24px, #000 24px);
-      mask-composite: intersect;
-      background: rgba(255, 255, 255, 0.03);
-      border: 3px solid #00f6ff;
-      transition: box-shadow 0.15s, transform 0.15s, background 0.15s;
+      /* Remove old cut-corner masks */
+      -webkit-mask-image: none;
+      mask-image: none;
+      background: var(--okta-card-bg);
+      backdrop-filter: var(--okta-card-blur);
+      -webkit-backdrop-filter: var(--okta-card-blur);
+      border: var(--okta-card-border);
+      border-radius: var(--okta-card-radius);
+      box-shadow: var(--okta-card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .nb-project-card:hover {
-      box-shadow: 6px 6px 0px 0px #00f6ff;
-      transform: translate(-3px, -3px);
-      background: rgba(0, 246, 255, 0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
     }
+    body.dark-theme .nb-project-card:hover {
+      box-shadow: 0 12px 40px rgba(0,246,255,0.06);
+    }
+    
     .nb-project-card h2 {
       font-family: 'Poppins', sans-serif;
       font-size: clamp(13px, 1.2vw, 17px);
       font-weight: 700;
       margin-bottom: 8px;
-      color: #fff;
+      color: var(--okta-heading-color);
       line-height: 1.3;
     }
     .nb-project-card p {
       font-family: 'Poppins', sans-serif;
       font-size: clamp(10px, 0.85vw, 12px);
-      color: rgba(255,255,255,0.6);
+      color: var(--okta-text-dim);
       line-height: 1.6;
       display: -webkit-box;
       line-clamp: 3;
@@ -978,10 +1237,10 @@
       margin-top: 12px;
     }
     .nb-icon-btn {
-      background: #00f6ff;
-      color: #00040f;
-      width: 28px;
-      height: 28px;
+      background: var(--okta-accent);
+      color: white;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -991,130 +1250,166 @@
       cursor: pointer;
       border: none;
       text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .nb-icon-btn:hover { transform: scale(1.2); box-shadow: 0 0 8px #00f6ff; }
-    .nb-icon-btn.demo { background: #dc2626; color: white; }
+    .nb-icon-btn:hover { transform: scale(1.15); box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+    .nb-icon-btn.demo { background: var(--okta-accent-warm); color: white; }
     .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
     .tag {
-      padding: 4px 12px;
-      border: 2px solid #111;
-      border-radius: 0;
+      padding: 5px 14px;
+      border: none;
+      border-radius: 20px;
       font-size: clamp(8px, 0.9vw, 11px);
-      color: #111;
+      color: var(--okta-heading-color);
       font-weight: 600;
-      background: #fff;
+      background: rgba(99, 102, 241, 0.08);
       font-family: 'Poppins', sans-serif;
+    }
+    body.dark-theme .tag {
+      background: rgba(0, 246, 255, 0.08);
+      color: #e8e8e8;
     }
     .project-btns { display: flex; gap: 12px; }
     .btn {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 16px;
-      border-radius: 0;
+      padding: 10px 20px;
+      border-radius: 12px;
       font-size: clamp(9px, 1vw, 12px);
       font-weight: 700;
       cursor: pointer;
-      border: 2px solid #111;
+      border: none;
       outline: none;
       font-family: 'Poppins', sans-serif;
-      transition: box-shadow 0.15s, transform 0.15s;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .btn:hover { box-shadow: 4px 4px 0px black; transform: translate(-2px, -2px); }
-    .btn-primary { background: #111; color: #fff; }
-    .btn-secondary { background: #fff; color: #111; }
-    .feature-card p { font-size: clamp(8px, 0.9vw, 11px); color: rgba(255, 255, 255, 0.6); margin-top: 4px; line-height: 1.5; font-family: 'Poppins', sans-serif; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .btn-primary { background: var(--okta-accent); color: #fff; }
+    .btn-secondary { background: var(--okta-card-bg); color: var(--okta-heading-color); border: var(--okta-card-border); backdrop-filter: var(--okta-card-blur); }
+    .feature-card {
+      background: var(--okta-card-bg);
+      backdrop-filter: var(--okta-card-blur);
+      -webkit-backdrop-filter: var(--okta-card-blur);
+      border: var(--okta-card-border);
+      border-radius: var(--okta-card-radius);
+      padding: 16px;
+      box-shadow: var(--okta-card-shadow);
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover { transform: translateY(-2px); }
+    .feature-card h4 { color: var(--okta-heading-color); font-family: 'Poppins', sans-serif; font-size: clamp(10px, 1.1vw, 14px); }
+    .feature-card p { font-size: clamp(8px, 0.9vw, 11px); color: var(--okta-text-dim); margin-top: 4px; line-height: 1.5; font-family: 'Poppins', sans-serif; }
 
-    /* Slide 5 – Contact */
+    /* Slide 5 – Contact (Okta-style) */
     .s-contact {
-      background: #00040f;
-      color: white;
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       position: relative;
       overflow: hidden;
+      background: var(--okta-bg);
     }
-    .s-contact::before {
-      content: '';
-      position: absolute;
-      top: -150px; right: -150px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0, 246, 255, 0.1) 0%, transparent 70%);
-      border-radius: 50%;
+    body.dark-theme .s-contact {
+      background: var(--okta-bg) !important;
     }
     .s-contact::after {
       content: '';
       position: absolute;
-      bottom: -150px; left: -150px;
+      bottom: -100px; left: -100px;
       width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(0, 246, 255, 0.05) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(232, 149, 106, 0.15) 0%, transparent 70%);
       border-radius: 50%;
+      z-index: 0;
     }
-    .s-contact h1 {
+    .s-contact .contact-title {
+      font-family: 'Space Grotesk', 'Poppins', sans-serif;
       font-size: clamp(28px, 5vw, 64px);
-      font-weight: 800;
+      font-weight: 700;
       margin-bottom: 12px;
-      position: relative; z-index: 1;
-      background: linear-gradient(157.81deg, #9dedf0 0%, #5ce1e6 50%, #33bbcf 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent;
+      position: relative; z-index: 2;
+      color: var(--okta-heading-color);
     }
-    .s-contact .tagline {
+    .s-contact .contact-subtitle {
       font-size: clamp(12px, 1.5vw, 20px);
-      font-weight: 300;
-      color: rgba(255, 255, 255, 0.7);
+      font-weight: 400;
+      color: var(--okta-text-dim);
       margin-bottom: 40px;
-      position: relative; z-index: 1;
+      position: relative; z-index: 2;
+      font-family: 'Poppins', sans-serif;
     }
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
-      position: relative; z-index: 1;
-    }
-    .contact-card {
-      padding: 20px 12px;
-      cursor: pointer;
+    .contact-stack {
       display: flex;
       flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 40px;
+      position: relative; z-index: 2;
+    }
+    .contact-row {
+      display: flex;
       align-items: center;
+      padding: 16px 24px;
+      background: var(--okta-card-bg);
+      backdrop-filter: var(--okta-card-blur);
+      -webkit-backdrop-filter: var(--okta-card-blur);
+      border: var(--okta-card-border);
+      border-radius: var(--okta-card-radius);
+      box-shadow: var(--okta-card-shadow);
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease;
+      gap: 16px;
     }
-    .contact-card .icon { font-size: 24px; margin-bottom: 10px; }
-    .contact-card .clabel {
-      font-size: clamp(8px, 0.9vw, 11px);
-      color: rgba(255, 255, 255, 0.5);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 4px;
+    .contact-row:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     }
-    .contact-card .cvalue {
-      font-size: clamp(9px, 1vw, 12px);
+    body.dark-theme .contact-row:hover {
+      background: rgba(30, 35, 50, 0.6);
+      box-shadow: 0 8px 32px rgba(0,246,255,0.06);
+    }
+    .contact-row i {
+      color: var(--okta-heading-color);
+      width: 24px;
+      height: 24px;
+    }
+    .contact-row .label {
+      font-size: 14px;
+      color: var(--okta-text-dim);
+      font-weight: 500;
+      flex: 1;
+      text-align: left;
+      font-family: 'Poppins', sans-serif;
+    }
+    .contact-row .value {
+      font-size: 14px;
+      color: var(--okta-accent);
       font-weight: 600;
-      color: #fff;
+      text-align: right;
+      font-family: 'Poppins', sans-serif;
     }
-    .download-btn {
+    .resume-btn {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: #00f6ff;
-      color: #00040f;
+      background: var(--okta-accent);
+      color: white;
       border: none;
       border-radius: 30px;
       padding: 14px 32px;
       font-size: clamp(12px, 1.2vw, 15px);
       font-weight: 600;
       cursor: pointer;
-      position: relative; z-index: 1;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 15px rgba(0, 246, 255, 0.1);
+      position: relative; z-index: 2;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+      font-family: 'Poppins', sans-serif;
     }
-    .download-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 246, 255, 0.3); }
+    .resume-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35); }
 
   </style>
 </head>
@@ -1173,12 +1468,12 @@
           <div class="tb-icon">↪</div>
           <div class="tb-icon" style="font-size:10px">▼</div>
         </div>
-        <span class="title-text" style="margin-left:8px;color:#cfcfcf;font-size:12px;">Akash_Developer_Portfolio.pptx - PowerPoint</span>
+        <span class="title-text" style="margin-left:8px;color:#555;font-size:12px;">Akash_Developer_Portfolio.pptx - PowerPoint</span>
       </div>
       <div class="title-bar-center" style="position:absolute;left:50%;transform:translateX(-50%)">
-        <div class="search-box" style="width:400px;justify-content:center;background:#2a2a2a;">
+        <div class="search-box" style="width:400px;justify-content:center;background:rgba(255,255,255,0.5);">
           <span class="search-icon">🔍</span>
-          <span style="color:#aaa;">Search</span>
+          <span style="color:#666;">Search</span>
         </div>
       </div>
       <div class="title-bar-right" style="position: relative; z-index: 9999;">
@@ -1261,33 +1556,33 @@
       <div class="ribbon-group" style="flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;">
         <div style="display:flex;align-items:center;gap:4px">
           <!-- Font family dropdown -->
-          <div style="background:#3a3a3a;border:1px solid #555;border-radius:3px;padding:2px 6px;font-size:11px;color:#e0e0e0;min-width:100px;display:flex;align-items:center;justify-content:space-between;cursor:pointer">
-            <span>Calibri (Body)</span><span style="color:#888;margin-left:4px">▾</span>
+          <div style="background:rgba(255,255,255,0.6);border:1px solid rgba(99,102,241,0.15);border-radius:3px;padding:2px 6px;font-size:11px;color:#232946;min-width:100px;display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+            <span>Calibri (Body)</span><span style="color:#999;margin-left:4px">▾</span>
           </div>
           <!-- Font size -->
-          <div style="background:#3a3a3a;border:1px solid #555;border-radius:3px;padding:2px 5px;font-size:11px;color:#e0e0e0;width:32px;text-align:center;cursor:pointer">18</div>
+          <div style="background:rgba(255,255,255,0.6);border:1px solid rgba(99,102,241,0.15);border-radius:3px;padding:2px 5px;font-size:11px;color:#232946;width:32px;text-align:center;cursor:pointer">18</div>
           <div style="display:flex;gap:1px">
-            <div class="ribbon-btn" style="min-width:auto;padding:2px 3px;font-size:13px;font-weight:700;color:#e0e0e0">A<sup style="font-size:7px">+</sup></div>
-            <div class="ribbon-btn" style="min-width:auto;padding:2px 3px;font-size:13px;font-weight:700;color:#e0e0e0">A<sup style="font-size:7px">-</sup></div>
-            <div class="ribbon-btn" style="min-width:auto;padding:2px 3px;font-size:11px;color:#e0e0e0">𝒜</div>
+            <div class="ribbon-btn" style="min-width:auto;padding:2px 3px;font-size:13px;font-weight:700;color:#232946">A<sup style="font-size:7px">+</sup></div>
+            <div class="ribbon-btn" style="min-width:auto;padding:2px 3px;font-size:13px;font-weight:700;color:#232946">A<sup style="font-size:7px">-</sup></div>
+            <div class="ribbon-btn" style="min-width:auto;padding:2px 3px;font-size:11px;color:#232946">𝒜</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:2px">
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;font-weight:900;color:#e0e0e0;font-family:Georgia,serif">B</div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;font-style:italic;color:#e0e0e0;font-family:Georgia,serif">I</div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;text-decoration:underline;color:#e0e0e0;font-family:Georgia,serif">U</div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:11px;text-decoration:line-through;color:#e0e0e0;letter-spacing:-0.5px">S</div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:9px;color:#e0e0e0">ab</div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:11px;color:#e0e0e0">AV</div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:11px;color:#e0e0e0">Aa</div>
-          <div style="border-left:1px solid #555;height:14px;margin:0 2px"></div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;font-weight:900;color:#232946;font-family:Georgia,serif">B</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;font-style:italic;color:#232946;font-family:Georgia,serif">I</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;text-decoration:underline;color:#232946;font-family:Georgia,serif">U</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:11px;text-decoration:line-through;color:#232946;letter-spacing:-0.5px">S</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:9px;color:#232946">ab</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:11px;color:#232946">AV</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:11px;color:#232946">Aa</div>
+          <div style="border-left:1px solid rgba(99,102,241,0.15);height:14px;margin:0 2px"></div>
           <!-- A with color underline (Font color) -->
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;color:#e0e0e0;display:flex;flex-direction:column;gap:0;align-items:center">
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;color:#232946;display:flex;flex-direction:column;gap:0;align-items:center">
             <span style="font-size:11px">A</span>
             <div style="width:12px;height:2.5px;background:#f5c518;border-radius:1px"></div>
           </div>
           <!-- Highlight color -->
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;color:#e0e0e0;display:flex;flex-direction:column;gap:0;align-items:center">
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 5px;font-size:13px;color:#232946;display:flex;flex-direction:column;gap:0;align-items:center">
             <span style="font-size:11px">A</span>
             <div style="width:12px;height:2.5px;background:#00b0f0;border-radius:1px"></div>
           </div>
@@ -1306,7 +1601,7 @@
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><text x="1" y="5.5" font-size="5" fill="#aaa" font-family="monospace">1.</text><rect x="6" y="3" width="9" height="2" rx="1" fill="#aaa"/><text x="1" y="9.5" font-size="5" fill="#aaa" font-family="monospace">2.</text><rect x="6" y="7" width="9" height="2" rx="1" fill="#aaa"/><text x="1" y="13.5" font-size="5" fill="#aaa" font-family="monospace">3.</text><rect x="6" y="11" width="6" height="2" rx="1" fill="#aaa"/></svg>
           </div>
-          <div style="border-left:1px solid #555;height:14px;margin:0 1px"></div>
+          <div style="border-left:1px solid rgba(99,102,241,0.15);height:14px;margin:0 1px"></div>
           <!-- Decrease indent -->
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4l4 4-4 4V4z" fill="#aaa"/><rect x="7" y="5" width="8" height="2" rx="1" fill="#aaa"/><rect x="7" y="9" width="8" height="2" rx="1" fill="#aaa"/><rect x="2" y="2" width="12" height="1.5" rx="0.75" fill="#aaa"/><rect x="2" y="12.5" width="12" height="1.5" rx="0.75" fill="#aaa"/></svg>
@@ -1315,7 +1610,7 @@
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4l-4 4 4 4V4z" fill="#aaa"/><rect x="7" y="5" width="8" height="2" rx="1" fill="#aaa"/><rect x="7" y="9" width="8" height="2" rx="1" fill="#aaa"/><rect x="2" y="2" width="12" height="1.5" rx="0.75" fill="#aaa"/><rect x="2" y="12.5" width="12" height="1.5" rx="0.75" fill="#aaa"/></svg>
           </div>
-          <div style="border-left:1px solid #555;height:14px;margin:0 1px"></div>
+          <div style="border-left:1px solid rgba(99,102,241,0.15);height:14px;margin:0 1px"></div>
           <!-- Align buttons -->
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="1.5" rx="0.75" fill="#aaa"/><rect x="1" y="5" width="8" height="1.5" rx="0.75" fill="#aaa"/><rect x="1" y="8" width="12" height="1.5" rx="0.75" fill="#aaa"/><rect x="1" y="11" width="6" height="1.5" rx="0.75" fill="#aaa"/></svg></div>
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="2" width="12" height="1.5" rx="0.75" fill="#aaa"/><rect x="3" y="5" width="8" height="1.5" rx="0.75" fill="#70b8ff"/><rect x="1" y="8" width="12" height="1.5" rx="0.75" fill="#aaa"/><rect x="4" y="11" width="6" height="1.5" rx="0.75" fill="#aaa"/></svg></div>
@@ -1325,14 +1620,14 @@
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="5" height="8" rx="1" fill="#555"/><rect x="9" y="3" width="5" height="8" rx="1" fill="#555"/><rect x="1" y="12" width="14" height="2" rx="1" fill="#aaa"/></svg>
           </div>
-          <div class="ribbon-btn" style="min-width:auto;padding:2px 4px;font-size:10px;color:#ccc">↕</div>
+          <div class="ribbon-btn" style="min-width:auto;padding:2px 4px;font-size:10px;color:#666">↕</div>
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 13V3M4 3l-2 2M4 3l2 2" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/><rect x="7" y="4" width="8" height="1.5" rx="0.75" fill="#aaa"/><rect x="7" y="7" width="6" height="1.5" rx="0.75" fill="#aaa"/><rect x="7" y="10" width="8" height="1.5" rx="0.75" fill="#aaa"/></svg>
           </div>
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3h4v10H3zM9 3h4v10H9z" fill="none" stroke="#aaa" stroke-width="1.2"/><rect x="3" y="3" width="4" height="2" rx="0.5" fill="#4a90d9" opacity="0.7"/><rect x="9" y="3" width="4" height="2" rx="0.5" fill="#4a90d9" opacity="0.7"/></svg>
           </div>
-          <div style="border-left:1px solid #555;height:14px;margin:0 1px"></div>
+          <div style="border-left:1px solid rgba(99,102,241,0.15);height:14px;margin:0 1px"></div>
           <div class="ribbon-btn" style="min-width:auto;padding:2px 4px">
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 5h12M2 8h12M2 11h9" stroke="#aaa" stroke-width="1.3" stroke-linecap="round"/><path d="M13 9v4M11 11l2 2 2-2" stroke="#e8a000" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -1426,6 +1721,24 @@
           <svg width="26" height="26" viewBox="0 0 28 28" fill="none"><rect x="2" y="4" width="24" height="18" rx="2" fill="none" stroke="#ccc" stroke-width="1.5"/><path d="M9 4v18M19 4v18M2 10h24M2 16h24" stroke="#555" stroke-width="0.8"/><path d="M10 11h8M10 13h5" stroke="#bbb" stroke-width="0.8" stroke-linecap="round"/></svg>
           <span class="label">Download<br>Resume</span>
         </div>
+        
+        <!-- Theme Toggle -->
+        <div class="ribbon-btn" id="theme-toggle" style="min-width:52px;padding:6px 8px" onclick="toggleTheme()">
+          <svg id="theme-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Sun Icon (Default for Light Mode) -->
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span class="label">Toggle<br>Theme</span>
+        </div>
+
       </div>
       </div>
 
@@ -1679,9 +1992,9 @@
         </div>
         <div class="ribbon-group">
           <div style="display:flex;flex-direction:column;gap:2px;">
-            <div style="display:flex;align-items:center;padding:2px 4px;border-radius:2px;background:rgba(255,255,255,0.1);cursor:pointer">
+            <div style="display:flex;align-items:center;padding:2px 4px;border-radius:2px;background:rgba(99,102,241,0.1);cursor:pointer">
               <svg width="16" height="16" style="margin-right:4px"><rect x="2" y="2" width="12" height="12" fill="#27ae60"/><rect x="2" y="8" width="12" height="6" fill="#e74c3c"/><rect x="8" y="2" width="6" height="12" fill="#4a90d9"/></svg>
-              <span style="font-size:11px;color:#fff">Color</span>
+              <span style="font-size:11px;color:#232946">Color</span>
             </div>
             <div style="display:flex;align-items:center;padding:2px 4px;border-radius:2px;cursor:pointer">
               <svg width="16" height="16" style="margin-right:4px"><rect x="2" y="2" width="12" height="12" fill="#ccc"/><rect x="2" y="8" width="12" height="6" fill="#888"/><rect x="8" y="2" width="6" height="12" fill="#555"/></svg>
@@ -1761,19 +2074,6 @@
           <!-- SLIDE 1: Title -->
           <div class="slide s-title active">
             <!-- Hero Canvas removed from preview, only in presentation mode -->
-            <div class="bg-watermark">
-              <!-- User provided 3D line-art 'A' name-logo.svg -->
-              <svg width="406" height="368" viewBox="0 0 406 368" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109" stroke="#1F2667" stroke-opacity="0.9" stroke-width="10"/>
-                <path d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109" stroke="url(#paint0_linear)" stroke-width="10"/>
-                <defs>
-                  <linearGradient id="paint0_linear" x1="205.549" y1="20.0169" x2="204.338" y2="342.461" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#1595B6"/>
-                    <stop offset="1" stop-color="#1595B6" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
             
             <ul class="social-links">
               <li><a href="#" target="_blank">in</a></li>
@@ -1782,88 +2082,180 @@
             </ul>
 
             <div class="hero-content">
-              <h1 class="text-gradient">Akash Keote</h1>
-              <p>Full Stack Developer &amp; AI Engineer</p>
-              <button class="about-me-btn" onclick="goToSlide(1)">
-                <span class="about-me-text">About Me</span>
-                <div class="right-arrow">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </div>
-              </button>
+              <div class="hero-text">
+                <h1 class="text-gradient">Akash Keote</h1>
+                <p>Full Stack Developer &amp; AI Engineer</p>
+                <button class="about-me-btn" onclick="goToSlide(1)">
+                  <span class="about-me-text">About Me</span>
+                  <div class="right-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </div>
+                </button>
+              </div>
+              <div class="hero-graphic">
+                <img src="anurag sir portfolio hero section/images/name-logo-black.svg" alt="Akash Keote Logo" class="hero-logo-large light">
+                <img src="anurag sir portfolio hero section/images/name-logo-white.svg" alt="Akash Keote Logo" class="hero-logo-large dark">
+              </div>
             </div>
           </div>
 
           <!-- SLIDE 2: About Me -->
           <div class="slide s-about">
             <div class="slide-heading">
-              <h2>About Me</h2>
-              <div class="underline-bar"></div>
+              <h2 class="okta-heading">Get to know me</h2>
             </div>
+            <div class="slide-content-pad">
             <div class="about-layout">
               <div class="about-left">
-                <h1 style="font-size: clamp(22px,4vw,44px)">Hello, I'm<br><span class="text-gradient">Akash Keote</span></h1>
-                <p>A passionate Computer Science student at G H Raisoni College of Engineering (CGPA 9.31) from Nagpur, India, with a deep interest in building intelligent, scalable software solutions.</p>
-                <p>I specialize in bridging the gap between modern web/mobile development and Backend/AI technologies — from building AI chatbots to sustainable eco-friendly platforms.</p>
+                <h1 style="font-size: clamp(22px,4vw,44px); font-family: 'Poppins', sans-serif;">Hello, I'm<br><span class="text-gradient" style="font-weight:900;">Akash Keote</span></h1>
+                <p style="font-size: clamp(11px, 1.2vw, 14px); margin-bottom:10px;">A passionate <strong>Computer Science student</strong> at G H Raisoni College of Engineering <strong>(CGPA 9.31)</strong> from Nagpur, India. I love building intelligent, scalable software that solves real-world problems.</p>
+                <p style="font-size: clamp(11px, 1.2vw, 14px); margin-bottom:10px;">I bridge the gap between <strong>modern web/mobile development</strong> and <strong>AI/Backend technologies</strong> — from building AI chatbots with Gemini & DeepSeek to sustainable eco-friendly shopping platforms.</p>
+                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;">
+                  <span class="tag">🎓 B.Tech CSE</span>
+                  <span class="tag"><i class="premium-feather" data-feather="map-pin"></i> Nagpur, India</span>
+                  <span class="tag">💡 Full Stack</span>
+                  <span class="tag"><svg class="premium-lotus" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lotusGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff7e67"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M50,15 C40,40 40,75 50,90 C60,75 60,40 50,15 Z" fill="url(#lotusGrad)" opacity="0.9"/><path d="M50,90 C30,75 25,50 35,35 C45,50 48,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C70,75 75,50 65,35 C55,50 52,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C20,80 10,60 15,45 C30,65 40,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/><path d="M50,90 C80,80 90,60 85,45 C70,65 60,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/></svg> AI/ML</span>
+                </div>
               </div>
               <div class="about-right">
-                <div class="stat-card">
-                  <div class="stat-num">346+</div>
-                  <div class="stat-label">DSA Problems Solved</div>
+                <div class="stat-card" style="display:flex; align-items:center; gap:14px;">
+                  <span style="font-size:clamp(24px,3vw,36px);"><i class="premium-feather" data-feather="cpu"></i></span>
+                  <div><div class="stat-num">346+</div><div class="stat-label">DSA Problems Solved</div></div>
                 </div>
-                <div class="stat-card">
-                  <div class="stat-num">12+</div>
-                  <div class="stat-label">Hackathons Participated</div>
+                <div class="stat-card" style="display:flex; align-items:center; gap:14px;">
+                  <span style="font-size:clamp(24px,3vw,36px);"><i class="premium-feather" data-feather="award"></i></span>
+                  <div><div class="stat-num">12+</div><div class="stat-label">Hackathons Participated</div></div>
                 </div>
-                <div class="stat-card">
-                  <div class="stat-num">10+</div>
-                  <div class="stat-label">Projects Completed</div>
+                <div class="stat-card" style="display:flex; align-items:center; gap:14px;">
+                  <span style="font-size:clamp(24px,3vw,36px);"><i class="premium-feather" data-feather="zap"></i></span>
+                  <div><div class="stat-num">10+</div><div class="stat-label">Projects Completed</div></div>
+                </div>
+                <div class="stat-card" style="display:flex; align-items:center; gap:14px;">
+                  <span style="font-size:clamp(24px,3vw,36px);"><i class="premium-feather" data-feather="star"></i></span>
+                  <div><div class="stat-num">9.31</div><div class="stat-label">CGPA (Current)</div></div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
 
-          <!-- SLIDE 3: Skills -->
-          <div class="slide s-skills">
-            <div id="skills-canvas" class="physics-canvas"></div>
-            <div class="slide-heading" style="position: absolute; top: 10%; z-index: 5; pointer-events: none; width: 100%; text-align: center;">
-              <h2 style="font-family: 'Spartan', sans-serif; font-size: 3em;">My Techstack</h2>
+          <!-- SLIDE 3: Tech Skills -->
+          <div class="slide s-skills" style="overflow:hidden;">
+            <div class="slide-heading">
+              <h2 class="okta-heading">Tech Arsenal</h2>
+            </div>
+            <div class="slide-content-pad" style="padding: 1% 5% 3% 5%;">
+              <p style="text-align:center; color:var(--okta-text-dim); font-family:'Poppins',sans-serif; font-size:clamp(9px,1.1vw,13px); margin-bottom:2%; position:relative; z-index:2;">My tools of choice for building exceptional digital experiences</p>
+              <div style="display:grid; grid-template-columns: repeat(4,1fr); gap:clamp(6px,1.2vw,14px); flex:1; position:relative; z-index:2;">
+                <!-- Languages -->
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="coffee"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">Java</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Spring Boot, OOP</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="terminal"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">Python</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">AI/ML, Flask</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="zap"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">JavaScript</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">ES6+, Node.js</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="settings"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">C / C++</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Systems, DSA</p>
+                </div>
+                <!-- Frontend -->
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="code"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">React</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Next.js, Redux</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="smartphone"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">Flutter</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Dart, Firebase</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="globe"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">HTML/CSS</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Tailwind, SASS</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="pen-tool"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">Figma</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">UI/UX Design</p>
+                </div>
+                <!-- Backend & DB -->
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="database"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">MySQL</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Database Design</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="server"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">MongoDB</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">NoSQL, Atlas</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="cloud"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">Firebase</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Auth, Hosting</p>
+                </div>
+                <div class="stat-card" style="text-align:center; padding:clamp(8px,1.5vw,18px) clamp(6px,1vw,12px);">
+                  <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:4px;"><i class="premium-feather" data-feather="terminal"></i></div>
+                  <h3 style="font-size:clamp(10px,1.1vw,14px); font-weight:700; color:var(--okta-heading-color); margin-bottom:2px; font-family:'Poppins',sans-serif;">Linux</h3>
+                  <p style="font-size:clamp(7px,0.8vw,10px); color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">CLI, Servers</p>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- SLIDE 4: Projects -->
           <div class="slide s-projects">
             <div class="slide-heading">
-              <h2>Featured Project</h2>
-              <div class="underline-bar"></div>
+              <h2 class="okta-heading">Featured Projects</h2>
             </div>
-            <div class="project-layout">
-              <div class="project-details">
-                <h2>EcoBazaarX (Infosys Internship)</h2>
-                <p>A sustainability-focused shopping assistant using Java Spring Boot backend and Flutter frontend, utilizing MySQL, Firebase, and Railway for hosting.</p>
-                <div class="tech-tags">
-                  <span class="tag">Flutter</span>
-                  <span class="tag">Java Spring Boot</span>
-                  <span class="tag">MySQL</span>
-                  <span class="tag">Firebase</span>
-                  <span class="tag">Railway</span>
+            <div class="slide-content-pad" style="padding: 1% 5% 3% 5%;">
+              <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:clamp(8px,1.2vw,16px); flex:1; position:relative; z-index:2;">
+                <!-- Project 1 -->
+                <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                  <div>
+                    <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:8px;"><i class="premium-feather" data-feather="shopping-cart"></i></div>
+                    <h2>EcoBazaarX</h2>
+                    <p style="margin-bottom:8px;">Sustainability-focused shopping assistant built during Infosys Internship. Full-stack app with eco-friendly product recommendations.</p>
+                    <div class="tech-tags" style="margin-bottom:8px;">
+                      <span class="tag">Flutter</span><span class="tag">Spring Boot</span><span class="tag">MySQL</span>
+                    </div>
+                  </div>
+                  <div class="nb-card-icons"><a href="#" class="nb-icon-btn" title="GitHub">↗</a><a href="#" class="nb-icon-btn demo" title="Demo">▶</a></div>
                 </div>
-                <div class="project-btns">
-                  <button class="btn btn-primary">⭐ GitHub</button>
-                  <button class="btn btn-secondary">🚀 Live Demo</button>
+                <!-- Project 2 -->
+                <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                  <div>
+                    <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:8px;"><svg class="premium-lotus" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lotusGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff7e67"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M50,15 C40,40 40,75 50,90 C60,75 60,40 50,15 Z" fill="url(#lotusGrad)" opacity="0.9"/><path d="M50,90 C30,75 25,50 35,35 C45,50 48,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C70,75 75,50 65,35 C55,50 52,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C20,80 10,60 15,45 C30,65 40,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/><path d="M50,90 C80,80 90,60 85,45 C70,65 60,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/></svg></div>
+                    <h2>AI Chatbot</h2>
+                    <p style="margin-bottom:8px;">AI-powered customer support chatbot integrating Gemini &amp; DeepSeek APIs via Next.js backend with persistent session management.</p>
+                    <div class="tech-tags" style="margin-bottom:8px;">
+                      <span class="tag">Next.js</span><span class="tag">Gemini AI</span><span class="tag">DeepSeek</span>
+                    </div>
+                  </div>
+                  <div class="nb-card-icons"><a href="#" class="nb-icon-btn" title="GitHub">↗</a></div>
                 </div>
-              </div>
-              <div class="project-features">
-                <div class="feature-card">
-                  <h4>💡 Eco-Friendly</h4>
-                  <p>Provides eco-friendly recommendations to users</p>
-                </div>
-                <div class="feature-card">
-                  <h4>🔌 RESTful APIs</h4>
-                  <p>Integrated with robust, tested APIs using Postman</p>
-                </div>
-                <div class="feature-card">
-                  <h4>☁️ Full Cloud Deployment</h4>
-                  <p>Deployed backend on Render, DB on Railway, Frontend on Firebase</p>
+                <!-- Project 3 -->
+                <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                  <div>
+                    <div style="font-size:clamp(20px,2.5vw,32px); margin-bottom:8px;"><i class="premium-feather" data-feather="layout"></i></div>
+                    <h2>This Portfolio</h2>
+                    <p style="margin-bottom:8px;">PowerPoint-themed HTML portfolio with Matter.js physics animations, dark/light mode, and presentation mode. Single-file architecture.</p>
+                    <div class="tech-tags" style="margin-bottom:8px;">
+                      <span class="tag">HTML/CSS/JS</span><span class="tag">Matter.js</span><span class="tag">Vercel</span>
+                    </div>
+                  </div>
+                  <div class="nb-card-icons"><a href="#" class="nb-icon-btn demo" title="Live">▶</a></div>
                 </div>
               </div>
             </div>
@@ -1871,31 +2263,30 @@
 
           <!-- SLIDE 5: Contact -->
           <div class="slide s-contact">
-            <h1>Thank You.</h1>
-            <div class="tagline">Let's build something amazing together.</div>
-            <div class="contact-grid">
-              <div class="contact-card">
-                <div class="icon">📧</div>
-                <div class="clabel">Email</div>
-                <div class="cvalue">keoteakash@gmail.com</div>
-              </div>
-              <div class="contact-card">
-                <div class="icon">💼</div>
-                <div class="clabel">LinkedIn</div>
-                <div class="cvalue">/in/akashkeote</div>
-              </div>
-              <div class="contact-card">
-                <div class="icon">🐙</div>
-                <div class="clabel">GitHub</div>
-                <div class="cvalue">@TotalOverdose-ak</div>
-              </div>
-              <div class="contact-card">
-                <div class="icon">📱</div>
-                <div class="clabel">Phone</div>
-                <div class="cvalue">+91-9307451323</div>
-              </div>
+            <h1 class="contact-title">Go Further</h1>
+            <div class="contact-subtitle">Let's build something amazing together</div>
+            
+            <div class="contact-stack">
+              <a class="contact-row" href="mailto:keoteakash@gmail.com">
+                <i data-feather="mail"></i>
+                <span class="label">Email</span>
+                <span class="value">keoteakash@gmail.com</span>
+              </a>
+              <a class="contact-row" href="https://linkedin.com/in/akashkeote" target="_blank">
+                <i data-feather="briefcase"></i>
+                <span class="label">LinkedIn</span>
+                <span class="value">/in/akashkeote</span>
+              </a>
+              <a class="contact-row" href="https://github.com/TotalOverdose-ak" target="_blank">
+                <i data-feather="github"></i>
+                <span class="label">GitHub</span>
+                <span class="value">@TotalOverdose-ak</span>
+              </a>
             </div>
-            <button class="download-btn">📥 Download Complete Resume</button>
+
+            <button class="resume-btn" onclick="window.open('resume.pdf', '_blank')">
+              <i data-feather="download"></i> Download Complete Resume
+            </button>
           </div>
 
         </div>
@@ -1913,11 +2304,11 @@
         <span class="status-icon">⊞</span>
         <span class="status-icon" id="status-present-btn" title="Start Presentation">▶</span>
         <span style="color:#444">|</span>
-        <span class="status-icon">−</span>
-        <div class="zoom-bar"><div class="zoom-thumb"></div></div>
-        <span class="status-icon">+</span>
-        <span style="font-size:10px">72%</span>
-        <span class="status-icon">⤢</span>
+        <span class="status-icon" id="zoom-out-btn" style="cursor:pointer">−</span>
+        <div class="zoom-bar" id="zoom-bar"><div class="zoom-thumb" id="zoom-thumb"></div></div>
+        <span class="status-icon" id="zoom-in-btn" style="cursor:pointer">+</span>
+        <span style="font-size:10px; width:36px; display:inline-block; text-align:right" id="zoom-label">72%</span>
+        <span class="status-icon" id="zoom-fit-btn" style="cursor:pointer" title="Fit to Window">⤢</span>
       </div>
     </div>
 
@@ -1927,19 +2318,6 @@
   <div id="presentation-mode">
     <div class="pres-slide s-title" id="pres-slide-0">
       <div id="pres-hero-canvas"></div>
-      <div class="bg-watermark">
-        <!-- User provided 3D line-art 'A' name-logo.svg -->
-        <svg width="406" height="368" viewBox="0 0 406 368" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109" stroke="#1F2667" stroke-opacity="0.9" stroke-width="10"/>
-          <path d="M314.899 203.5L314.899 349.43L162.5 209.053M314.899 203.5L283.037 203.586M314.899 203.5L337.881 203.586L381 171.109L314.899 171.109M162.5 209.053L118.044 170.96L157.5 171.109M162.5 209.053L65.5 301.465L20.5595 301.465L137.482 189.156M200.5 171.109L283.037 96.5L283.037 171.109M200.5 171.109L283.037 171.109M200.5 171.109L157.5 171.109M283.037 203.586L210.846 203.123L283.037 271.086L283.037 203.586ZM283.037 171.109L314.899 171.109M157.5 171.109L316.135 20.4322L314.899 171.109" stroke="url(#paint1_linear)" stroke-width="10"/>
-          <defs>
-            <linearGradient id="paint1_linear" x1="205.549" y1="20.0169" x2="204.338" y2="342.461" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#1595B6"/>
-              <stop offset="1" stop-color="#1595B6" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
 
       <ul class="social-links">
         <li><a href="#" target="_blank">in</a></li>
@@ -1948,160 +2326,125 @@
       </ul>
 
       <div class="hero-content">
-        <h1 class="text-gradient">Akash Keote</h1>
-        <p>Full Stack Developer &amp; AI Engineer</p>
-        <button class="about-me-btn" onclick="goToPresSlide(1)">
-          <span class="about-me-text">About Me</span>
-          <div class="right-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </div>
-        </button>
+        <div class="hero-text">
+          <h1 class="text-gradient">Akash Keote</h1>
+          <p>Full Stack Developer &amp; AI Engineer</p>
+          <button class="about-me-btn" onclick="goToPresSlide(1)">
+            <span class="about-me-text">About Me</span>
+            <div class="right-arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </button>
+        </div>
+        <div class="hero-graphic">
+          <img src="anurag sir portfolio hero section/images/name-logo-black.svg" alt="Akash Keote Logo" class="hero-logo-large light">
+          <img src="anurag sir portfolio hero section/images/name-logo-white.svg" alt="Akash Keote Logo" class="hero-logo-large dark">
+        </div>
       </div>
     </div>
-    <div class="pres-slide s-about" id="pres-slide-1" style="padding: 8% 12%;">
-      <div class="slide-heading"><h2>About Me</h2><div class="underline-bar"></div></div>
+    <div class="pres-slide s-about" id="pres-slide-1" style="padding: 4% 8%;">
+      <div class="slide-heading"><h2 class="okta-heading">Get to know me</h2></div>
       <div class="about-layout">
         <div class="about-left">
-          <h1>Hello, I'm<br><span class="text-gradient">Akash Keote</span></h1>
-          <p>A passionate Computer Science student at G H Raisoni College of Engineering (CGPA 9.31) from Nagpur, India, with a deep interest in building intelligent, scalable software solutions.</p>
-          <p>I specialize in bridging the gap between modern web/mobile development and Backend/AI technologies — from building AI chatbots to sustainable eco-friendly platforms.</p>
+          <h1 style="font-family:'Poppins',sans-serif;">Hello, I'm<br><span class="text-gradient" style="font-weight:900;">Akash Keote</span></h1>
+          <p>A passionate <strong>Computer Science student</strong> at G H Raisoni College of Engineering <strong>(CGPA 9.31)</strong> from Nagpur, India. I love building intelligent, scalable software that solves real-world problems.</p>
+          <p>I bridge the gap between <strong>modern web/mobile development</strong> and <strong>AI/Backend technologies</strong> — from building AI chatbots with Gemini &amp; DeepSeek to sustainable eco-friendly shopping platforms.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+            <span class="tag">🎓 B.Tech CSE</span><span class="tag"><i class="premium-feather" data-feather="map-pin"></i> Nagpur, India</span><span class="tag">💡 Full Stack</span><span class="tag"><svg class="premium-lotus" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lotusGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff7e67"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M50,15 C40,40 40,75 50,90 C60,75 60,40 50,15 Z" fill="url(#lotusGrad)" opacity="0.9"/><path d="M50,90 C30,75 25,50 35,35 C45,50 48,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C70,75 75,50 65,35 C55,50 52,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C20,80 10,60 15,45 C30,65 40,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/><path d="M50,90 C80,80 90,60 85,45 C70,65 60,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/></svg> AI/ML</span>
+          </div>
         </div>
         <div class="about-right">
-          <div class="stat-card"><div class="stat-num text-gradient">346+</div><div class="stat-label">DSA Problems Solved</div></div>
-          <div class="stat-card"><div class="stat-num text-gradient">12+</div><div class="stat-label">Hackathons Participated</div></div>
-          <div class="stat-card"><div class="stat-num text-gradient">10+</div><div class="stat-label">Projects Completed</div></div>
+          <div class="stat-card" style="display:flex; align-items:center; gap:16px;"><span style="font-size:36px;"><i class="premium-feather" data-feather="cpu"></i></span><div><div class="stat-num">346+</div><div class="stat-label">DSA Problems Solved</div></div></div>
+          <div class="stat-card" style="display:flex; align-items:center; gap:16px;"><span style="font-size:36px;"><i class="premium-feather" data-feather="award"></i></span><div><div class="stat-num">12+</div><div class="stat-label">Hackathons Participated</div></div></div>
+          <div class="stat-card" style="display:flex; align-items:center; gap:16px;"><span style="font-size:36px;"><i class="premium-feather" data-feather="zap"></i></span><div><div class="stat-num">10+</div><div class="stat-label">Projects Completed</div></div></div>
+          <div class="stat-card" style="display:flex; align-items:center; gap:16px;"><span style="font-size:36px;"><i class="premium-feather" data-feather="star"></i></span><div><div class="stat-num">9.31</div><div class="stat-label">CGPA (Current)</div></div></div>
         </div>
       </div>
     </div>
-    <div class="pres-slide s-skills" id="pres-slide-2" style="padding: 8% 12%;">
-      <div class="slide-heading"><h2>Tech Arsenal</h2><div class="underline-bar"></div></div>
-      <p style="margin-bottom: 30px; color: rgba(255,255,255,0.7); font-family: 'Poppins', sans-serif;">My tools of choice for building exceptional digital experiences</p>
-      <div class="skills-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">🌐</span><h3>HTML & CSS</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">📱</span><h3>Flutter & Dart</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">☕</span><h3>Java</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">⚙️</span><h3>C / C++</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">🎨</span><h3>Figma</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">🐧</span><h3>Linux</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">🪟</span><h3>Windows</h3></div>
-        <div class="skill-card feedback-card" style="align-items: center; justify-content: center; text-align: center;"><span style="font-size:40px;margin-bottom:10px;">🌐</span><h3>Networking</h3></div>
+    <div class="pres-slide s-skills" id="pres-slide-2" style="padding: 3% 6%; flex-direction:column;">
+      <div class="slide-heading"><h2 class="okta-heading">Tech Arsenal</h2></div>
+      <p style="text-align:center; margin-bottom:20px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif; font-size:15px; position:relative; z-index:2;">My tools of choice for building exceptional digital experiences</p>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; flex:1; position:relative; z-index:2;">
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="coffee"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Java</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Spring Boot, OOP</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="terminal"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Python</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">AI/ML, Flask</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="zap"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">JavaScript</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">ES6+, Node.js</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="settings"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">C / C++</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Systems, DSA</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="code"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">React</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Next.js, Redux</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="smartphone"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Flutter</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Dart, Firebase</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="pen-tool"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Figma</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">UI/UX Design</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="database"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">MySQL</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Database Design</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="server"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">MongoDB</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">NoSQL, Atlas</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="cloud"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Firebase</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">Auth, Hosting</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="terminal"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Linux</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">CLI, Servers</p></div>
+        <div class="stat-card" style="text-align:center; padding:20px 12px;"><div style="font-size:36px; margin-bottom:6px;"><i class="premium-feather" data-feather="globe"></i></div><h3 style="font-size:15px; font-weight:700; color:var(--okta-heading-color); margin-bottom:3px; font-family:'Poppins',sans-serif;">Networking</h3><p style="font-size:11px; color:var(--okta-text-dim); font-family:'Poppins',sans-serif;">TCP/IP, REST</p></div>
       </div>
     </div>
-    <div class="pres-slide s-projects" id="pres-slide-3">
-      <!-- Neo-Brutalism Header -->
-      <div class="nb-header">
-        <h1>My <span style="text-decoration: underline;">Portfolio</span></h1>
-        <div class="sparkle">❆</div>
-      </div>
-
-      <!-- 3-Column Card Grid -->
-      <div class="nb-projects-grid">
-
-        <div class="nb-project-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="flex:1;padding-right:12px;">
-              <h2>EcoBazaarX</h2>
-              <p>Sustainability-focused shopping app built with Java Spring Boot & Flutter. Deployed on Firebase, Render, and Railway.</p>
-            </div>
-            <div class="nb-card-icons">
-              <a href="#" class="nb-icon-btn" title="GitHub">↗</a>
-            </div>
-          </div>
+    <div class="pres-slide s-projects" id="pres-slide-3" style="padding: 3% 6%; flex-direction:column;">
+      <div class="slide-heading"><h2 class="okta-heading">Featured Projects</h2></div>
+      <div class="nb-projects-grid" style="grid-template-columns:repeat(3,1fr); gap:20px;">
+        <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div><div style="font-size:32px; margin-bottom:10px;"><i class="premium-feather" data-feather="shopping-cart"></i></div><h2>EcoBazaarX</h2><p>Sustainability-focused shopping assistant built during Infosys Internship with eco-friendly recommendations.</p>
+          <div class="tech-tags" style="margin-top:12px;"><span class="tag">Flutter</span><span class="tag">Spring Boot</span><span class="tag">MySQL</span></div></div>
+          <div class="nb-card-icons" style="margin-top:16px;"><a href="#" class="nb-icon-btn" title="GitHub">↗</a><a href="#" class="nb-icon-btn demo" title="Demo">▶</a></div>
         </div>
-
-        <div class="nb-project-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="flex:1;padding-right:12px;">
-              <h2>AI Chatbot</h2>
-              <p>AI-powered customer support chatbot integrating Gemini & DeepSeek via a Next.js backend with session management.</p>
-            </div>
-            <div class="nb-card-icons">
-              <a href="#" class="nb-icon-btn" title="GitHub">↗</a>
-            </div>
-          </div>
+        <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div><div style="font-size:32px; margin-bottom:10px;"><svg class="premium-lotus" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lotusGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff7e67"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M50,15 C40,40 40,75 50,90 C60,75 60,40 50,15 Z" fill="url(#lotusGrad)" opacity="0.9"/><path d="M50,90 C30,75 25,50 35,35 C45,50 48,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C70,75 75,50 65,35 C55,50 52,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C20,80 10,60 15,45 C30,65 40,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/><path d="M50,90 C80,80 90,60 85,45 C70,65 60,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/></svg></div><h2>AI Chatbot</h2><p>AI-powered chatbot integrating Gemini &amp; DeepSeek APIs with persistent session management.</p>
+          <div class="tech-tags" style="margin-top:12px;"><span class="tag">Next.js</span><span class="tag">Gemini AI</span><span class="tag">DeepSeek</span></div></div>
+          <div class="nb-card-icons" style="margin-top:16px;"><a href="#" class="nb-icon-btn" title="GitHub">↗</a></div>
         </div>
-
-        <div class="nb-project-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="flex:1;padding-right:12px;">
-              <h2>Portfolio Website</h2>
-              <p>This presentation itself! A PowerPoint-themed single-file HTML portfolio with Matter.js physics animations.</p>
-            </div>
-            <div class="nb-card-icons">
-              <a href="#" class="nb-icon-btn demo" title="Live">▶</a>
-            </div>
-          </div>
+        <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div><div style="font-size:32px; margin-bottom:10px;"><i class="premium-feather" data-feather="layout"></i></div><h2>This Portfolio</h2><p>PowerPoint-themed portfolio with Matter.js physics, dark/light mode, and presentation mode.</p>
+          <div class="tech-tags" style="margin-top:12px;"><span class="tag">HTML/CSS/JS</span><span class="tag">Matter.js</span><span class="tag">Vercel</span></div></div>
+          <div class="nb-card-icons" style="margin-top:16px;"><a href="#" class="nb-icon-btn demo" title="Live">▶</a></div>
         </div>
-
-        <div class="nb-project-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="flex:1;padding-right:12px;">
-              <h2>DSA Tracker</h2>
-              <p>A tracker app for solving and reviewing DSA problems with spaced repetition and performance analytics.</p>
-            </div>
-            <div class="nb-card-icons">
-              <a href="#" class="nb-icon-btn" title="GitHub">↗</a>
-            </div>
-          </div>
+        <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div><div style="font-size:32px; margin-bottom:10px;"><i class="premium-feather" data-feather="book-open"></i></div><h2>DSA Tracker</h2><p>Tracker app for DSA problems with spaced repetition and performance analytics.</p>
+          <div class="tech-tags" style="margin-top:12px;"><span class="tag">React</span><span class="tag">Node.js</span></div></div>
+          <div class="nb-card-icons" style="margin-top:16px;"><a href="#" class="nb-icon-btn" title="GitHub">↗</a></div>
         </div>
-
-        <div class="nb-project-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="flex:1;padding-right:12px;">
-              <h2>Flutter Finance App</h2>
-              <p>A mobile-first finance tracking app built with Flutter & Dart, with Firestore backend and push notifications.</p>
-            </div>
-            <div class="nb-card-icons">
-              <a href="#" class="nb-icon-btn" title="GitHub">↗</a>
-            </div>
-          </div>
+        <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div><div style="font-size:32px; margin-bottom:10px;"><i class="premium-feather" data-feather="dollar-sign"></i></div><h2>Finance App</h2><p>Mobile-first finance tracking with Firestore backend and push notifications.</p>
+          <div class="tech-tags" style="margin-top:12px;"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Firebase</span></div></div>
+          <div class="nb-card-icons" style="margin-top:16px;"><a href="#" class="nb-icon-btn" title="GitHub">↗</a></div>
         </div>
-
-        <div class="nb-project-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div style="flex:1;padding-right:12px;">
-              <h2>Hackathon Project</h2>
-              <p>Award-winning urban mobility solution built during a 24-hour hackathon with real-time data integration.</p>
-            </div>
-            <div class="nb-card-icons">
-              <a href="#" class="nb-icon-btn" title="GitHub">↗</a>
-              <a href="#" class="nb-icon-btn demo" title="Demo">▶</a>
-            </div>
-          </div>
+        <div class="nb-project-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div><div style="font-size:32px; margin-bottom:10px;"><i class="premium-feather" data-feather="map"></i></div><h2>Urban Mobility</h2><p>Award-winning hackathon solution with real-time data integration for city transportation.</p>
+          <div class="tech-tags" style="margin-top:12px;"><span class="tag">Python</span><span class="tag">APIs</span></div></div>
+          <div class="nb-card-icons" style="margin-top:16px;"><a href="#" class="nb-icon-btn" title="GitHub">↗</a><a href="#" class="nb-icon-btn demo" title="Demo">▶</a></div>
         </div>
-
       </div>
     </div>
-    <div class="pres-slide s-contact" id="pres-slide-4" style="flex-direction: row; gap: 40px; padding: 5% 10%; text-align: left; align-items: flex-start; justify-content: flex-start;">
-      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-        <h1 style="background: linear-gradient(157.81deg, #9dedf0 0%, #5ce1e6 50%, #33bbcf 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">Let's Talk</h1>
-        <div class="tagline" style="margin-bottom: 30px;">Open to opportunities and ready to build something amazing!</div>
-        <div class="contact-grid" style="display: grid; grid-template-columns: 1fr; gap: 15px;">
-          <div class="contact-card feedback-card" style="flex-direction: row; gap: 20px; align-items: center; cursor: default;"><div class="icon" style="margin:0;">📍</div><div style="flex:1"><div class="clabel">Address</div><div class="cvalue">Boys Hostel GHRCEMN Room No-402, Near Vasudev Nagar, Nagpur 440016</div></div></div>
-          <div class="contact-card feedback-card" style="flex-direction: row; gap: 20px; align-items: center; cursor: default;"><div class="icon" style="margin:0;">📧</div><div style="flex:1"><div class="clabel">Email</div><div class="cvalue">keoteakash@gmail.com</div></div></div>
-          <div class="contact-card feedback-card" style="flex-direction: row; gap: 20px; align-items: center; cursor: default;"><div class="icon" style="margin:0;">📱</div><div style="flex:1"><div class="clabel">Phone</div><div class="cvalue">+91-9307451323</div></div></div>
-        </div>
-        <button class="download-btn" style="align-self: flex-start; margin-top: 10px;">📥 Download Resume</button>
+    <div class="pres-slide s-contact" id="pres-slide-4" style="flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+      <h1 class="contact-title">Go Further</h1>
+      <div class="contact-subtitle">Let's build something amazing together</div>
+      
+      <div class="contact-stack">
+        <a class="contact-row" href="mailto:keoteakash@gmail.com">
+          <i data-feather="mail"></i>
+          <span class="label">Email</span>
+          <span class="value">keoteakash@gmail.com</span>
+        </a>
+        <a class="contact-row" href="https://linkedin.com/in/akashkeote" target="_blank">
+          <i data-feather="briefcase"></i>
+          <span class="label">LinkedIn</span>
+          <span class="value">/in/akashkeote</span>
+        </a>
+        <a class="contact-row" href="https://github.com/TotalOverdose-ak" target="_blank">
+          <i data-feather="github"></i>
+          <span class="label">GitHub</span>
+          <span class="value">@TotalOverdose-ak</span>
+        </a>
       </div>
 
-      <div style="flex: 1; display: flex; align-items: center; justify-content: center; width: 100%;">
-        <div class="feedback-card" style="width: 100%; padding: 40px; display: flex; flex-direction: column; gap: 20px; background: rgba(17, 16, 29, 0.8);">
-          <h2 style="font-family: 'Poppins', sans-serif; font-size: 24px; color: white;">Send a Message</h2>
-          <form id="contactForm" action="https://script.google.com/macros/s/AKfycbym-HdBRM1f5UjFb8x0BT8hvGGxNejJfojuhsOo9_szaH-lqGOBxCjSyNg77eUxopm_/exec" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
-            <input type="text" name="name" placeholder="Your Name" required style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; font-family: 'Poppins', sans-serif;" />
-            <input type="email" name="email" placeholder="Your Email" required style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; font-family: 'Poppins', sans-serif;" />
-            <input type="text" name="contact" placeholder="Contact Number" required style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; font-family: 'Poppins', sans-serif;" />
-            <textarea name="message" rows="4" placeholder="Your Message" required style="padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; font-family: 'Poppins', sans-serif; resize: none;"></textarea>
-            <button type="submit" style="background: linear-gradient(157.81deg, #9dedf0 0%, #5ce1e6 50%, #33bbcf 100%); color: #00040f; font-weight: 600; padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-family: 'Poppins', sans-serif;">Send Message 🚀</button>
-          </form>
-        </div>
-      </div>
+      <button class="resume-btn" onclick="window.open('resume.pdf', '_blank')">
+        <i data-feather="download"></i> Download Complete Resume
+      </button>
     </div>
     <div class="pres-exit-hint">Esc to exit &nbsp;|&nbsp; ← → to navigate</div>
     <div class="pres-progress" id="pres-progress"></div>
 
     <!-- AI CHATBOT UI -->
-    <div id="ai-chatbot-window" style="display: none; position: fixed; right: 20px; bottom: 60px; width: 350px; height: 500px; background: rgba(17, 16, 29, 0.95); border: 1px solid #00f6ff; border-radius: 16px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(0, 246, 255, 0.2); backdrop-filter: blur(15px); font-family: 'Poppins', sans-serif;">
+    <div id="ai-chatbot-window" style="display: none; position: fixed; right: 20px; bottom: 60px; width: 350px; height: 500px; background: rgba(255,255,255,0.85); border: 1px solid rgba(99,102,241,0.2); border-radius: 16px; z-index: 10000; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(99,102,241,0.15), 0 0 20px rgba(99, 102, 241, 0.1); backdrop-filter: blur(15px); font-family: 'Poppins', sans-serif;">
       
       <!-- Spider web BG SVG -->
       <svg width="100%" height="100%" viewBox="0 0 350 220" style="position: absolute; top: 0; left: 0; z-index: 0; opacity: 0.05; pointer-events: none;" preserveAspectRatio="none">
@@ -2118,27 +2461,27 @@
         <line x1="175" y1="110" x2="61" y2="46" stroke="#fff" stroke-width="2"/>
       </svg>
 
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(0, 246, 255, 0.1); border-bottom: 1px solid rgba(0, 246, 255, 0.2); position: relative; z-index: 2;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(99, 102, 241, 0.08); border-bottom: 1px solid rgba(99,102,241,0.15); position: relative; z-index: 2;">
         <div style="display: flex; align-items: center; gap: 10px;">
-          <span style="font-size: 24px;">🤖</span>
+          <span style="font-size: 24px;"><svg class="premium-lotus" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="lotusGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff7e67"/><stop offset="100%" stop-color="#7b61ff"/></linearGradient></defs><path d="M50,15 C40,40 40,75 50,90 C60,75 60,40 50,15 Z" fill="url(#lotusGrad)" opacity="0.9"/><path d="M50,90 C30,75 25,50 35,35 C45,50 48,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C70,75 75,50 65,35 C55,50 52,70 50,90 Z" fill="url(#lotusGrad)" opacity="0.75"/><path d="M50,90 C20,80 10,60 15,45 C30,65 40,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/><path d="M50,90 C80,80 90,60 85,45 C70,65 60,80 50,90 Z" fill="url(#lotusGrad)" opacity="0.6"/></svg></span>
           <div>
-            <h3 style="color: white; font-size: 16px; margin: 0; font-weight: 600;">Akash's AI Assistant</h3>
-            <span style="color: #33bbcf; font-size: 11px;">Powered by Gemini</span>
+            <h3 style="color: #232946; font-size: 16px; margin: 0; font-weight: 600;">Akash's AI Assistant</h3>
+            <span style="color: #6366f1; font-size: 11px;">Powered by Gemini</span>
           </div>
         </div>
-        <button id="close-chat-btn" style="background: transparent; border: none; color: white; cursor: pointer; font-size: 16px;">✕</button>
+        <button id="close-chat-btn" style="background: transparent; border: none; color: #555; cursor: pointer; font-size: 16px;">✕</button>
       </div>
       
       <div id="chat-messages" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; position: relative; z-index: 2;">
-        <div style="align-self: flex-start; background: rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; color: white; font-size: 13px; max-width: 85%;">
+        <div style="align-self: flex-start; background: rgba(99,102,241,0.1); padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; color: #232946; font-size: 13px; max-width: 85%;">
           Hi there! I'm Akash's virtual assistant. Ask me anything about his projects, skills, or background!
         </div>
       </div>
 
-      <div style="padding: 15px; border-top: 1px solid rgba(255,255,255,0.1); position: relative; z-index: 2; background: rgba(0,0,0,0.2);">
+      <div style="padding: 15px; border-top: 1px solid rgba(99,102,241,0.1); position: relative; z-index: 2; background: rgba(245,247,255,0.5);">
         <form id="chat-form" style="display: flex; gap: 10px;">
-          <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off" style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none;" />
-          <button type="submit" style="background: #00f6ff; border: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;">
+          <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off" style="flex: 1; padding: 10px 15px; border-radius: 20px; border: 1px solid rgba(99,102,241,0.2); background: rgba(255,255,255,0.7); color: #232946; font-family: 'Poppins', sans-serif; font-size: 13px; outline: none;" />
+          <button type="submit" style="background: #6366f1; border: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2L15 22L11 13M11 13L2 9L22 2" stroke="#00040f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </form>
@@ -2217,6 +2560,41 @@
     document.getElementById('download-engineering-notes-btn').addEventListener('click', () => {
       window.open('https://drive.google.com/drive/folders/14gwS2GpMkEbUhupOc-_rJtEkGLhwNldQ', '_blank', 'noopener');
     });
+
+    // ---- DARK / LIGHT THEME LOGIC ----
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('ppt-theme', isDark ? 'dark' : 'light');
+      updateThemeIcon(isDark);
+    }
+
+    function checkTheme() {
+      const savedTheme = localStorage.getItem('ppt-theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        updateThemeIcon(true);
+      } else {
+        updateThemeIcon(false);
+      }
+    }
+
+    function updateThemeIcon(isDark) {
+      const iconBtn = document.getElementById('theme-icon');
+      if (iconBtn) {
+        if (isDark) {
+          // Moon icon
+          iconBtn.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+          iconBtn.setAttribute('stroke', '#00f6ff'); // Cyan for dark mode
+        } else {
+          // Sun icon
+          iconBtn.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+          iconBtn.setAttribute('stroke', '#6366f1'); // Indigo for light mode
+        }
+      }
+    }
+
+    // Initialize check
+    checkTheme();
 
     // ---- KEYBOARD NAVIGATION ----
     document.addEventListener('keydown', e => {
@@ -2666,7 +3044,7 @@
 
         // User message
         const userMsg = document.createElement('div');
-        userMsg.style.cssText = 'align-self: flex-end; background: #00f6ff; padding: 12px 16px; border-radius: 16px; border-bottom-right-radius: 4px; color: #00040f; font-size: 13px; max-width: 85%; font-weight: 500; font-family: "Poppins", sans-serif;';
+        userMsg.style.cssText = 'align-self: flex-end; background: #6366f1; padding: 12px 16px; border-radius: 16px; border-bottom-right-radius: 4px; color: #fff; font-size: 13px; max-width: 85%; font-weight: 500; font-family: "Poppins", sans-serif;';
         userMsg.textContent = text;
         chatMessages.appendChild(userMsg);
         chatInput.value = '';
@@ -2674,7 +3052,7 @@
 
         // Simulate typing
         const typingIndicator = document.createElement('div');
-        typingIndicator.style.cssText = 'align-self: flex-start; color: rgba(255,255,255,0.5); font-size: 11px; margin-top: 5px; font-style: italic;';
+        typingIndicator.style.cssText = 'align-self: flex-start; color: #999; font-size: 11px; margin-top: 5px; font-style: italic;';
         typingIndicator.textContent = 'Typing...';
         chatMessages.appendChild(typingIndicator);
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -2683,7 +3061,7 @@
         setTimeout(() => {
           chatMessages.removeChild(typingIndicator);
           const botMsg = document.createElement('div');
-          botMsg.style.cssText = 'align-self: flex-start; background: rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; color: white; font-size: 13px; max-width: 85%; font-family: "Poppins", sans-serif;';
+          botMsg.style.cssText = 'align-self: flex-start; background: rgba(99,102,241,0.1); padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; color: #232946; font-size: 13px; max-width: 85%; font-family: "Poppins", sans-serif;';
           
           let response = "I'm currently running in static display mode without a backend server, so I cannot dynamically fetch responses. But Akash is a great developer!";
           let lowerCaseText = text.toLowerCase();
@@ -2704,6 +3082,68 @@
         }, 800);
       });
     }
+
+    // Initialize Feather Icons
+    if (typeof feather !== 'undefined') {
+      feather.replace();
+    }
+
+    // ---- ZOOM LOGIC ----
+    const zoomBar = document.getElementById('zoom-bar');
+    const zoomThumb = document.getElementById('zoom-thumb');
+    const zoomLabel = document.getElementById('zoom-label');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+    const zoomInBtn = document.getElementById('zoom-in-btn');
+    const zoomFitBtn = document.getElementById('zoom-fit-btn');
+    const slideWrapper = document.querySelector('.slide-wrapper');
+    let currentZoom = 0.72; // default 72%
+    let isDraggingZoom = false;
+
+    function setZoom(z) {
+      z = Math.max(0.1, Math.min(z, 2.0));
+      currentZoom = z;
+      const percent = (z - 0.1) / 1.9;
+      zoomThumb.style.left = `${percent * 100}%`;
+      zoomLabel.textContent = `${Math.round(z * 100)}%`;
+      if (slideWrapper) {
+        slideWrapper.style.transform = `scale(${z})`;
+        slideWrapper.style.transformOrigin = 'center center';
+        slideWrapper.style.transition = 'transform 0.1s ease-out';
+      }
+    }
+
+    zoomBar.addEventListener('mousedown', (e) => {
+      isDraggingZoom = true;
+      updateZoomFromEvent(e);
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if (!isDraggingZoom) return;
+      updateZoomFromEvent(e);
+    });
+    
+    document.addEventListener('mouseup', () => {
+      isDraggingZoom = false;
+    });
+
+    function updateZoomFromEvent(e) {
+      const rect = zoomBar.getBoundingClientRect();
+      let x = e.clientX - rect.left;
+      x = Math.max(0, Math.min(x, rect.width));
+      const percent = x / rect.width;
+      let z = 0.1 + (percent * 1.9);
+      setZoom(z);
+    }
+    
+    zoomOutBtn.addEventListener('click', () => setZoom(currentZoom - 0.1));
+    zoomInBtn.addEventListener('click', () => setZoom(currentZoom + 0.1));
+    zoomFitBtn.addEventListener('click', () => setZoom(0.72));
+
+    // Initialize zoom position
+    setZoom(currentZoom);
+
+    // ---- END ZOOM LOGIC ----
+
   </script>
 </body>
-</html>
+</html>

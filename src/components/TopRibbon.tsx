@@ -135,11 +135,11 @@ export const TopRibbon: React.FC<TopRibbonProps> = ({ onStartPresentation }) => 
           {/* Group: Font */}
           <div className="flex flex-col border-r border-[#444] pr-4 py-1 h-full justify-center gap-1 shrink-0">
             <div className="flex gap-1 mb-1">
-              <div className="bg-[#1f1f1f] border border-[#555] rounded px-2 py-0.5 text-xs flex justify-between items-center w-32 cursor-pointer">
-                Space Grotesk <ChevronDown size={10} />
+              <div className="bg-[#1f1f1f] border border-[#555] rounded px-2 py-0.5 text-xs flex justify-between items-center w-36 cursor-pointer">
+                Calibri (Body) <ChevronDown size={10} />
               </div>
               <div className="bg-[#1f1f1f] border border-[#555] rounded px-2 py-0.5 text-xs flex justify-between items-center w-12 cursor-pointer">
-                24 <ChevronDown size={10} />
+                18 <ChevronDown size={10} />
               </div>
             </div>
             <div className="flex gap-1 text-[#e1e1e1]">

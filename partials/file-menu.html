@@ -1,0 +1,101 @@
+    <!-- FILE MENU OVERLAY (BACKSTAGE) -->
+    <div id="file-menu-overlay">
+      <div class="file-sidebar">
+        <div class="file-back-btn" id="file-back-btn">
+          <i data-feather="arrow-left" style="color:white"></i>
+        </div>
+        <div class="file-nav-item active" id="file-nav-home" onclick="showFilePanel('home')"><i data-feather="home"></i> Home</div>
+        <div class="file-nav-item" onclick="showFilePanel('new')"><i data-feather="file-text"></i> New</div>
+        <div class="file-nav-item" style="margin-bottom:24px" onclick="showFilePanel('open')"><i data-feather="folder"></i> Open</div>
+        <div class="file-nav-item" onclick="showFilePanel('info')"><i data-feather="info"></i> Info</div>
+        <div class="file-nav-item" onclick="showFilePanel('save')"><i data-feather="save"></i> Save</div>
+        <div class="file-nav-item" onclick="showFilePanel('print')"><i data-feather="printer"></i> Print</div>
+        <div class="file-nav-item" style="margin-bottom:24px" onclick="showFilePanel('share')"><i data-feather="share-2"></i> Share</div>
+        <div style="flex:1"></div>
+        <div class="file-nav-item" id="file-nav-account" onclick="showFilePanel('account')"><i data-feather="user"></i> Account</div>
+        <div class="file-nav-item" onclick="showFilePanel('options')"><i data-feather="settings"></i> Options</div>
+      </div>
+      <div class="file-main" id="file-panel-home">
+        <h1 class="file-title">Home</h1>
+        <h2 style="font-size:20px; font-weight:500; border-bottom:1px solid #444; padding-bottom:8px; margin-bottom:16px;">Recent</h2>
+        <div class="recent-list">
+          <div class="recent-item">
+            <i data-feather="file-text" style="color:#c0392b"></i>
+            <div class="recent-item-info">
+              <span class="title">Akash_Developer_Portfolio.pptx</span>
+              <span class="path">C:\Users\AkashK\Desktop\PowerPoint Software Portfolio</span>
+            </div>
+            <span class="recent-item-time">Just now</span>
+          </div>
+          <div class="recent-item">
+            <i data-feather="file-text" style="color:#c0392b"></i>
+            <div class="recent-item-info">
+              <span class="title">Resume_2024.pdf</span>
+              <span class="path">C:\Users\AkashK\Documents</span>
+            </div>
+            <span class="recent-item-time">Yesterday, 4:20 PM</span>
+          </div>
+        </div>
+      </div>
+      <div class="file-main" id="file-panel-account" style="display:none">
+        <h1 class="file-title">Account</h1>
+        <div style="display:flex; gap:48px; flex:1;">
+          <!-- Left: User Info -->
+          <div style="flex:1; max-width:340px;">
+            <h3 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">User Information</h3>
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+              <div style="width:44px; height:44px; border-radius:50%; background:#c0392b; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; color:white; flex-shrink:0;">AK</div>
+              <div>
+                <div style="font-weight:600; color:var(--text-main); font-size:15px;">Akash Keote</div>
+                <div style="font-size:12px; color:var(--text-muted);">keoteakash179@gmail.com</div>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#7b61ff; cursor:pointer; margin-bottom:4px;">Sign out</div>
+            <div style="font-size:12px; color:#7b61ff; cursor:pointer; margin-bottom:24px;">Switch account</div>
+
+            <h3 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Account Privacy</h3>
+            <button style="background:var(--bg-card); color:var(--text-main); border:1px solid var(--border-color); padding:6px 14px; border-radius:4px; cursor:pointer; font-size:12px; margin-bottom:24px;">Manage Settings</button>
+
+            <h3 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Portfolio Theme:</h3>
+            <select style="background:var(--bg-card); color:var(--text-main); border:1px solid var(--border-color); padding:6px 10px; border-radius:4px; font-size:12px; margin-bottom:16px; width:200px;">
+              <option>Black</option>
+              <option>Dark Gray</option>
+              <option>Classic</option>
+              <option>Colorful</option>
+              <option>White</option>
+            </select>
+
+            <h3 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Connected Services:</h3>
+            <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-muted); margin-bottom:8px;"><span style="color:#0078d4; font-size:16px;">&#9729;</span> OneDrive &ndash; Personal<br><span style="color:var(--text-muted)">keoteakash179@gmail.com</span></div>
+          </div>
+          <!-- Right: Product Info -->
+          <div style="flex:1;">
+            <h3 style="font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px;">Product Information</h3>
+            <div style="font-size:42px; font-weight:800; color:#c0392b; margin-bottom:12px;">Portfolio</div>
+            <div style="font-size:15px; font-weight:600; color:var(--text-main); margin-bottom:4px;">Portfolio Home and Student 2024</div>
+            <div style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">This product contains</div>
+            <div style="display:flex; gap:12px; margin-bottom:20px;">
+              <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#0078d4,#004075); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:white;">W</div>
+              <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#217346,#0e3d22); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:white;">X</div>
+              <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#c0392b,#7b0e0e); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:white;">P</div>
+              <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#7719aa,#3d0a5a); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:white;">O</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="display:flex; align-items:center; gap:12px; padding:14px; background:var(--bg-hover); border-radius:6px;">
+                <i data-feather="refresh-cw" style="color:#7b61ff"></i>
+                <div><div style="font-size:13px; font-weight:600; color:var(--text-main);">Portfolio Updates</div><div style="font-size:11px; color:var(--text-muted);">Updates are automatically deployed and installed via Vercel.</div></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:12px; padding:14px; background:var(--bg-hover); border-radius:6px;">
+                <i data-feather="plus-circle" style="color:#c0392b"></i>
+                <div><div style="font-size:13px; font-weight:600; color:var(--text-main);">Get Add-Ins</div><div style="font-size:11px; color:var(--text-muted);">Find add-ins that add new functionality to Portfolio.</div></div>
+              </div>
+              <div style="display:flex; align-items:center; gap:12px; padding:14px; background:var(--bg-hover); border-radius:6px;">
+                <i data-feather="help-circle" style="color:#4a90d9"></i>
+                <div><div style="font-size:13px; font-weight:600; color:var(--text-main);">About Portfolio</div><div style="font-size:11px; color:var(--text-muted);">Version 2024 (Build 1.0.0 - Akash Keote Portfolio)</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+

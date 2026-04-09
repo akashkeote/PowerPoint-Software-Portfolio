@@ -2451,3 +2451,22 @@
     @media (max-width: 768px) {
       .ppt-context-menu { display: none !important; }
     }
+
+    /* ============================
+       RESPONSIVE: SMALL MONITOR HEIGHTS (13" MacBooks, Laptops)
+       Fixes overflow, clipping, and missing scroll in presentation mode
+    ============================ */
+    @media (max-height: 850px) {
+      /* Ensure scrollable slides don't clip at top when overflowing */
+      #presentation-mode .pres-slide.s-about,
+      #presentation-mode .pres-slide.s-skills,
+      #presentation-mode .pres-slide.s-projects,
+      #presentation-mode .pres-slide.s-contact {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        justify-content: flex-start !important;
+        padding-top: 50px !important;
+        padding-bottom: 60px !important;
+      }
+
+    }

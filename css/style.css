@@ -2315,3 +2315,139 @@
 }
 
 
+    /* ============================
+       RIGHT-CLICK CONTEXT MENU
+    ============================ */
+    .ppt-context-menu {
+      --ctx-bg: #2b2b3a;
+      --ctx-bg-hover: rgba(99, 102, 241, 0.15);
+      --ctx-text: #e1e1e8;
+      --ctx-text-dim: rgba(255,255,255,0.45);
+      --ctx-border: rgba(99, 102, 241, 0.2);
+      --ctx-accent: #818cf8;
+      --ctx-shadow: rgba(0, 0, 0, 0.45);
+
+      display: none;
+      position: fixed;
+      z-index: 999999;
+      min-width: 240px;
+      background: var(--ctx-bg);
+      border: 1px solid var(--ctx-border);
+      border-radius: 8px;
+      padding: 6px 0;
+      box-shadow: 0 8px 32px var(--ctx-shadow), 0 0 0 1px rgba(99,102,241,0.08);
+      font-family: 'Segoe UI', 'Inter', sans-serif;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    body:not(.dark-theme) .ppt-context-menu {
+      --ctx-bg: #ffffff;
+      --ctx-bg-hover: rgba(99, 102, 241, 0.08);
+      --ctx-text: #1a1a2e;
+      --ctx-text-dim: rgba(0,0,0,0.4);
+      --ctx-border: rgba(0, 0, 0, 0.12);
+      --ctx-accent: #6366f1;
+      --ctx-shadow: rgba(0, 0, 0, 0.15);
+    }
+
+    .ppt-context-menu.visible {
+      display: block;
+      animation: ctxMenuIn 0.08s ease-out;
+    }
+
+    @keyframes ctxMenuIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .ctx-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 16px 7px 14px;
+      cursor: pointer;
+      color: var(--ctx-text);
+      font-size: 12.5px;
+      font-weight: 400;
+      transition: background 0.1s ease, color 0.1s ease;
+      position: relative;
+    }
+
+    .ctx-item:hover {
+      background: var(--ctx-bg-hover);
+      color: var(--ctx-accent);
+    }
+
+    .ctx-item svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .ctx-item:hover svg {
+      opacity: 1;
+    }
+
+    .ctx-item span:first-of-type {
+      flex: 1;
+    }
+
+    .ctx-shortcut {
+      color: var(--ctx-text-dim);
+      font-size: 11px;
+      font-family: 'Segoe UI', monospace;
+      margin-left: auto;
+      flex: none !important;
+    }
+
+    .ctx-divider {
+      height: 1px;
+      background: var(--ctx-border);
+      margin: 4px 12px;
+    }
+
+    /* ---- Toast Notification ---- */
+    .ctx-toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: linear-gradient(135deg, #2b2b3a 0%, #1e1e2e 100%);
+      color: #e1e1e8;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 22px;
+      border-radius: 10px;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.35), 0 0 0 1px rgba(99,102,241,0.1);
+      z-index: 9999999;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    body:not(.dark-theme) .ctx-toast {
+      background: linear-gradient(135deg, #fff 0%, #f5f5ff 100%);
+      color: #1a1a2e;
+      border-color: rgba(99, 102, 241, 0.2);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+
+    .ctx-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .ctx-toast.hide {
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+    }
+
+    /* Hide context menu on mobile */
+    @media (max-width: 768px) {
+      .ppt-context-menu { display: none !important; }
+    }

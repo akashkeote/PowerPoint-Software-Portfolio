@@ -1,0 +1,73 @@
+.spiderman-web-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 160px;
+  z-index: 0;
+  pointer-events: none;
+  animation: web-wave 7s ease-in-out infinite alternate;
+}
+@keyframes web-wave {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-30px) scaleY(1.04); }
+  100% { transform: translateX(0); }
+}
+.spiderman-swing-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 160px;
+  pointer-events: none;
+  z-index: 1002;
+}
+.spiderman-swing {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 160px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  pointer-events: none;
+  animation: swing-spiderman 5s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
+  z-index: 2;
+}
+@keyframes swing-spiderman {
+  0% { transform: translateX(0) rotate(-12deg); }
+  50% { transform: translateX(calc(100vw - 120px)) rotate(12deg); }
+  100% { transform: translateX(0) rotate(-12deg); }
+}
+.spiderman-svg {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  transform: translateX(-50%);
+  filter: drop-shadow(2px 2px 0 #111);
+}
+.comic-bubble {
+  position: absolute;
+  left: 110%;
+  top: 40px;
+  background: #fff;
+  border: 3px solid #111;
+  border-radius: 18px;
+  box-shadow: 2px 2px 0 #111;
+  padding: 10px 22px;
+  font-family: 'Bebas Neue', 'Bangers', Impact, sans-serif;
+  font-size: 1.1rem;
+  color: #232946;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  pointer-events: none;
+}
+.comic-bubble .bubble-tail {
+  position: absolute;
+  left: -18px;
+  top: 32px;
+  z-index: 1;
+} 

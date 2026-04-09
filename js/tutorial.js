@@ -2,6 +2,21 @@
 (function() {
   'use strict';
 
+  // Preload cache for guide images
+  const imageCache = new Map();
+
+  function preloadImages(steps) {
+    const urls = new Set();
+    steps.forEach(s => { if (s.charImage) urls.add(s.charImage); });
+    urls.forEach(url => {
+      if (!imageCache.has(url)) {
+        const img = new Image();
+        img.src = url;
+        imageCache.set(url, img);
+      }
+    });
+  }
+
   // Tutorial steps configuration
   // Each step has: text, target (CSS selector to highlight), position of character
   const DESKTOP_STEPS = [
@@ -111,6 +126,10 @@
     steps = isMobile() ? MOBILE_STEPS : DESKTOP_STEPS;
     currentStep = 0;
     tutorialActive = true;
+
+    // Preload all step images into browser cache
+    preloadImages(steps);
+
     guide.classList.remove('fade-out');
     guide.classList.add('active');
     showStep(0);
@@ -157,12 +176,30 @@
     if (step.charImage) {
       const charImg = document.querySelector('#tutorial-character img');
       if (charImg) {
-        charImg.style.transition = 'opacity 0.25s ease';
+        charImg.style.transition = 'opacity 0.18s ease';
         charImg.style.opacity = '0';
         setTimeout(() => {
-          charImg.src = step.charImage;
-          charImg.style.opacity = '1';
-        }, 250);
+          // Check if image is already cached & decoded
+          const cached = imageCache.get(step.charImage);
+          if (cached && cached.complete && cached.naturalWidth > 0) {
+            // Image already loaded — swap instantly
+            charImg.src = step.charImage;
+            charImg.style.opacity = '1';
+          } else {
+            // Wait for image to fully load before revealing
+            const tempImg = new Image();
+            tempImg.onload = () => {
+              charImg.src = step.charImage;
+              charImg.style.opacity = '1';
+            };
+            tempImg.onerror = () => {
+              // Fallback: show anyway even if load fails
+              charImg.src = step.charImage;
+              charImg.style.opacity = '1';
+            };
+            tempImg.src = step.charImage;
+          }
+        }, 180);
       }
     }
 

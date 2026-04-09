@@ -1698,6 +1698,19 @@
       position: relative;
       z-index: 2;
     }
+
+    /* ---- Presentation Mode: Projects Slide — full page scroll ---- */
+    #presentation-mode .s-projects {
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    #presentation-mode .s-projects .nb-projects-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: none;
+      padding-bottom: 40px;
+    }
     .nb-project-card {
       position: relative;
       padding: 24px;

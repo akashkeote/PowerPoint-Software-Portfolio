@@ -27,7 +27,7 @@
   <script src="https://cdn.jsdelivr.net/npm/matter-wrap@0.2.0/build/matter-wrap.min.js" defer></script>
 
 
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/src/css/style.css" />
 </head>
 <body>
 
@@ -51,7 +51,7 @@
       <!-- Center Logo & Microsoft -->
       <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding-top: 24px;">
         <!-- PowerPoint 365 Logo -->
-        <img src="images/pptlogo.png" alt="PowerPoint Logo" width="80" height="80" style="object-fit: contain;">
+        <img src="/images/pptlogo.png" alt="PowerPoint Logo" width="80" height="80" style="object-fit: contain;">
 
         <!-- Microsoft 4-Color Logo -->
         <div style="display: flex; align-items: center; gap: 7px;">
@@ -77,36 +77,36 @@
   ============================= -->
   <div id="app">
 
-<include src="./partials/title-bar.html" />
-<include src="./partials/file-menu.html" />
-<include src="./partials/ribbon-tabs.html" />
+<include src="./src/partials/title-bar.html" />
+<include src="./src/partials/file-menu.html" />
+<include src="./src/partials/ribbon-tabs.html" />
     <!-- RIBBON TOOLBAR -->
-    <include src="./partials/ribbon-toolbar.html" />
+    <include src="./src/partials/ribbon-toolbar.html" />
     <div class="main-content">
 
       <!-- SIDEBAR -->
-      <include src="./partials/sidebar.html" />
+      <include src="./src/partials/sidebar.html" />
     <div class="canvas-area">
         <div class="slide-wrapper">
 
-                  <include src="./partials/slides/hero-slide.html" />
-        <include src="./partials/slides/about-slide.html" />
-        <include src="./partials/slides/skills-slide.html" />
-        <include src="./partials/slides/projects-slide.html" />
-          <include src="./partials/slides/contact-slide.html" />
+                  <include src="./src/partials/slides/hero-slide.html" />
+        <include src="./src/partials/slides/about-slide.html" />
+        <include src="./src/partials/slides/skills-slide.html" />
+        <include src="./src/partials/slides/projects-slide.html" />
+          <include src="./src/partials/slides/contact-slide.html" />
         </div>
       </div>
     </div>
 
-    <include src="./partials/status-bar.html" />
+    <include src="./src/partials/status-bar.html" />
   </div>
 
-        <include src="./partials/presentation-mode.html" />
+        <include src="./src/partials/presentation-mode.html" />
     <!-- AI CHATBOT UI -->
-            <include src="./partials/chat-bot.html" />
-    <include src="./partials/context-menu.html" />
-    <include src="./partials/tutorial-guide.html" />
-  <script type="module" src="/js/main.js"></script>
+            <include src="./src/partials/chat-bot.html" />
+    <include src="./src/partials/context-menu.html" />
+    <include src="./src/partials/tutorial-guide.html" />
+  <script type="module" src="/src/js/main.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7077330275935634" crossorigin="anonymous"></script>
 </body>
 </html>

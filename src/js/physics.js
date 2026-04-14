@@ -81,20 +81,20 @@
         }
       );
 
-      // Data URIs for Riccardo Zanutta style shapes
+      // Data URIs for Cool Tech Geometry
       const svgs = [
-        // Pink Squiggle
-        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 3 12 Q 7.5 3 12 12 T 21 12" fill="none" stroke="%23ff2a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        // Pink Triangle
-        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,3 21,20 3,20" fill="none" stroke="%23ff2a7a" stroke-width="2" stroke-linejoin="round"/></svg>',
-        // Pink Cross
-        'data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10,2 v16 M2,10 h16" fill="none" stroke="%23ff2a7a" stroke-width="2" stroke-linecap="round"/></svg>',
-        // White Arc
-        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 4 15 A 8 8 0 0 1 20 15" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round"/></svg>',
-        // White Triangle
-        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,3 21,20 3,20" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linejoin="round"/></svg>',
-        // Small Pink Circle
-        'data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="%23ff2a7a" stroke-width="2"/></svg>'
+        // Indigo Polygon (Hexagon)
+        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,2 21,7 21,17 12,22 3,17 3,7" fill="none" stroke="%234f46e5" stroke-width="2" stroke-linejoin="round"/></svg>',
+        // Cyan Triangle
+        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12,3 21,20 3,20" fill="none" stroke="%2306b6d4" stroke-width="2" stroke-linejoin="round"/></svg>',
+        // Purple Cross (Plus)
+        'data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10,2 v16 M2,10 h16" fill="none" stroke="%238b5cf6" stroke-width="2" stroke-linecap="round"/></svg>',
+        // Semi-transparent White/Gray Square
+        'data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="14" height="14" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linejoin="round"/></svg>',
+        // Soft Blue Circle
+        'data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" fill="none" stroke="%233b82f6" stroke-width="2"/></svg>',
+        // Subtle Transparent Asterisk
+        'data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,3 v18 M4.2,7.5 l15.6,9 M4.2,16.5 l15.6,-9" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/></svg>'
       ];
 
       // Hardcoded positions matching Riccardo Zanutta's edge-focused composition
@@ -378,4 +378,4 @@
       const skCanvas = document.getElementById('skills-canvas');
       if(skCanvas) initSkillsMatterPhysics('skills-canvas');
     }, 100);
-
+

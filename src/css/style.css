@@ -17,11 +17,6 @@ html.dark-theme-preload #boot-screen {
   background: #141414;
 }
 
-body {
-  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
-  overflow: hidden; /* Prevent body scroll, app is self-contained */
-}
-
 :root {
   /* Base / Core PPT Colors */
   --ppt-red: #c0392b;
@@ -1376,7 +1371,10 @@ body.dark-theme .contact-row .value {
 }
 
 body.dark-theme .contact-row {
-  background: rgba(25, 25, 40, 0.6) !important;
+  background: var(--okta-card-bg) !important;
+  backdrop-filter: var(--okta-card-blur) !important;
+  -webkit-backdrop-filter: var(--okta-card-blur) !important;
+  border: var(--okta-card-border) !important;
 }
 
 body.dark-theme .resume-btn {
@@ -2812,14 +2810,12 @@ body.dark-theme .s-contact {
 }
 
 .contact-row:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-3px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 body.dark-theme .contact-row:hover {
-  background: rgba(30, 35, 50, 0.6);
-  box-shadow: 0 8px 32px rgba(0, 246, 255, 0.06);
+  box-shadow: 0 8px 32px rgba(0, 246, 255, 0.08);
 }
 
 .contact-row i {
@@ -2849,10 +2845,10 @@ body.dark-theme .contact-row:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--okta-accent);
-  color: white;
+  background: #ffffff;
+  color: #000000;
   border: none;
-  border-radius: 30px;
+  border-radius: 50px;
   padding: 14px 32px;
   font-size: clamp(12px, 1.2vw, 15px);
   font-weight: 600;
@@ -2860,13 +2856,17 @@ body.dark-theme .contact-row:hover {
   position: relative;
   z-index: 2;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
   font-family: 'Poppins', sans-serif;
+}
+
+.resume-btn svg, .resume-btn i {
+  stroke: #000000 !important;
 }
 
 .resume-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
 }
 
 /* ============================
@@ -3576,20 +3576,10 @@ body:not(.dark-theme) #presentation-mode.is-transitioning #hero-scrub-canvas {
 }
 
 /* Cinematic Glass Glare Fix: Dim the main background canvas slightly in Dark Mode to balance the reflection on the glasses */
-/* Performance Optimization: Removed CSS 'filter' because applying filters to an actively updating 60fps canvas causes severe layout/paint lag. 'opacity' achieves a similar dimming effect but is GPU accelerated. */
 body.dark-theme #hero-scrub-canvas {
-  opacity: 0.85; 
-  transition: opacity 0.5s ease;
-  will-change: opacity, transform;
-  transform: translateZ(0); /* Force GPU compositing layer */
-  image-rendering: auto;
-}
-
-/* Mobile: full brightness background — no dimming needed since it's a static image */
-@media (max-width: 768px) {
-  body.dark-theme #hero-scrub-canvas {
-    opacity: 0.95;
-  }
+  filter: brightness(0.8) contrast(1.05) saturate(1.1);
+  transition: filter 0.5s ease;
+  will-change: transform; /* GPU acceleration hint for canvas rendering */
 }
 
 /* ============================
@@ -3647,18 +3637,18 @@ body.dark-theme #hero-scrub-canvas {
     100% { transform: translate(30px, -50px) scale(1.15); }
   }
 
-  /* On mobile, dark mode presentation slides — semi-transparent so background photo shows */
+  /* On mobile, dark mode presentation slides get a subtle semi-transparent bg instead of fully transparent */
   body.dark-theme #presentation-mode .pres-slide,
   body.dark-theme #presentation-mode .pres-slide.s-title,
   body.dark-theme #presentation-mode .pres-slide.s-about,
   body.dark-theme #presentation-mode .pres-slide.s-skills,
   body.dark-theme #presentation-mode .pres-slide.s-projects,
   body.dark-theme #presentation-mode .pres-slide.s-contact {
-    background: transparent !important;
+    background: rgba(5, 4, 15, 0.85) !important;
   }
 
-  /* Canvas on mobile renders at 50% resolution with static keyframes only */
+  /* Hide the canvas on mobile — it's set to display:none by JS too, this is a CSS fallback */
   #hero-scrub-canvas {
-    image-rendering: auto;
+    display: none !important;
   }
 }

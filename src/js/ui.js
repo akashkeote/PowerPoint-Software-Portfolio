@@ -69,22 +69,17 @@
         clearTimeout(window.presTransitionTimeout);
         window.presTransitionTimeout = setTimeout(() => {
           presModeEl.classList.remove('is-transitioning');
-        }, 1500);
+        }, 1500); // 1.5s visibility overlap during scrub
       }
 
       // Update target scrubber frame if defined globally or locally
       if (resetScrub && typeof window.virtualScrollPos !== 'undefined') {
-        const slideAnchors = [0, 43, 86, 129, 173];
-        const VIRTUAL_SCROLL_HEIGHT = 8000;
+        const slideAnchors = [0, 43, 87, 130, 173];
+        const VIRTUAL_SCROLL_HEIGHT = 4000;
         const SCRUB_TOTAL_FRAMES = 174;
         const targetFrame = slideAnchors[presSlide];
         window.virtualScrollPos = (targetFrame / (SCRUB_TOTAL_FRAMES - 1)) * VIRTUAL_SCROLL_HEIGHT;
         window.targetScrubFrame = targetFrame;
-      }
-
-      // Update mobile static background frame
-      if (typeof window.updateMobileScrubBackground === 'function') {
-        window.updateMobileScrubBackground(presSlide);
       }
     }
 
@@ -111,11 +106,6 @@
       const isDark = document.body.classList.toggle('dark-theme');
       localStorage.setItem('ppt-theme', isDark ? 'dark' : 'light');
       updateThemeIcon(isDark);
-      if (isDark) {
-        document.documentElement.classList.add('dark-theme-preload');
-      } else {
-        document.documentElement.classList.remove('dark-theme-preload');
-      }
     }
 
     function checkTheme() {
@@ -124,12 +114,10 @@
       // Default to dark mode ALWAYS unless user explicitly saved light mode
       if (savedTheme === 'light') {
         document.body.classList.remove('dark-theme');
-        document.documentElement.classList.remove('dark-theme-preload');
         updateThemeIcon(false);
       } else {
         // Dark mode by default for all devices
         document.body.classList.add('dark-theme');
-        document.documentElement.classList.add('dark-theme-preload');
         updateThemeIcon(true);
       }
     }
@@ -370,46 +358,43 @@
 
 
 
-
 // ==========================================
 // 🌌 CINEMATIC CANVAS SCRUBBER
+// ==========================================
+// 🌌 CINEMATIC CANVAS SCRUBBER (TRUE SCROLLYTELLING)
 // ==========================================
 window.virtualScrollPos = 0;
 window.targetScrubFrame = 0;
 
 (function initScrubber() {
   const SCRUB_TOTAL_FRAMES = 174;
-  const SCRUB_SMOOTHNESS = 0.1;
-  const VIRTUAL_SCROLL_HEIGHT = 8000;
-  const slideAnchors = [0, 43, 86, 129, 173];
+  const SCRUB_SMOOTHNESS = 0.08;
+  const VIRTUAL_SCROLL_HEIGHT = 4000;
+  const slideAnchors = [0, 43, 87, 130, 173];
   const IS_MOBILE = window.innerWidth <= 768;
-  
-  // DRASITC OPTIMIZATION FOR MOBILE: 
-  // Decode images at 65% resolution on phones. Set to 100% for desktop for maximum quality.
-  const CANVAS_SCALE = IS_MOBILE ? 0.65 : 1.0;
   
   const scrubImages = [];
   let currentScrubFrame = 0;
-  let lastDrawnFrame = -1;
   let scrubCanvas = document.getElementById('hero-scrub-canvas');
-  let scrubCtx = scrubCanvas ? scrubCanvas.getContext('2d', { alpha: false }) : null;
+  let scrubCtx = scrubCanvas ? scrubCanvas.getContext('2d') : null;
   let scrubberLoaded = false;
   let renderLoopRunning = false;
-  let isScrolling = false;
-  let scrollIdleTimer = null;
   let presModeEl = document.getElementById('presentation-mode');
+  let presProgress = document.querySelector('.pres-progress');
   
   if (!scrubCanvas || !scrubCtx) return;
 
-  function setCtxFast() {
-    scrubCtx.imageSmoothingEnabled = false;
+  // On mobile, hide the canvas entirely to avoid GPU strain
+  // The dark theme background is enough for mobile
+  if (IS_MOBILE) {
+    scrubCanvas.style.display = 'none';
+    return; // Skip ALL frame loading on mobile
   }
 
   function handleScrubResize() {
-    scrubCanvas.width = Math.round(window.innerWidth * CANVAS_SCALE);
-    scrubCanvas.height = Math.round(window.innerHeight * CANVAS_SCALE);
-    setCtxFast();
-    lastDrawnFrame = -1;
+    // Use devicePixelRatio-aware sizing but cap at 1x for performance
+    scrubCanvas.width = window.innerWidth;
+    scrubCanvas.height = window.innerHeight;
     drawScrubFrame(Math.round(currentScrubFrame));
   }
   
@@ -418,36 +403,29 @@ window.targetScrubFrame = 0;
 
   let loadedCount = 0;
   async function preloadScrubSequence() {
+    // Load keyframes first (slide anchors) for instant responsiveness
     const priorityFrames = [...slideAnchors];
     for (const index of priorityFrames) {
       await loadSingleFrame(index);
     }
+    // Start render loop after keyframes are ready
     if (!scrubberLoaded) {
       scrubberLoaded = true;
-      drawScrubFrame(Math.round(currentScrubFrame));
       startRenderLoop();
     }
 
-    const BATCH_SIZE = IS_MOBILE ? 2 : 3;
+    // Then load remaining frames in small batches
+    const BATCH_SIZE = 4;
     for (let i = 0; i < SCRUB_TOTAL_FRAMES; i += BATCH_SIZE) {
-      
-      // CRITICAL FIX: If the user is swiping, PAUSE background fetching so the thread doesn't lag!
-      if (isScrolling) {
-         await new Promise(r => setTimeout(r, 200));
-         i -= BATCH_SIZE; // retry
-         continue;
-      }
-
       const batchPromises = [];
       for (let j = 0; j < BATCH_SIZE && (i + j) < SCRUB_TOTAL_FRAMES; j++) {
         const index = i + j;
-        if (scrubImages[index]) continue;
+        if (scrubImages[index]) continue; // Skip already loaded keyframes
         batchPromises.push(loadSingleFrame(index));
       }
       await Promise.all(batchPromises);
-      
-      // Yield to main thread
-      await new Promise(r => setTimeout(r, IS_MOBILE ? 150 : 50));
+      // Yield to main thread between batches to prevent jank
+      await new Promise(r => setTimeout(r, 16));
     }
   }
 
@@ -456,10 +434,7 @@ window.targetScrubFrame = 0;
     const url = '/sequence/frame_' + num + '_delay-0.033s.webp';
     return fetch(url, { cache: 'force-cache' })
       .then(res => res.blob())
-      .then(blob => createImageBitmap(blob, {
-        resizeWidth: Math.round(1920 * CANVAS_SCALE),
-        resizeQuality: 'high'
-      }))
+      .then(blob => createImageBitmap(blob))
       .then(bitmap => {
         scrubImages[index] = bitmap;
         loadedCount++;
@@ -468,55 +443,41 @@ window.targetScrubFrame = 0;
   }
 
   preloadScrubSequence();
-
-  function handleScrubbingAction(e, rawDeltaY) {
-    const path = e.composedPath ? e.composedPath() : [];
+  
+  presModeEl.addEventListener('wheel', (e) => {
+    if (!presModeEl.classList.contains('active')) return;
+    
+    // Allow native scroll inside the projects grid if needed
+    const path = e.composedPath();
     const isProjectScroll = path.some(el => el.classList && el.classList.contains('s-projects'));
     const projGrid = document.querySelector('#presentation-mode .s-projects');
     
     if (isProjectScroll && projGrid) {
-        const isAtTop = projGrid.scrollTop <= 1;
-        const isAtBottom = Math.ceil(projGrid.scrollTop + projGrid.clientHeight) >= projGrid.scrollHeight - 1;
-        if ((rawDeltaY < 0 && !isAtTop) || (rawDeltaY > 0 && !isAtBottom)) return;
+        const isAtTop = projGrid.scrollTop <= 0;
+        const isAtBottom = projGrid.scrollTop + projGrid.clientHeight >= projGrid.scrollHeight - 2;
+        if ((e.deltaY < 0 && !isAtTop) || (e.deltaY > 0 && !isAtBottom)) {
+            return; // let native scroll happen
+        }
     }
     
-    if (e.cancelable) e.preventDefault();
+    e.preventDefault();
     
-    isScrolling = true;
-    clearTimeout(scrollIdleTimer);
-    scrollIdleTimer = setTimeout(() => { isScrolling = false; }, 200);
-    
-    window.virtualScrollPos += rawDeltaY;
+    // Smooth Virtual Scrolling Calculation
+    window.virtualScrollPos += e.deltaY;
     window.virtualScrollPos = Math.max(0, Math.min(window.virtualScrollPos, VIRTUAL_SCROLL_HEIGHT));
+    
     window.targetScrubFrame = (window.virtualScrollPos / VIRTUAL_SCROLL_HEIGHT) * (SCRUB_TOTAL_FRAMES - 1);
     
+    // Sync Slide purely based on background's progress state
     let mappedSlide = 0;
     for (let i = slideAnchors.length - 1; i >= 0; i--) {
        if (window.targetScrubFrame >= slideAnchors[i] - 11) { mappedSlide = i; break; }
     }
     
+    // Trigger visual change without hard resetting the frame anchor
     if (mappedSlide !== presSlide) {
         goToPresSlide(mappedSlide, false);
     }
-  }
-
-  presModeEl.addEventListener('wheel', (e) => {
-    if (!presModeEl.classList.contains('active')) return;
-    handleScrubbingAction(e, e.deltaY);
-  }, { passive: false });
-
-  let lastTouchY = 0;
-  presModeEl.addEventListener('touchstart', (e) => {
-    if (!presModeEl.classList.contains('active')) return;
-    lastTouchY = e.touches[0].clientY;
-  }, { passive: true });
-
-  presModeEl.addEventListener('touchmove', (e) => {
-    if (!presModeEl.classList.contains('active')) return;
-    const touchY = e.touches[0].clientY;
-    const deltaY = lastTouchY - touchY;
-    handleScrubbingAction(e, deltaY * 1.5);
-    lastTouchY = touchY;
   }, { passive: false });
 
   function startRenderLoop() {
@@ -527,13 +488,11 @@ window.targetScrubFrame = 0;
 
   function renderScrubberLoop() {
     if (presModeEl.classList.contains('active')) {
-       const delta = Math.abs(window.targetScrubFrame - currentScrubFrame);
-       if (delta > 0.01) {
-         currentScrubFrame += (window.targetScrubFrame - currentScrubFrame) * SCRUB_SMOOTHNESS;
-         currentScrubFrame = Math.max(0, Math.min(currentScrubFrame, SCRUB_TOTAL_FRAMES - 1));
-         const frameIndex = Math.round(currentScrubFrame);
-         if (frameIndex !== lastDrawnFrame) drawScrubFrame(frameIndex);
-       }
+       // Only interpolate towards the exact scrolling frame (No Ping Pong breathing!)
+       currentScrubFrame += (window.targetScrubFrame - currentScrubFrame) * SCRUB_SMOOTHNESS;
+       currentScrubFrame = Math.max(0, Math.min(currentScrubFrame, SCRUB_TOTAL_FRAMES - 1));
+       
+       drawScrubFrame(Math.round(currentScrubFrame));
     }
     requestAnimationFrame(renderScrubberLoop);
   }
@@ -541,18 +500,26 @@ window.targetScrubFrame = 0;
   function drawScrubFrame(index) {
     index = Math.max(0, Math.min(index, SCRUB_TOTAL_FRAMES - 1));
     let img = scrubImages[index];
+    
+    // If exact frame not loaded yet, find nearest loaded frame
     if (!img || img.width === 0) {
       for (let offset = 1; offset < SCRUB_TOTAL_FRAMES; offset++) {
-        if (scrubImages[index - offset] && scrubImages[index - offset].width > 0) { img = scrubImages[index - offset]; break; }
-        if (scrubImages[index + offset] && scrubImages[index + offset].width > 0) { img = scrubImages[index + offset]; break; }
+        if (scrubImages[index - offset] && scrubImages[index - offset].width > 0) {
+          img = scrubImages[index - offset];
+          break;
+        }
+        if (scrubImages[index + offset] && scrubImages[index + offset].width > 0) {
+          img = scrubImages[index + offset];
+          break;
+        }
       }
       if (!img || img.width === 0) return;
     }
+    
     const scale = Math.max(scrubCanvas.width / img.width, scrubCanvas.height / img.height);
     const x = (scrubCanvas.width / 2) - (img.width / 2) * scale;
     const y = (scrubCanvas.height / 2) - (img.height / 2) * scale;
+    
     scrubCtx.drawImage(img, x, y, img.width * scale, img.height * scale);
-    lastDrawnFrame = index;
   }
 })();
-

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 
 <head>
   <script>
     // Instant dark mode — prevents flash of light theme before CSS loads
-    (function(){
+    (function () {
       if (localStorage.getItem('ppt-theme') !== 'light') {
         document.documentElement.classList.add('dark-theme-preload');
       }
     })();
   </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akash K &ndash; PowerPoint Portfolio</title>
@@ -18,12 +19,12 @@
   <meta property="og:title" content="Akash Keote — Developer Portfolio" />
   <meta property="og:description"
     content="A unique PowerPoint-themed interactive portfolio by Akash Keote — Full Stack Developer & AI Engineer from Nagpur, India." />
-  <meta property="og:image" content="/images/preview.png" />
+  <meta property="og:image" content="https://akashkeote.vercel.app/images/preview.png" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Akash Keote — Developer Portfolio" />
   <meta name="twitter:description" content="A PowerPoint-themed interactive developer portfolio." />
-  <meta name="twitter:image" content="/images/preview.png" />
+  <meta name="twitter:image" content="https://akashkeote.vercel.app/images/preview.png" />
   <link rel="icon" type="image/svg+xml" href="/images/a-name-logo.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

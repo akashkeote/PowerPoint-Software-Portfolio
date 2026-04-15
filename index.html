@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+  <script>
+    // Instant dark mode — prevents flash of light theme before CSS loads
+    (function(){
+      if (localStorage.getItem('ppt-theme') !== 'light') {
+        document.documentElement.classList.add('dark-theme-preload');
+      }
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akash K &ndash; PowerPoint Portfolio</title>

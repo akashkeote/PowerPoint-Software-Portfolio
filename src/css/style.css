@@ -6,6 +6,22 @@
   padding: 0;
 }
 
+/* Instant dark mode preload — prevents white flash before body.dark-theme is applied */
+html.dark-theme-preload {
+  background: #141414;
+}
+html.dark-theme-preload body {
+  background: #141414;
+}
+html.dark-theme-preload #boot-screen {
+  background: #141414;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+  overflow: hidden; /* Prevent body scroll, app is self-contained */
+}
+
 :root {
   /* Base / Core PPT Colors */
   --ppt-red: #c0392b;
@@ -1399,8 +1415,8 @@ body.dark-theme .tag {
   display: none;
   position: fixed;
   inset: 0;
-  background: #f7f7f9;
-  color: #1d1d1f;
+  background: #ffffff;
+  color: #1a1a1a;
   z-index: 8888;
   align-items: center;
   justify-content: center;
@@ -1409,7 +1425,7 @@ body.dark-theme .tag {
 
 body.dark-theme #presentation-mode {
   background: #000000;
-  color: #f5f5f7;
+  color: #ffffff;
 }
 
 #presentation-mode.active {
@@ -1448,21 +1464,6 @@ body.dark-theme #presentation-mode {
   z-index: 2;
 }
 
-/* Apple Keynote Typography Setup */
-#presentation-mode * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-#presentation-mode h1,
-#presentation-mode h2,
-#presentation-mode h3 {
-  font-weight: 700;
-}
-
-#presentation-mode p {
-  font-weight: 400;
-  line-height: 1.6;
-}
 
 .pres-exit-hint {
   position: fixed;
@@ -3517,4 +3518,147 @@ body.dark-theme .contact-row svg,
 body.dark-theme #presentation-mode .contact-row svg {
   stroke: #ffffff !important;
   color: #ffffff !important;
+}
+/* Force Dark Mode UI inside Presentation Mode overrides */
+body.dark-theme #presentation-mode .stat-num,
+body.dark-theme #presentation-mode .s-skills .stat-card h3,
+body.dark-theme #presentation-mode .nb-project-card h2,
+body.dark-theme #presentation-mode .contact-title,
+body.dark-theme #presentation-mode .contact-row i {
+  color: #ffffff !important;
+}
+body.dark-theme #presentation-mode .stat-label,
+body.dark-theme #presentation-mode .s-skills .stat-card p,
+body.dark-theme #presentation-mode .nb-project-card p,
+body.dark-theme #presentation-mode .contact-subtitle,
+body.dark-theme #presentation-mode .contact-row .value,
+body.dark-theme #presentation-mode .contact-row .label {
+  color: #e2e6f0 !important;
+}
+body.dark-theme #presentation-mode .contact-row svg {
+   stroke: #ffffff !important; color: #ffffff !important;
+}
+
+body.dark-theme #presentation-mode #pres-slide-0 .hero-logo-large {
+  opacity: 0.15 !important;
+  mix-blend-mode: overlay;
+}
+
+body.dark-theme #presentation-mode .hero-text h1.text-gradient {
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Force presentation slides to be transparent ONLY IN DARK THEME so scrub canvas shows */
+body.dark-theme #presentation-mode .pres-slide,
+body.dark-theme #presentation-mode .pres-slide.s-title,
+body.dark-theme #presentation-mode .pres-slide.s-about,
+body.dark-theme #presentation-mode .pres-slide.s-skills,
+body.dark-theme #presentation-mode .pres-slide.s-projects,
+body.dark-theme #presentation-mode .pres-slide.s-contact {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Light Mode Canvas Overlay - Only visible during transition */
+body:not(.dark-theme) #hero-scrub-canvas {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 100; /* Stays above the slide background to be visible during transition */
+}
+
+body:not(.dark-theme) #presentation-mode.is-transitioning #hero-scrub-canvas {
+  opacity: 0.6; /* Vibrant colorful frame overlay */
+  mix-blend-mode: multiply;
+}
+
+/* Cinematic Glass Glare Fix: Dim the main background canvas slightly in Dark Mode to balance the reflection on the glasses */
+/* Performance Optimization: Removed CSS 'filter' because applying filters to an actively updating 60fps canvas causes severe layout/paint lag. 'opacity' achieves a similar dimming effect but is GPU accelerated. */
+body.dark-theme #hero-scrub-canvas {
+  opacity: 0.85; 
+  transition: opacity 0.5s ease;
+  will-change: opacity, transform;
+  transform: translateZ(0); /* Force GPU compositing layer */
+  image-rendering: auto;
+}
+
+/* Mobile: full brightness background — no dimming needed since it's a static image */
+@media (max-width: 768px) {
+  body.dark-theme #hero-scrub-canvas {
+    opacity: 0.95;
+  }
+}
+
+/* ============================
+   MOBILE: Dark mode animated gradient background for presentation mode
+   Replaces the heavy 88-frame canvas scrubber on mobile devices
+============================ */
+@media (max-width: 768px) {
+  /* Beautiful animated dark gradient as the presentation background on mobile */
+  body.dark-theme #presentation-mode {
+    background: radial-gradient(
+      ellipse at 20% 50%,
+      rgba(15, 10, 40, 1) 0%,
+      rgba(5, 4, 15, 1) 40%,
+      rgba(2, 1, 8, 1) 100%
+    ) !important;
+    overflow: hidden;
+  }
+
+  /* Subtle animated glow particles via pseudo-elements */
+  body.dark-theme #presentation-mode::before {
+    content: '';
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    z-index: 0;
+    pointer-events: none;
+    animation: mobileGlow1 8s ease-in-out infinite alternate;
+  }
+
+  body.dark-theme #presentation-mode::after {
+    content: '';
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
+    bottom: -80px;
+    left: -80px;
+    z-index: 0;
+    pointer-events: none;
+    animation: mobileGlow2 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes mobileGlow1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-40px, 60px) scale(1.2); }
+  }
+
+  @keyframes mobileGlow2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -50px) scale(1.15); }
+  }
+
+  /* On mobile, dark mode presentation slides — semi-transparent so background photo shows */
+  body.dark-theme #presentation-mode .pres-slide,
+  body.dark-theme #presentation-mode .pres-slide.s-title,
+  body.dark-theme #presentation-mode .pres-slide.s-about,
+  body.dark-theme #presentation-mode .pres-slide.s-skills,
+  body.dark-theme #presentation-mode .pres-slide.s-projects,
+  body.dark-theme #presentation-mode .pres-slide.s-contact {
+    background: transparent !important;
+  }
+
+  /* Canvas on mobile renders at 50% resolution with static keyframes only */
+  #hero-scrub-canvas {
+    image-rendering: auto;
+  }
 }

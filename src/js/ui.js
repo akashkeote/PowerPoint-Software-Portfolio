@@ -1,4 +1,3 @@
-
     const TOTAL_SLIDES = 5;
     let currentSlide = 0;
     let presSlide = 0;
@@ -11,6 +10,10 @@
     setTimeout(() => {
       bootStatus.textContent = 'Loading Akash_Developer_Portfolio.pptx...';
     }, 800);
+
+    setTimeout(() => {
+      bootStatus.textContent = 'Caching cinematic frames...';
+    }, 1600);
 
     setTimeout(() => {
       bootScreen.classList.add('fade-out');
@@ -377,9 +380,12 @@ window.targetScrubFrame = 0;
   const IS_MOBILE = window.innerWidth <= 768;
   const CACHE_NAME = 'ppt-scrub-frames-v1';
   
-  // Mobile: smaller batch, longer yield to avoid janking the UI
-  const BATCH_SIZE = IS_MOBILE ? 2 : 4;
-  const BATCH_YIELD_MS = IS_MOBILE ? 80 : 16;
+  // ---- TWO-PHASE BATCH CONFIG ----
+  // Boot phase: aggressive (UI hidden, full bandwidth)
+  // Post-boot: gentle (UI visible, avoid jank)
+  const BOOT_BATCH_SIZE = 8;
+  const POST_BOOT_BATCH_SIZE = IS_MOBILE ? 2 : 4;
+  const POST_BOOT_YIELD_MS = IS_MOBILE ? 80 : 16;
   
   const scrubImages = [];
   let currentScrubFrame = 0;
@@ -402,6 +408,10 @@ window.targetScrubFrame = 0;
   handleScrubResize();
 
   let loadedCount = 0;
+  let bootFinished = false;
+
+  // Boot screen lasts ~2.6s — go full speed until then
+  setTimeout(() => { bootFinished = true; }, 2600);
 
   // ---- CACHE-FIRST FRAME LOADING ----
   async function loadSingleFrame(index) {
@@ -435,8 +445,11 @@ window.targetScrubFrame = 0;
     }
   }
 
-  // ---- PROGRESSIVE LOADING STRATEGY ----
+  // ---- TWO-PHASE LOADING STRATEGY ----
+  // Phase 1 (BOOT): 8 parallel fetches, zero yield — max speed
+  // Phase 2 (UI VISIBLE): 2-4 parallel, yield between batches
   async function preloadScrubSequence() {
+    // Priority: 5 keyframes first for instant scrubber
     for (const index of slideAnchors) {
       await loadSingleFrame(index);
     }
@@ -445,19 +458,25 @@ window.targetScrubFrame = 0;
     drawScrubFrame(slideAnchors[0]);
     startRenderLoop();
 
-    for (let i = 0; i < SCRUB_TOTAL_FRAMES; i += BATCH_SIZE) {
+    // Load remaining — aggressive while boot screen covers UI
+    for (let i = 0; i < SCRUB_TOTAL_FRAMES;) {
+      const batchSize = bootFinished ? POST_BOOT_BATCH_SIZE : BOOT_BATCH_SIZE;
       const batchPromises = [];
-      for (let j = 0; j < BATCH_SIZE && (i + j) < SCRUB_TOTAL_FRAMES; j++) {
-        const index = i + j;
-        if (scrubImages[index]) continue;
-        batchPromises.push(loadSingleFrame(index));
+      
+      for (let j = 0; j < batchSize && i < SCRUB_TOTAL_FRAMES; j++, i++) {
+        if (scrubImages[i]) continue;
+        batchPromises.push(loadSingleFrame(i));
       }
+      
       if (batchPromises.length > 0) {
         await Promise.all(batchPromises);
-        await new Promise(r => setTimeout(r, BATCH_YIELD_MS));
+        // Only yield AFTER boot — during boot, go full speed
+        if (bootFinished) {
+          await new Promise(r => setTimeout(r, POST_BOOT_YIELD_MS));
+        }
       }
     }
-    console.log('[Scrubber] All ' + loadedCount + ' frames loaded' + (IS_MOBILE ? ' (mobile)' : ''));
+    console.log('[Scrubber] All ' + loadedCount + ' frames cached' + (IS_MOBILE ? ' (mobile)' : ''));
   }
 
   // ---- MOBILE SLIDE SYNC ----

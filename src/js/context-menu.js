@@ -121,11 +121,8 @@
         break;
       }
 
-      case 'guide-tour':
-        if (typeof window.startTutorialGuide === 'function') {
-          window.startTutorialGuide();
-        }
-        break;
+
+
 
       case 'view-source':
         window.open('https://github.com/TotalOverdose-ak', '_blank', 'noopener');

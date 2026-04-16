@@ -3,6 +3,8 @@
     let presSlide = 0;
 
     // ---- BOOT SEQUENCE ----
+    // Boot screen now WAITS until all cinematic frames are cached.
+    // The scrubber calls window.onAllFramesCached() when done.
     const bootStatus = document.getElementById('boot-status');
     const bootScreen = document.getElementById('boot-screen');
     const app = document.getElementById('app');
@@ -11,18 +13,38 @@
       bootStatus.textContent = 'Loading Akash_Developer_Portfolio.pptx...';
     }, 800);
 
-    setTimeout(() => {
-      bootStatus.textContent = 'Caching cinematic frames...';
-    }, 1600);
+    // Minimum boot screen time — even if cache is instant (e.g. revisit),
+    // show the brand for at least 1.8s so it doesn't flash.
+    let minBootTimePassed = false;
+    setTimeout(() => { minBootTimePassed = true; }, 1800);
 
-    setTimeout(() => {
+    function finishBoot() {
       bootScreen.classList.add('fade-out');
       app.classList.add('visible');
-    }, 2600);
+      setTimeout(() => { bootScreen.style.display = 'none'; }, 500);
+    }
 
-    setTimeout(() => {
-      bootScreen.style.display = 'none';
-    }, 3100);
+    // Called by the scrubber when ALL frames are cached
+    window.onAllFramesCached = function () {
+      if (minBootTimePassed) {
+        finishBoot();
+      } else {
+        // Wait for minimum brand visibility, then finish
+        const checkInterval = setInterval(() => {
+          if (minBootTimePassed) {
+            clearInterval(checkInterval);
+            finishBoot();
+          }
+        }, 100);
+      }
+    };
+
+    // Update boot status text with live progress
+    window.updateBootProgress = function (loaded, total) {
+      if (bootStatus) {
+        bootStatus.textContent = 'Caching cinematic frames... ' + loaded + '/' + total;
+      }
+    };
 
     // ---- SLIDE NAVIGATION (EDITOR) ----
     function goToSlide(n) {
@@ -295,7 +317,8 @@
       }
     }
 
-    setTimeout(checkMobileMode, 3200);
+    // Mobile mode is triggered after boot completes (via onAllFramesCached)
+    window.addEventListener('bootComplete', checkMobileMode);
 
     // Swipe Tutorial Logic — show once per visitor on mobile
     function showSwipeTutorial() {
@@ -380,13 +403,6 @@ window.targetScrubFrame = 0;
   const IS_MOBILE = window.innerWidth <= 768;
   const CACHE_NAME = 'ppt-scrub-frames-v1';
   
-  // ---- TWO-PHASE BATCH CONFIG ----
-  // Boot phase: aggressive (UI hidden, full bandwidth)
-  // Post-boot: gentle (UI visible, avoid jank)
-  const BOOT_BATCH_SIZE = 8;
-  const POST_BOOT_BATCH_SIZE = IS_MOBILE ? 2 : 4;
-  const POST_BOOT_YIELD_MS = IS_MOBILE ? 80 : 16;
-  
   const scrubImages = [];
   let currentScrubFrame = 0;
   let scrubCanvas = document.getElementById('hero-scrub-canvas');
@@ -398,20 +414,56 @@ window.targetScrubFrame = 0;
   
   if (!scrubCanvas || !scrubCtx) return;
 
-  function handleScrubResize() {
-    scrubCanvas.width = window.innerWidth;
-    scrubCanvas.height = window.innerHeight;
-    drawScrubFrame(Math.round(currentScrubFrame));
+  // ---- BULLETPROOF MOBILE CANVAS SIZE ----
+  // Mobile browsers change window.innerHeight by 50-100px when the address
+  // bar shows/hides on scroll. This causes the canvas buffer to resize,
+  // making frames appear mota (thick) → patla (thin) constantly.
+  //
+  // FIX: On mobile, set canvas height to screen.availHeight (the MAXIMUM
+  // possible viewport height) ONCE on load and NEVER touch it again.
+  // Only re-measure on orientation change (detected by width change).
+  // The CSS `position:fixed; inset:0` handles visual clipping perfectly.
+
+  function getStableCanvasSize() {
+    if (IS_MOBILE) {
+      // Use the largest possible height the device can show.
+      // screen.availHeight is stable — doesn't change with address bar.
+      const maxH = Math.max(
+        window.screen.availHeight || 0,
+        window.screen.height || 0,
+        window.innerHeight || 0
+      );
+      return { w: window.innerWidth, h: maxH };
+    }
+    return { w: window.innerWidth, h: window.innerHeight };
   }
-  
-  window.addEventListener('resize', handleScrubResize);
-  handleScrubResize();
+
+  let canvasSize = getStableCanvasSize();
+  scrubCanvas.width = canvasSize.w;
+  scrubCanvas.height = canvasSize.h;
+
+  // Track last width to detect real orientation changes
+  let lastKnownWidth = canvasSize.w;
+
+  window.addEventListener('resize', () => {
+    if (IS_MOBILE) {
+      // ONLY resize on orientation change — detected by width change
+      const currentWidth = window.innerWidth;
+      if (Math.abs(currentWidth - lastKnownWidth) < 2) return; // height-only change — IGNORE
+      lastKnownWidth = currentWidth;
+      canvasSize = getStableCanvasSize();
+      scrubCanvas.width = canvasSize.w;
+      scrubCanvas.height = canvasSize.h;
+      drawScrubFrame(Math.round(currentScrubFrame));
+    } else {
+      // Desktop — normal resize
+      scrubCanvas.width = window.innerWidth;
+      scrubCanvas.height = window.innerHeight;
+      drawScrubFrame(Math.round(currentScrubFrame));
+    }
+  });
 
   let loadedCount = 0;
-  let bootFinished = false;
-
-  // Boot screen lasts ~2.6s — go full speed until then
-  setTimeout(() => { bootFinished = true; }, 2600);
 
   // ---- CACHE-FIRST FRAME LOADING ----
   async function loadSingleFrame(index) {
@@ -440,43 +492,56 @@ window.targetScrubFrame = 0;
       const bitmap = await createImageBitmap(blob);
       scrubImages[index] = bitmap;
       loadedCount++;
+      
+      // Report progress to boot screen
+      if (typeof window.updateBootProgress === 'function') {
+        window.updateBootProgress(loadedCount, SCRUB_TOTAL_FRAMES);
+      }
     } catch (err) {
       console.log('Frame skip: ' + index);
+      loadedCount++; // Count skipped frames too so boot doesn't hang
     }
   }
 
-  // ---- TWO-PHASE LOADING STRATEGY ----
-  // Phase 1 (BOOT): 8 parallel fetches, zero yield — max speed
-  // Phase 2 (UI VISIBLE): 2-4 parallel, yield between batches
+  // ---- AGGRESSIVE FULL-CACHE DURING BOOT ----
+  // ALL 174 frames are downloaded during the boot screen at maximum speed.
+  // Boot screen stays visible until every frame is cached.
+  // Concurrency: 16 parallel on desktop, 10 on mobile — zero yield.
+  const BOOT_CONCURRENCY = IS_MOBILE ? 10 : 16;
+
   async function preloadScrubSequence() {
-    // Priority: 5 keyframes first for instant scrubber
-    for (const index of slideAnchors) {
-      await loadSingleFrame(index);
-    }
+    // Phase 1: Load 5 keyframes first (one per slide) for instant scrubber
+    const keyframePromises = slideAnchors.map(idx => loadSingleFrame(idx));
+    await Promise.all(keyframePromises);
     
     scrubberLoaded = true;
     drawScrubFrame(slideAnchors[0]);
     startRenderLoop();
 
-    // Load remaining — aggressive while boot screen covers UI
-    for (let i = 0; i < SCRUB_TOTAL_FRAMES;) {
-      const batchSize = bootFinished ? POST_BOOT_BATCH_SIZE : BOOT_BATCH_SIZE;
-      const batchPromises = [];
-      
-      for (let j = 0; j < batchSize && i < SCRUB_TOTAL_FRAMES; j++, i++) {
-        if (scrubImages[i]) continue;
-        batchPromises.push(loadSingleFrame(i));
-      }
-      
-      if (batchPromises.length > 0) {
-        await Promise.all(batchPromises);
-        // Only yield AFTER boot — during boot, go full speed
-        if (bootFinished) {
-          await new Promise(r => setTimeout(r, POST_BOOT_YIELD_MS));
-        }
-      }
+    // Phase 2: Load ALL remaining frames at maximum concurrency
+    // Build list of frames that still need loading (skip keyframes already loaded)
+    const remaining = [];
+    for (let i = 0; i < SCRUB_TOTAL_FRAMES; i++) {
+      if (!scrubImages[i]) remaining.push(i);
     }
+
+    // Fire batches with zero yield — boot screen covers any jank
+    for (let i = 0; i < remaining.length;) {
+      const batch = [];
+      for (let j = 0; j < BOOT_CONCURRENCY && i < remaining.length; j++, i++) {
+        batch.push(loadSingleFrame(remaining[i]));
+      }
+      await Promise.all(batch);
+    }
+
     console.log('[Scrubber] All ' + loadedCount + ' frames cached' + (IS_MOBILE ? ' (mobile)' : ''));
+    
+    // Signal boot screen that caching is complete
+    if (typeof window.onAllFramesCached === 'function') {
+      window.onAllFramesCached();
+    }
+    // Dispatch event for other listeners (e.g. mobile mode)
+    window.dispatchEvent(new Event('bootComplete'));
   }
 
   // ---- MOBILE SLIDE SYNC ----
@@ -558,9 +623,15 @@ window.targetScrubFrame = 0;
       if (!img || img.width === 0) return;
     }
     
-    const scale = Math.max(scrubCanvas.width / img.width, scrubCanvas.height / img.height);
-    const x = (scrubCanvas.width / 2) - (img.width / 2) * scale;
-    const y = (scrubCanvas.height / 2) - (img.height / 2) * scale;
+    // Clear previous frame to prevent ghosting/stretching artifacts
+    scrubCtx.clearRect(0, 0, scrubCanvas.width, scrubCanvas.height);
+    
+    // Use stable dimensions for scaling (not live window size)
+    const cW = scrubCanvas.width;
+    const cH = scrubCanvas.height;
+    const scale = Math.max(cW / img.width, cH / img.height);
+    const x = (cW / 2) - (img.width / 2) * scale;
+    const y = (cH / 2) - (img.height / 2) * scale;
     
     scrubCtx.drawImage(img, x, y, img.width * scale, img.height * scale);
   }

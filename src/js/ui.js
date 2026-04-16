@@ -385,6 +385,7 @@
           goToPresSlide(presSlide - 1); // swipe right = prev
         }
       }
+      // Note: Vertical swiping is now handled by the scrubber touchmove logic
     }, { passive: true });
 
 
@@ -545,36 +546,43 @@ window.targetScrubFrame = 0;
   }
 
   // ---- MOBILE SLIDE SYNC ----
+  // ---- MOBILE SLIDE SYNC (PROGRAMMATIC) ----
   window.mobileScrubToSlide = function(slideIndex) {
     if (!scrubberLoaded) return;
     const targetFrame = slideAnchors[Math.max(0, Math.min(slideIndex, slideAnchors.length - 1))];
     window.targetScrubFrame = targetFrame;
-    if (IS_MOBILE) {
-      currentScrubFrame = targetFrame;
-      drawScrubFrame(targetFrame);
-    }
+    // On mobile, also update the virtual scroll position so dragging continues smoothly from here
+    window.virtualScrollPos = (targetFrame / (SCRUB_TOTAL_FRAMES - 1)) * VIRTUAL_SCROLL_HEIGHT;
   };
 
   preloadScrubSequence();
   
-  // ---- DESKTOP: WHEEL SCRUBBING ----
-  presModeEl.addEventListener('wheel', (e) => {
+  // ---- DESKTOP & MOBILE: SCROLL/DRAG SCRUBBING ----
+  
+  // Scrubber calculation logic (shared by wheel and touch)
+  function handleScrubDelta(deltaY, e) {
     if (!presModeEl.classList.contains('active')) return;
     
-    const path = e.composedPath();
+    // Check if we are scrolling inside a project box (prevent main scrubbing if so)
+    const path = e.composedPath ? e.composedPath() : (e.path || []);
     const isProjectScroll = path.some(el => el.classList && el.classList.contains('s-projects'));
     const projGrid = document.querySelector('#presentation-mode .s-projects');
     
     if (isProjectScroll && projGrid) {
         const isAtTop = projGrid.scrollTop <= 0;
         const isAtBottom = projGrid.scrollTop + projGrid.clientHeight >= projGrid.scrollHeight - 2;
-        if ((e.deltaY < 0 && !isAtTop) || (e.deltaY > 0 && !isAtBottom)) {
+        if ((deltaY < 0 && !isAtTop) || (deltaY > 0 && !isAtBottom)) {
             return;
         }
     }
     
-    e.preventDefault();
-    window.virtualScrollPos += e.deltaY;
+    if (e.cancelable) e.preventDefault();
+    
+    // 1px wheel scroll delta approx = 1px touch drag delta.
+    // Multiply touch delta by 2.5 for mobile to make it feel faster and less tiring.
+    const multiplier = e.type === 'touchmove' ? 2.5 : 1;
+    
+    window.virtualScrollPos += deltaY * multiplier;
     window.virtualScrollPos = Math.max(0, Math.min(window.virtualScrollPos, VIRTUAL_SCROLL_HEIGHT));
     window.targetScrubFrame = (window.virtualScrollPos / VIRTUAL_SCROLL_HEIGHT) * (SCRUB_TOTAL_FRAMES - 1);
     
@@ -585,6 +593,30 @@ window.targetScrubFrame = 0;
     
     if (mappedSlide !== presSlide) {
         goToPresSlide(mappedSlide, false);
+    }
+  }
+
+  // 1. Mouse Wheel (Desktop)
+  presModeEl.addEventListener('wheel', (e) => {
+    handleScrubDelta(e.deltaY, e);
+  }, { passive: false });
+
+  // 2. Touch Drag (Mobile)
+  let scrubTouchLastY = 0;
+  
+  presModeEl.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) scrubTouchLastY = e.touches[0].clientY;
+  }, { passive: true });
+
+  presModeEl.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 0) return;
+    const currentY = e.touches[0].clientY;
+    const deltaY = scrubTouchLastY - currentY; // Moving finger UP means scrolling DOWN (positive delta)
+    scrubTouchLastY = currentY;
+    
+    // Only scrub if dominant movement is vertical
+    if (Math.abs(deltaY) > 2) {
+      handleScrubDelta(deltaY, e);
     }
   }, { passive: false });
 

@@ -1,7 +1,8 @@
 import '../css/style.css';
-import './physics.js';
+import './physics/index.js';
 import './chat.js';
 import './context-menu.js';
+import './tutorial/index.js';
 
 // MVC Controllers
 import { initBootSequence } from './modules/boot-controller.js';
@@ -11,7 +12,7 @@ import { initPresentationController } from './modules/presentation-controller.js
 import { initRibbonController } from './modules/ribbon-controller.js';
 import { initFileMenuController } from './modules/file-menu-controller.js';
 import { initZoomController } from './modules/zoom-controller.js';
-import { initScrollytellingController } from './modules/scrollytelling-controller.js';
+import { initScrollytellingController } from './modules/scrollytelling/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initBootSequence();

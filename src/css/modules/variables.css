@@ -1,0 +1,3332 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Instant dark mode preload — prevents white flash before body.dark-theme is applied */
+html.dark-theme-preload {
+  background: #141414;
+}
+html.dark-theme-preload body {
+  background: #141414;
+}
+html.dark-theme-preload #boot-screen {
+  background: #141414;
+}
+
+:root {
+  /* Base / Core PPT Colors */
+  --ppt-red: #c0392b;
+  --ppt-orange: #e55039;
+
+  /* Light Theme (Glassy + Pastel) Defaults */
+  --bg-dark: rgba(255, 255, 255, 0.85);
+  --bg-darker: #FEFFF0;
+  /* Pastel Cream */
+  --bg-ribbon: rgba(245, 247, 255, 0.9);
+  --bg-sidebar: rgba(240, 242, 250, 0.8);
+  --border: rgba(99, 102, 241, 0.12);
+  --text-main: #232946;
+  --text-dim: #555;
+  --text-muted: #888;
+  --slide-bg: #FEFFF0;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-blur: blur(12px);
+  --highlight: #6366f1;
+  --box-shadow: rgba(99, 102, 241, 0.15);
+
+  /* Pastel Brutalist Slide Token (Light Mode) */
+  --brutal-bg: #fff;
+  --brutal-border: 3px solid #111;
+  --brutal-shadow: 6px 6px 0px 0px #111;
+  --brutal-hover-shadow: 8px 8px 0px 0px #111;
+  --brutal-text: #111;
+  --brutal-text-dim: #444;
+
+  /* Okta-style Design Tokens */
+  --okta-bg: linear-gradient(180deg, #f8faff 0%, #f0f4ff 50%, #ebe8ff 100%);
+  --okta-card-bg: rgba(255, 255, 255, 0.8);
+  --okta-card-border: 1px solid rgba(99, 102, 241, 0.1);
+  --okta-card-shadow: 0 4px 24px rgba(99, 102, 241, 0.06);
+  --okta-card-radius: 18px;
+  --okta-card-blur: blur(18px);
+  --okta-heading-color: #1a1a2e;
+  --okta-text-color: #232946;
+  --okta-text-dim: #555;
+  --okta-accent: #6366f1;
+  --okta-accent-warm: #e8956a;
+}
+
+body.dark-theme {
+  /* Dark Theme (HooBank Cyberpunk) Overrides */
+  --bg-dark: #1f1f1f;
+  --bg-darker: #141414;
+  --bg-ribbon: #2d2d2d;
+  --bg-sidebar: #252525;
+  --border: #3a3a3a;
+  --text-main: #e8e8e8;
+  --text-dim: #ccc;
+  --text-muted: #aaa;
+  --slide-bg: #00040f;
+  --glass-bg: rgba(0, 0, 0, 0.7);
+  --glass-blur: blur(0px);
+  /* Remove blur for dark mode to save performance / match old dark mode */
+  --highlight: #00f6ff;
+  --box-shadow: rgba(0, 246, 255, 0.1);
+
+  /* Reset Brutalist tokens for dark mode */
+  --brutal-bg: rgba(255, 255, 255, 0.03);
+  --brutal-border: 3px solid #00f6ff;
+  --brutal-shadow: 6px 6px 0px 0px #00f6ff;
+  --brutal-hover-shadow: 6px 6px 0px 0px #00f6ff;
+  --brutal-text: #fff;
+  --brutal-text-dim: rgba(255, 255, 255, 0.6);
+
+  /* Ultra-Premium Dark Mode Overrides */
+  --okta-bg: radial-gradient(circle at 10% 20%, #0d0a18, #050409 50%, #020104 100%);
+  --okta-card-bg: rgba(20, 25, 40, 0.4);
+  --okta-card-border: 1px solid rgba(255, 255, 255, 0.05);
+  --okta-card-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.03);
+  --okta-card-blur: 24px;
+  --okta-heading-color: #f0f0f5;
+  --okta-text-color: #e2e6f0;
+  --okta-text-dim: #a1abc4;
+  --okta-accent: #9a86ff;
+  --okta-accent-warm: #ff917e;
+  animation: none;
+}
+
+body::before {
+  display: none;
+}
+
+body.dark-theme::before {
+  display: none;
+  /* Disable noisy radial gradient that ruined standard PPT dark mode */
+}
+
+/* ============================
+       HOOBANK DESIGN TOKENS
+    ============================ */
+.font-poppins {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.text-gradient {
+  background: radial-gradient(64.18% 64.18% at 71.16% 35.69%,
+      #def9fa 0.89%,
+      #bef3f5 17.23%,
+      #9dedf0 42.04%,
+      #7de7eb 55.12%,
+      #5ce1e6 71.54%,
+      #33bbcf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-blue-gradient {
+  background: linear-gradient(157.81deg,
+      #def9fa -43.27%,
+      #bef3f5 -21.24%,
+      #9dedf0 12.19%,
+      #7de7eb 29.82%,
+      #5ce1e6 51.94%,
+      #33bbcf 90.29%);
+}
+
+.bg-black-gradient {
+  background: linear-gradient(144.39deg,
+      #ffffff -278.56%,
+      #6d6d6d -78.47%,
+      #11101d 91.61%);
+}
+
+.bg-black-gradient-2 {
+  background: linear-gradient(-168.39deg,
+      #ffffff -278.56%,
+      #6d6d6d -78.47%,
+      #11101d 91.61%);
+}
+
+.bg-discount-gradient {
+  background: linear-gradient(125.17deg, #272727 0%, #11101d 100%);
+}
+
+.feedback-card {
+  background: transparent;
+  border-radius: 20px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-card:hover {
+  background: var(--black-gradient, linear-gradient(144.39deg, #ffffff -278.56%, #6d6d6d -78.47%, #11101d 91.61%));
+  box-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+}
+
+/* ============================
+       BOOT SCREEN
+    ============================ */
+#boot-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#boot-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+.boot-card {
+  background: var(--ppt-red);
+  width: 560px;
+  height: 340px;
+  border-radius: 6px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 24px;
+  animation: bootSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes bootSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.boot-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ms-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ms-logo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 18px;
+  height: 18px;
+}
+
+.ms-logo-grid span {
+  background: white;
+  border-radius: 1px;
+}
+
+.boot-win-controls {
+  display: flex;
+  gap: 16px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+}
+
+.boot-center {
+  text-align: center;
+}
+
+.boot-center h1 {
+  font-size: 52px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.boot-center p {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 16px;
+  margin-top: 8px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.boot-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boot-status {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+.boot-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.boot-dot {
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: dotPulse 1.2s infinite;
+}
+
+.boot-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.boot-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.6);
+    opacity: 1;
+  }
+}
+
+/* ============================
+       MAIN APP SHELL
+    ============================ */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: relative;
+  z-index: 1;
+}
+
+#app.visible {
+  opacity: 1;
+}
+
+/* ============================
+       TITLE BAR
+    ============================ */
+.title-bar {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 6px;
+  flex-shrink: 0;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.ppt-icon {
+  width: 22px;
+  height: 22px;
+  background: var(--ppt-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: white;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.autosave-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.autosave-btn:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.toggle {
+  width: 28px;
+  height: 14px;
+  background: #bbb;
+  border-radius: 7px;
+  position: relative;
+}
+
+.toggle::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #6366f1;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: left 0.15s;
+}
+
+.sep {
+  color: #aaa;
+  padding: 0 4px;
+}
+
+body.dark-theme .sep {
+  color: #666;
+}
+
+body.dark-theme .search-box {
+  background: rgba(60, 60, 70, 0.8);
+  border-color: rgba(120, 120, 160, 0.25);
+}
+
+body.dark-theme .search-box span {
+  color: #aaa;
+}
+
+.tb-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.tb-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #555;
+  font-size: 12px;
+}
+
+.tb-icon:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+body.dark-theme .tb-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.title-bar-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 4px;
+  padding: 4px 12px;
+  width: clamp(160px, 28vw, 400px);
+  cursor: text;
+}
+
+.search-box:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+body.dark-theme .search-box:hover {
+  background: #3a3a3a;
+}
+
+.search-box span {
+  color: #555;
+  font-size: 11px;
+}
+
+.search-icon {
+  font-size: 12px;
+  color: #6366f1;
+}
+
+.title-text {
+  color: var(--text-dim);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+body.dark-theme .title-text {
+  color: #ddd;
+  font-weight: 500;
+}
+
+body.dark-theme .autosave-btn {
+  color: #ccc;
+}
+
+body.dark-theme .tb-icon {
+  color: #ccc;
+}
+
+.title-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.user-badge {
+  width: 28px;
+  height: 28px;
+  background: #6366f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.win-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  color: #666;
+}
+
+.win-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+body.dark-theme .win-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.win-btn.close:hover {
+  background: #c42b1c;
+  color: white;
+}
+
+/* ============================
+       RIBBON TABS
+    ============================ */
+.ribbon-tabs {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 6px;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.ribbon-tabs::-webkit-scrollbar {
+  height: 0;
+}
+
+.ribbon-tab {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--text-main);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  border-radius: 3px 3px 0 0;
+  transition: color 0.1s, background 0.1s;
+  font-weight: 400;
+}
+
+.ribbon-tab:hover {
+  color: var(--highlight);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.ribbon-tab.active {
+  color: var(--highlight);
+  font-weight: 600;
+}
+
+.ribbon-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: var(--ppt-red);
+  border-radius: 3px 3px 0 0;
+}
+
+/* ============================
+       RIBBON TOOLBAR
+    ============================ */
+.ribbon-toolbar {
+  background: var(--bg-ribbon);
+  backdrop-filter: var(--glass-blur);
+  height: 88px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.ribbon-tab-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 12px;
+  gap: 4px;
+  width: max-content;
+}
+
+.ribbon-toolbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ribbon-toolbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ribbon-toolbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.5);
+  border-radius: 3px;
+}
+
+.ribbon-toolbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.8);
+}
+
+.ribbon-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 12px;
+  margin-right: 8px;
+  border-right: 1px solid rgba(99, 102, 241, 0.15);
+  height: 72px;
+}
+
+.ribbon-group:last-child {
+  border-right: none;
+}
+
+.ribbon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  color: var(--text-main);
+  transition: background 0.2s;
+  min-width: 44px;
+  cursor: pointer;
+}
+
+.ribbon-btn svg {
+  /* don't force 32px; allow each group to specify */
+  flex-shrink: 0;
+}
+
+.ribbon-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.ribbon-btn .icon {
+  font-size: 32px;
+  color: var(--text-main);
+}
+
+.ribbon-btn .label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-main);
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.ribbon-btn.primary {
+  cursor: pointer;
+}
+
+.ribbon-btn.primary .icon {
+  color: var(--ppt-red);
+}
+
+.ribbon-btn.primary .label {
+  color: var(--ppt-red);
+  font-weight: 600;
+  font-size: 10.5px;
+}
+
+.ribbon-btn.primary:hover {
+  background: rgba(192, 57, 43, 0.15);
+}
+
+/* Dark Mode SVG Overrides */
+body.dark-theme .ribbon-btn svg [stroke="#bbb"],
+body.dark-theme .ribbon-btn svg [stroke="#ccc"],
+body.dark-theme .ribbon-btn svg [stroke="#aaa"],
+body.dark-theme .ribbon-btn svg [stroke="#555"],
+body.dark-theme .ribbon-btn svg [stroke="#777"] {
+  stroke: #d0d0d0;
+}
+
+body.dark-theme .ribbon-btn svg [fill="#bbb"],
+body.dark-theme .ribbon-btn svg [fill="#ccc"],
+body.dark-theme .ribbon-btn svg [fill="#aaa"],
+body.dark-theme .ribbon-btn svg [fill="#555"],
+body.dark-theme .ribbon-btn svg [fill="#777"],
+body.dark-theme .ribbon-btn svg [fill="#888"],
+body.dark-theme .ribbon-btn svg [fill="#999"] {
+  fill: #d0d0d0;
+}
+
+body.dark-theme .ribbon-btn svg [stroke="#e8e8e8"],
+body.dark-theme .ribbon-btn svg [stroke="#f0f0f0"] {
+  stroke: #444;
+}
+
+body.dark-theme .ribbon-btn svg [fill="#e8e8e8"],
+body.dark-theme .ribbon-btn svg [fill="#f0f0f0"] {
+  fill: #444;
+}
+
+body.dark-theme .ribbon-btn svg [fill="#d0d0d0"] {
+  fill: #ccc;
+}
+
+body.dark-theme .ribbon-btn svg text[fill="#aaa"],
+body.dark-theme .ribbon-btn svg text[fill="#bbb"] {
+  fill: #d0d0d0;
+}
+
+/* Dark Mode: Inline text color overrides for font group (B, I, U, S, etc.) */
+body.dark-theme .ribbon-group [style*="color:#232946"],
+body.dark-theme .ribbon-group [style*="color: #232946"] {
+  color: #ddd !important;
+}
+
+body.dark-theme .ribbon-group [style*="background:rgba(255,255,255,0.6)"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ddd !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.dark-theme .ribbon-group label {
+  color: #ccc !important;
+}
+
+body.dark-theme .ribbon-group [style*="color:#bbb"] {
+  color: #ccc !important;
+}
+
+body.dark-theme .ribbon-group [style*="color:#666"] {
+  color: #999 !important;
+}
+
+/* Light Mode SVG Overrides */
+body:not(.dark-theme) .ribbon-btn svg [stroke="#bbb"],
+body:not(.dark-theme) .ribbon-btn svg [stroke="#ccc"] {
+  stroke: #666;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#bbb"],
+body:not(.dark-theme) .ribbon-btn svg [fill="#ccc"] {
+  fill: #666;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#e8e8e8"],
+body:not(.dark-theme) .ribbon-btn svg [fill="#f0f0f0"] {
+  fill: #fff;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [stroke="#e8e8e8"],
+body:not(.dark-theme) .ribbon-btn svg [stroke="#f0f0f0"] {
+  stroke: #aaa;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#aaa"] {
+  fill: #555;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [stroke="#aaa"] {
+  stroke: #555;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#d0d0d0"] {
+  fill: #888;
+}
+
+body:not(.dark-theme) .ribbon-btn svg [stroke="#d0d0d0"] {
+  stroke: #888;
+}
+
+body:not(.dark-theme) .ribbon-btn svg circle[fill="#fff"] {
+  fill: #f8f8f8;
+  stroke: #666;
+}
+
+/* Primary and Engineering CTA Buttons Light/Dark Mode Fixes */
+.start-pres-label {
+  color: #ff9f95;
+  font-weight: 700;
+  font-size: 10.5px;
+  text-shadow: 0 0 6px rgba(255, 106, 95, 0.35);
+}
+
+.start-pres-icon {
+  filter: drop-shadow(0 0 6px rgba(255, 106, 95, 0.45));
+}
+
+.eng-notes-label {
+  color: #eaf2ff;
+  text-shadow: 0 0 6px rgba(102, 163, 255, 0.35);
+}
+
+.eng-notes-icon {
+  filter: drop-shadow(0 0 6px rgba(66, 133, 244, 0.35));
+}
+
+/* Overrides for Light Mode */
+body:not(.dark-theme) .start-pres-label {
+  color: var(--ppt-red);
+  text-shadow: none;
+  font-weight: 700;
+}
+
+body:not(.dark-theme) .start-pres-icon {
+  filter: none;
+}
+
+body:not(.dark-theme) .start-pres-icon path.start-pres-lines {
+  stroke: #b03020;
+}
+
+body:not(.dark-theme) .eng-notes-label {
+  color: #1155cc;
+  text-shadow: none;
+  font-weight: 600;
+}
+
+body:not(.dark-theme) .eng-notes-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+body:not(.dark-theme) .eng-notes-icon .eng-notes-poly1 {
+  fill: #0f9d58;
+}
+
+body:not(.dark-theme) .eng-notes-icon .eng-notes-poly2 {
+  fill: #f4b400;
+}
+
+body:not(.dark-theme) .eng-notes-icon .eng-notes-poly3 {
+  fill: #4285f4;
+}
+
+/* ============================
+       MAIN CONTENT AREA
+    ============================ */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ============================
+       SIDEBAR
+    ============================ */
+.sidebar {
+  width: 200px;
+  background: var(--bg-sidebar);
+  backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slide-thumb {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.slide-num {
+  font-size: 10px;
+  color: var(--text-muted);
+  width: 14px;
+  text-align: right;
+  padding-top: 8px;
+  flex-shrink: 0;
+}
+
+.slide-thumb.active .slide-num {
+  color: var(--ppt-red);
+}
+
+.slide-preview {
+  flex: 1;
+  aspect-ratio: 16/9;
+  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #555;
+  text-align: center;
+  padding: 4px;
+  line-height: 1.3;
+  transition: border-color 0.15s, background 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-thumb.active .slide-preview {
+  border-color: var(--ppt-orange);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  background: rgba(245, 247, 255, 0.7);
+}
+
+.slide-thumb:hover .slide-preview {
+  border-color: #6366f1;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Mini slide color bars */
+.slide-preview::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--ppt-red);
+}
+
+/* ============================
+       CANVAS AREA
+    ============================ */
+.canvas-area {
+  flex: 1;
+  background: rgba(200, 210, 230, 0.25);
+  /* Soft light canvas area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+body.dark-theme .canvas-area {
+  background: #1a1a1a;
+  /* Dark canvas area in dark mode */
+}
+
+.slide-wrapper {
+  width: 82%;
+  max-width: 1400px;
+  aspect-ratio: 16/9;
+  background: white;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-theme .slide-wrapper {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+
+.slide.active {
+  display: flex;
+  animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================
+       STATUS BAR
+    ============================ */
+.status-bar {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border);
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-badge {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.status-icon {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.status-icon:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--text-main);
+}
+
+.zoom-bar {
+  width: 60px;
+  height: 3px;
+  background: #ccd;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+body.dark-theme .title-text {
+  color: #e1e1e1;
+  font-weight: 600;
+}
+
+body.dark-theme .status-bar {
+  color: #e1e1e1;
+}
+
+/* File Menu Overlay */
+#file-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1f1f1f;
+  color: white;
+  flex-direction: row;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+/* Dark Theme File Sidebar (Default) */
+body.dark-theme #file-menu-overlay {
+  background: #181818;
+}
+
+body.dark-theme .file-sidebar {
+  background: #111111;
+  color: #d0d0d0;
+  width: 260px;
+}
+
+body.dark-theme .file-back-btn {
+  padding: 24px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+
+/* Calligraphy background pattern for dark mode backstage view */
+body.dark-theme .file-main {
+  background-color: #212121;
+  background-image: radial-gradient(circle at top right, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+    url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M250,20 C280,100 380,80 390,150 C400,220 320,180 340,300 C350,350 400,380 400,380' stroke='rgba(255,255,255,0.02)' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M300,0 C320,80 250,90 280,180 C300,240 370,250 380,320' stroke='rgba(255,255,255,0.02)' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M200,40 C190,160 300,200 310,260 C320,320 280,360 290,400' stroke='rgba(255,255,255,0.015)' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: top right;
+  border-left: 1px solid #333;
+}
+
+body.dark-theme .file-back-btn i {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.dark-theme .file-back-btn:hover i {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .file-nav-item {
+  padding: 12px 18px;
+  margin: 0 12px 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 400;
+  border: 1px solid transparent;
+  border-radius: 0;
+  color: #d0d0d0;
+  transition: background 0.2s;
+}
+
+body.dark-theme .file-nav-item i {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5;
+  color: #d0d0d0;
+  stroke: #d0d0d0;
+}
+
+body.dark-theme .file-nav-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-theme .file-nav-item.active {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-weight: 500;
+  position: relative;
+}
+
+body.dark-theme .file-nav-item.active i {
+  color: #fff;
+  stroke: #fff;
+}
+
+body.dark-theme .file-nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  bottom: -1px;
+  width: 4px;
+  background: #c43e1c;
+}
+
+body.dark-theme .file-title {
+  font-size: 38px;
+  font-weight: 300;
+  margin-bottom: 24px;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Default (Fallback) File Sidebar */
+.file-sidebar {
+  width: 280px;
+  background: #c0392b;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0 16px;
+  color: white;
+}
+
+.file-back-btn {
+  padding: 12px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  transition: background 0.2s;
+}
+
+.file-back-btn:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.file-nav-item {
+  padding: 10px 18px;
+  margin: 0 10px 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.file-nav-item:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.file-nav-item.active {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+.file-main {
+  flex: 1;
+  padding: 48px;
+  overflow-y: auto;
+  background: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-title {
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 32px;
+  color: #e1e1e1;
+  flex-shrink: 0;
+}
+
+/* File overlay light mode */
+body:not(.dark-theme) #file-menu-overlay {
+  background: #fff;
+  color: #1a1a1a;
+}
+
+body:not(.dark-theme) .file-sidebar {
+  background: #c0392b;
+}
+
+body:not(.dark-theme) .file-main {
+  background: #fff;
+}
+
+body:not(.dark-theme) .file-title {
+  color: #1a1a1a;
+}
+
+body:not(.dark-theme) .recent-item {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body:not(.dark-theme) .recent-item:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) .recent-item-info .title {
+  color: #1a1a1a;
+}
+
+body:not(.dark-theme) .recent-item-info .path {
+  color: #666;
+}
+
+body:not(.dark-theme) .account-col h4,
+body:not(.dark-theme) .account-col p {
+  color: #1a1a1a;
+}
+
+body:not(.dark-theme) .account-col small {
+  color: #666;
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  gap: 8px;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recent-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.recent-item svg {
+  width: 24px;
+  height: 24px;
+  color: #c0392b;
+}
+
+.recent-item-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.recent-item-info .title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e1e1e1;
+}
+
+.recent-item-info .path {
+  font-size: 12px;
+  color: #888;
+}
+
+.recent-item-time {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Dark mode slide global text fixes */
+body.dark-theme .s-contact .contact-title {
+  color: #fff !important;
+}
+
+body.dark-theme .s-contact .contact-subtitle {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-theme .contact-row .label {
+  color: #c0c0d0 !important;
+}
+
+body.dark-theme .contact-row .value {
+  color: #a599ff !important;
+}
+
+body.dark-theme .contact-row {
+  background: var(--okta-card-bg) !important;
+  backdrop-filter: var(--okta-card-blur) !important;
+  -webkit-backdrop-filter: var(--okta-card-blur) !important;
+  border: var(--okta-card-border) !important;
+}
+
+body.dark-theme .resume-btn {
+  background: var(--okta-accent, #7b61ff) !important;
+}
+
+body.dark-theme .about-left h1 {
+  color: #f0f0f0 !important;
+}
+
+body.dark-theme .about-left p,
+body.dark-theme .about-left p strong {
+  color: rgba(220, 220, 235, 0.9) !important;
+}
+
+body.dark-theme .tag {
+  background: rgba(123, 97, 255, 0.15) !important;
+  color: #c8c5f8 !important;
+}
+
+/* File menu overlay scrollbar */
+.zoom-thumb {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  background: #6366f1;
+  border-radius: 2px;
+  top: -4.5px;
+  left: 65%;
+}
+
+/* ============================
+       PRESENTATION MODE
+    ============================ */
+#presentation-mode {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  color: #1a1a1a;
+  z-index: 8888;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+body.dark-theme #presentation-mode {
+  background: #000000;
+  color: #ffffff;
+}
+
+#presentation-mode.active {
+  display: flex;
+  animation: fadeInPres 0.8s ease;
+}
+
+@keyframes fadeInPres {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+#presentation-mode .pres-slide {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.98);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.8s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#presentation-mode .pres-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  z-index: 2;
+}
+
+
+.pres-exit-hint {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  color: rgba(29, 29, 31, 0.4);
+  font-size: 13px;
+  z-index: 100;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+body.dark-theme .pres-exit-hint {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.pres-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #007aff;
+  opacity: 0.8;
+  transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 100;
+}
+
+/* Swipe Tutorial Overlay */
+.swipe-tutorial {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: tutorialFadeIn 0.4s ease;
+  cursor: pointer;
+}
+
+.swipe-tutorial.active {
+  display: flex;
+}
+
+.swipe-tutorial.fade-out {
+  animation: tutorialFadeOut 0.5s ease forwards;
+}
+
+.swipe-tutorial-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+}
+
+.swipe-hand {
+  animation: swipeAnim 1.6s ease-in-out infinite;
+}
+
+.swipe-arrows {
+  display: flex;
+  gap: 40px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.swipe-arrow-left {
+  animation: arrowLeft 1.6s ease-in-out infinite;
+}
+
+.swipe-arrow-right {
+  animation: arrowRight 1.6s ease-in-out infinite;
+}
+
+.swipe-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  margin: 0;
+}
+
+.swipe-subtext {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  margin: 0;
+}
+
+@keyframes tutorialFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tutorialFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes swipeAnim {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-20px);
+  }
+
+  75% {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes arrowLeft {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+
+  25% {
+    transform: translateX(-10px);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes arrowRight {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.6;
+  }
+
+  75% {
+    transform: translateX(10px);
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0.4;
+  }
+}
+
+
+
+/* ============================
+       SLIDE CONTENT STYLES
+    ============================ */
+
+/* Hero greeting & accent line — desktop: hidden, mobile pres: visible */
+.hero-greeting,
+.hero-accent-line {
+  display: none;
+}
+
+/* Slide 1 – Title */
+.s-title {
+  flex-direction: column;
+  background: linear-gradient(135deg, #f5f7ff 0%, #e8ecf5 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #232946;
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-theme .s-title {
+  background: #00040f;
+  color: var(--text-main);
+}
+
+body.dark-theme .s-title .hero-text p,
+body.dark-theme #pres-slide-0 .hero-text p {
+  color: var(--text-muted);
+}
+
+#hero-canvas,
+#pres-hero-canvas,
+.physics-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dom-bubble {
+  position: absolute;
+  border-radius: 50%;
+  /* Create a convincing 3D sphere gradient */
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #dcdcdc 20%, #a2a2a2 60%, #505050 100%);
+  box-shadow:
+    10px 15px 25px rgba(0, 0, 0, 0.6),
+    inset -10px -10px 30px rgba(0, 0, 0, 0.5),
+    inset 5px 5px 15px rgba(255, 255, 255, 1);
+  pointer-events: auto;
+  transform-origin: center center;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dom-bubble img {
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.s-title .hero-content,
+#pres-slide-0 .hero-content {
+  position: relative;
+  z-index: 5;
+  pointer-events: none;
+  width: 90%;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.s-title .hero-text,
+#pres-slide-0 .hero-text {
+  flex: 0 1 50%;
+  text-align: left;
+  padding-left: 5%;
+  z-index: 10;
+}
+
+.s-title .hero-text h1,
+#pres-slide-0 .hero-text h1 {
+  font-size: clamp(3.5rem, 6vw, 6rem);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  text-align: left !important;
+}
+
+.s-title .hero-text p,
+#pres-slide-0 .hero-text p {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 1.25em 0 2.25em;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--brutal-text-dim);
+  text-align: left !important;
+}
+
+.s-title .hero-graphic,
+#pres-slide-0 .hero-graphic {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1;
+  animation: floatLogo 6s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+
+  0%,
+  100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -20px;
+  }
+}
+
+.s-title .hero-logo-large,
+#pres-slide-0 .hero-logo-large {
+  width: clamp(300px, 50vw, 700px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1));
+  opacity: 0.9;
+}
+
+.s-title .hero-logo-large.dark,
+#pres-slide-0 .hero-logo-large.dark {
+  display: none !important;
+}
+
+.s-title .hero-logo-large.light,
+#pres-slide-0 .hero-logo-large.light {
+  display: block !important;
+}
+
+body.dark-theme .s-title .hero-logo-large.light,
+body.dark-theme #pres-slide-0 .hero-logo-large.light {
+  display: none !important;
+}
+
+body.dark-theme .s-title .hero-logo-large.dark,
+body.dark-theme #pres-slide-0 .hero-logo-large.dark {
+  display: block !important;
+}
+
+@media (max-width: 900px) {
+
+  .s-title .hero-content,
+  #pres-slide-0 .hero-content {
+    justify-content: center;
+  }
+
+  .s-title .hero-text,
+  #pres-slide-0 .hero-text {
+    flex: 1 1 100%;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .s-title .hero-text h1,
+  .s-title .hero-text p,
+  #pres-slide-0 .hero-text h1,
+  #pres-slide-0 .hero-text p {
+    text-align: center !important;
+  }
+
+  .s-title .hero-graphic,
+  #pres-slide-0 .hero-graphic {
+    opacity: 0.2;
+    width: 100%;
+    justify-content: center;
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.hero-content .about-me-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--okta-accent, #6366f1);
+  border-radius: 30px;
+  padding: 0.7em 1.8em;
+  font-weight: 700;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.3);
+}
+
+.hero-content .about-me-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.45);
+}
+
+body.dark-theme .hero-content .about-me-btn {
+  background: var(--okta-accent, #7b61ff);
+  box-shadow: 0 4px 18px rgba(123, 97, 255, 0.35);
+}
+
+.hero-content .about-me-btn .right-arrow {
+  display: none;
+  /* simplified arrow hidden, we now inline SVG in the label */
+}
+
+.social-links {
+  position: absolute;
+  font-size: 2em;
+  right: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  z-index: 22;
+  list-style: none;
+}
+
+.social-links li+li {
+  margin-top: 0.5em;
+}
+
+.social-links a {
+  color: #555;
+  transition: color 0.1s ease-in-out, transform 0.1s ease-in-out;
+  display: block;
+  text-decoration: none;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-weight: 800;
+}
+
+.social-links li:hover a {
+  color: var(--okta-accent);
+  transform: scale(1.1);
+}
+
+body.dark-theme .social-links a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+body.dark-theme .social-links li:hover a {
+  color: #5ce1e6;
+}
+
+/* Light mode: give social icon circles a visible look */
+body:not(.dark-theme) .social-links a[title="GitHub"],
+body:not(.dark-theme) .social-links a[title="X (Twitter)"] {
+  background: rgba(30, 30, 30, 0.08) !important;
+  border-color: rgba(30, 30, 30, 0.25) !important;
+}
+
+body:not(.dark-theme) .social-links a[title="GitHub"] svg,
+body:not(.dark-theme) .social-links a[title="X (Twitter)"] svg {
+  fill: #1a1a1a !important;
+}
+
+.text-gradient {
+  background: linear-gradient(157.81deg, #5ce1e6 0%, #33bbcf 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Slide 2 â€“ About Me / Slide 3 - Skills */
+.s-about,
+.s-skills,
+.s-projects,
+.s-contact {
+  flex-direction: column;
+  background: var(--okta-bg);
+  padding: 0;
+  color: var(--okta-text-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Removed heavy animated pseudo-element gradients to improve performance */
+.s-about::before,
+.s-projects::before,
+.s-contact::before {
+  display: none;
+}
+
+/* Lotus Animation CSS */
+@keyframes lotusBreathe {
+
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 8px var(--okta-accent));
+  }
+
+  50% {
+    transform: scale(1.05) translateY(-5px);
+    filter: drop-shadow(0 0 15px var(--okta-accent-warm));
+  }
+}
+
+.premium-lotus {
+  width: clamp(28px, 3.5vw, 48px);
+  height: clamp(28px, 3.5vw, 48px);
+  animation: lotusBreathe 4s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+.premium-feather {
+  stroke: var(--okta-accent);
+  width: clamp(24px, 3vw, 42px);
+  height: clamp(24px, 3vw, 42px);
+  margin-bottom: 8px;
+}
+
+body:not(.dark-theme) .s-about,
+body:not(.dark-theme) .s-skills,
+body:not(.dark-theme) .s-projects,
+body:not(.dark-theme) .s-contact {
+  background: var(--okta-bg);
+  backdrop-filter: none;
+}
+
+/* Okta-style slide heading â€“ clean centered serif heading */
+.slide-heading {
+  width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.slide-heading-bar {
+  display: none;
+  /* Hide old dark bar */
+}
+
+.slide-heading .okta-heading {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(24px, 4vw, 52px);
+  font-weight: 700;
+  color: var(--okta-heading-color);
+  letter-spacing: -0.5px;
+  text-align: center;
+  padding: 5% 8% 2% 8%;
+  line-height: 1.2;
+}
+
+body.dark-theme .slide-heading .okta-heading {
+  color: var(--okta-heading-color);
+}
+
+/* Content area below heading gets padding */
+.slide-content-pad {
+  padding: 2% 6% 4% 6%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hide the old underline bar */
+.slide-heading .underline-bar {
+  display: none;
+}
+
+/* Okta About Layout */
+.about-layout {
+  display: flex;
+  gap: 5%;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.about-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-left h1 {
+  margin-bottom: 20px;
+  line-height: 1.1;
+  color: var(--okta-heading-color);
+}
+
+.about-left p {
+  font-size: clamp(10px, 1.3vw, 15px);
+  color: var(--okta-text-dim);
+  line-height: 1.8;
+  margin-bottom: 15px;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.about-right {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+}
+
+.stat-card {
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  padding: 20px 24px;
+  border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .stat-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 246, 255, 0.08);
+}
+
+.stat-num {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--okta-accent);
+  line-height: 1;
+  margin-bottom: 5px;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: var(--okta-text-dim);
+  font-weight: 500;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  letter-spacing: 0.2px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4%;
+  flex: 1;
+}
+
+.skill-card {
+  padding: 5% 6%;
+  display: flex;
+  flex-direction: column;
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.skill-card h3 {
+  font-size: clamp(12px, 1.5vw, 16px);
+  font-weight: 700;
+  color: var(--okta-heading-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.skill-card h3::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--okta-accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skill-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-card li {
+  font-size: clamp(10px, 1.2vw, 14px);
+  color: var(--okta-text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-card li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: var(--okta-accent-warm);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Slide 4 â€“ Projects (Okta-style frosted glass cards) */
+.project-layout {
+  display: flex;
+  gap: 5%;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.project-details {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-details h2 {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(16px, 2vw, 28px);
+  font-weight: 700;
+  color: var(--okta-heading-color);
+  margin-bottom: 12px;
+}
+
+.project-details p {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(10px, 1.2vw, 14px);
+  color: var(--okta-text-dim);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.project-features {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Slide 4 â€“ Projects (Okta-style frosted glass cards) */
+.s-projects {
+  background: var(--okta-bg);
+  color: var(--okta-text-color);
+  padding: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.dark-theme .s-projects {
+  background: var(--okta-bg) !important;
+}
+
+.s-projects .nb-header {
+  display: none;
+  /* Hide old header, using new okta-heading instead */
+}
+
+.nb-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Presentation Mode: Projects Slide — full page scroll ---- */
+#presentation-mode .s-projects {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+#presentation-mode .s-projects .nb-projects-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: none;
+  padding-bottom: 40px;
+}
+
+.nb-project-card {
+  position: relative;
+  padding: 24px;
+  min-height: 130px;
+  cursor: pointer;
+  /* Remove old cut-corner masks */
+  -webkit-mask-image: none;
+  mask-image: none;
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nb-project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .nb-project-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 246, 255, 0.06);
+}
+
+.nb-project-card h2 {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(13px, 1.2vw, 17px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--okta-heading-color);
+  line-height: 1.3;
+  letter-spacing: -0.3px;
+}
+
+.nb-project-card p {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(10px, 0.85vw, 12px);
+  color: var(--okta-text-dim);
+  line-height: 1.6;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.nb-card-icons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.nb-icon-btn {
+  background: var(--okta-accent);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nb-icon-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.nb-icon-btn.demo {
+  background: var(--okta-accent-warm);
+  color: white;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  padding: 5px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: clamp(8px, 0.9vw, 11px);
+  color: var(--okta-heading-color);
+  font-weight: 600;
+  background: rgba(99, 102, 241, 0.08);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  letter-spacing: 0.3px;
+}
+
+body.dark-theme .tag {
+  background: rgba(0, 246, 255, 0.08);
+  color: #e8e8e8;
+}
+
+.project-btns {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: clamp(9px, 1vw, 12px);
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: var(--okta-accent);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: var(--okta-card-bg);
+  color: var(--okta-heading-color);
+  border: var(--okta-card-border);
+  backdrop-filter: var(--okta-card-blur);
+}
+
+.feature-card {
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  border-radius: var(--okta-card-radius);
+  padding: 16px;
+  box-shadow: var(--okta-card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+}
+
+.feature-card h4 {
+  color: var(--okta-heading-color);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(10px, 1.1vw, 14px);
+}
+
+.feature-card p {
+  font-size: clamp(8px, 0.9vw, 11px);
+  color: var(--okta-text-dim);
+  margin-top: 4px;
+  line-height: 1.5;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+/* Slide 5 â€“ Contact (Okta-style) */
+.s-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--okta-bg);
+}
+
+body.dark-theme .s-contact {
+  background: var(--okta-bg) !important;
+}
+
+.s-contact::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(232, 149, 106, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.s-contact .contact-title {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(28px, 5vw, 64px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+  color: var(--okta-heading-color);
+}
+
+.s-contact .contact-subtitle {
+  font-size: clamp(12px, 1.5vw, 20px);
+  font-weight: 400;
+  color: var(--okta-text-dim);
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.contact-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow);
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+  gap: 16px;
+}
+
+.contact-row:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .contact-row:hover {
+  box-shadow: 0 8px 32px rgba(0, 246, 255, 0.08);
+}
+
+.contact-row i {
+  color: var(--okta-heading-color);
+  width: 24px;
+  height: 24px;
+}
+
+.contact-row .label {
+  font-size: 14px;
+  color: var(--okta-text-dim);
+  font-weight: 500;
+  flex: 1;
+  text-align: left;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.contact-row .value {
+  font-size: 14px;
+  color: var(--okta-accent);
+  font-weight: 600;
+  text-align: right;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.resume-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 32px;
+  font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.resume-btn svg, .resume-btn i {
+  stroke: #000000 !important;
+}
+
+.resume-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
+}
+
+/* ============================
+   RESPONSIVE: TABLET / SMALL LAPTOP (≤1024px)
+   Ribbon stays EXACTLY like desktop — just scrolls horizontally
+============================ */
+@media (max-width: 1024px) {
+
+  /* Title bar: hide search */
+  .search-box {
+    display: none;
+  }
+
+  /* Ribbon tabs: scroll horizontally if they overflow */
+  .ribbon-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .ribbon-tab {
+    flex-shrink: 0;
+  }
+
+  /* Ribbon toolbar: Allow horizontal scroll — NO other changes */
+  .ribbon-toolbar {
+    overflow-x: auto;
+  }
+
+  .ribbon-tab-content {
+    width: max-content;
+    flex-shrink: 0;
+  }
+
+  .ribbon-group {
+    flex-shrink: 0;
+  }
+
+  /* Sidebar: narrower */
+  .sidebar {
+    width: 130px;
+    padding: 6px 4px;
+  }
+
+  /* Status bar: compact */
+  .status-bar {
+    height: 22px;
+    font-size: 9px;
+  }
+
+  .zoom-bar {
+    width: 50px;
+  }
+
+  /* Slide content adjustments */
+  .about-layout {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .about-right {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .about-right .stat-card {
+    flex: 1 1 45% !important;
+    min-width: 120px;
+  }
+
+  .nb-projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  /* Chatbot window */
+  #ai-chatbot-window {
+    width: 300px !important;
+    height: 420px !important;
+    right: 10px !important;
+    bottom: 50px !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: SMALL TABLET (≤900px)
+   Hide sidebar only — ribbon still scrolls horizontally
+============================ */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: MOBILE (≤768px)
+   Auto-slideshow takes over, PPT chrome hidden
+============================ */
+@media (max-width: 768px) {
+
+  /* Hide all PPT chrome — presentation mode auto-launches */
+  .title-bar,
+  .ribbon-tabs,
+  .ribbon-toolbar,
+  .sidebar,
+  .status-bar,
+  .canvas-area,
+  .main-content {
+    display: none !important;
+  }
+
+  /* Hide physics confetti shapes on mobile — too distracting */
+  #pres-hero-canvas,
+  #hero-canvas {
+    display: none !important;
+  }
+
+  /* Presentation mode fills everything */
+  #presentation-mode {
+    z-index: 9999;
+  }
+
+  #presentation-mode .pres-slide {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    padding: 5% 5% 10% 5% !important;
+  }
+
+  /* Boot screen — reduce card size */
+  .boot-card {
+    width: 90vw;
+    height: auto;
+    min-height: 200px;
+    padding: 16px 18px;
+  }
+
+  .boot-center h1 {
+    font-size: 32px;
+  }
+
+  .boot-center p {
+    font-size: 13px;
+  }
+
+  /* ---- HERO SLIDE ---- */
+  #pres-slide-0 {
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Subtle radial glow background for depth */
+  #pres-slide-0::after {
+    content: '' !important;
+    position: absolute !important;
+    width: 300px !important;
+    height: 300px !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%) !important;
+    top: 30% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+  }
+
+  #pres-slide-0 .hero-content {
+    flex-direction: column !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100% !important;
+    padding: 0 24px !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  #pres-slide-0 .hero-text {
+    flex: unset !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+    width: 100%;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  #pres-slide-0 .hero-greeting {
+    display: block !important;
+  }
+
+  #pres-slide-0 .hero-accent-line {
+    display: block !important;
+  }
+
+
+
+  #pres-slide-0 .hero-text>div {
+    justify-content: center !important;
+  }
+
+  #pres-slide-0 .hero-text h1 {
+    font-size: 2.8rem !important;
+    text-align: center !important;
+    letter-spacing: -1px !important;
+    margin-bottom: 4px !important;
+  }
+
+  #pres-slide-0 .hero-text p {
+    font-size: 0.7rem !important;
+    text-align: center !important;
+    letter-spacing: 3px !important;
+    margin-bottom: 28px !important;
+    color: #666 !important;
+  }
+
+  body.dark-theme #pres-slide-0 .hero-text p {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Hero logo — large centered watermark */
+  #pres-slide-0 .hero-graphic {
+    position: absolute !important;
+    width: 90% !important;
+    max-width: 420px !important;
+    right: auto !important;
+    left: 50% !important;
+    top: 45% !important;
+    transform: translate(-50%, -50%) !important;
+    justify-content: center !important;
+    opacity: 0.15 !important;
+    z-index: 1 !important;
+    animation: none !important;
+  }
+
+  #pres-slide-0 .hero-logo-large {
+    width: 100% !important;
+  }
+
+  .hero-content .about-me-btn {
+    font-size: 13px !important;
+    padding: 0.6em 1.4em !important;
+  }
+
+  /* Social links — horizontal row above bottom */
+  .social-links {
+    position: fixed !important;
+    right: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: auto !important;
+    bottom: 24px !important;
+    font-size: 1em !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 14px !important;
+  }
+
+  .social-links li+li {
+    margin-top: 0 !important;
+  }
+
+  /* Pres exit hint — hide keyboard hints on touch devices */
+  .pres-exit-hint {
+    display: none !important;
+  }
+
+  /* ---- ABOUT SLIDE ---- */
+  .about-layout {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .about-left h1 {
+    font-size: 1.6rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .about-left p {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  .about-right {
+    flex-direction: column !important;
+  }
+
+  .about-right .stat-card {
+    flex: unset !important;
+    min-width: unset !important;
+  }
+
+  .stat-num {
+    font-size: 22px !important;
+  }
+
+  .stat-label {
+    font-size: 11px !important;
+  }
+
+  .tag {
+    font-size: 9px !important;
+    padding: 4px 10px !important;
+  }
+
+  /* ---- SKILLS SLIDE ---- */
+  #presentation-mode [style*="grid-template-columns:repeat(4,1fr)"],
+  #presentation-mode [style*="grid-template-columns: repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .stat-card {
+    padding: 12px 8px !important;
+  }
+
+  .stat-card h3 {
+    font-size: 12px !important;
+  }
+
+  .stat-card p {
+    font-size: 10px !important;
+  }
+
+  /* ---- PROJECTS SLIDE ---- */
+  .nb-projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .nb-project-card {
+    padding: 16px !important;
+    min-height: auto !important;
+  }
+
+  .nb-project-card h2 {
+    font-size: 14px !important;
+  }
+
+  .nb-project-card p {
+    font-size: 11px !important;
+  }
+
+  /* ---- CONTACT SLIDE ---- */
+  .s-contact .contact-title {
+    font-size: 1.8rem !important;
+  }
+
+  .s-contact .contact-subtitle {
+    font-size: 13px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-stack {
+    max-width: 100% !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-row {
+    padding: 12px 16px !important;
+    gap: 10px !important;
+  }
+
+  .contact-row .label,
+  .contact-row .value {
+    font-size: 12px !important;
+  }
+
+  .resume-btn {
+    padding: 10px 24px !important;
+    font-size: 13px !important;
+  }
+
+  /* Slide headings */
+  .slide-heading .okta-heading {
+    font-size: 1.5rem !important;
+    padding: 4% 5% 2% 5% !important;
+  }
+
+  /* Chatbot — full width on mobile */
+  #ai-chatbot-window {
+    width: calc(100vw - 20px) !important;
+    height: 60vh !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Premium icons — smaller on mobile */
+  .premium-lotus {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .premium-feather {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: SMALL MOBILE (≤480px)
+============================ */
+@media (max-width: 480px) {
+  #pres-slide-0 .hero-text h1 {
+    font-size: 1.8rem !important;
+  }
+
+  #pres-slide-0 .hero-text p {
+    font-size: 0.75rem !important;
+    letter-spacing: 1px !important;
+  }
+
+  #pres-slide-0 .hero-graphic {
+    max-width: 180px !important;
+    opacity: 0.1 !important;
+  }
+
+  .about-left h1 {
+    font-size: 1.3rem !important;
+  }
+
+  .slide-heading .okta-heading {
+    font-size: 1.3rem !important;
+  }
+
+  .s-contact .contact-title {
+    font-size: 1.5rem !important;
+  }
+}
+
+
+/* ============================
+       RIGHT-CLICK CONTEXT MENU
+    ============================ */
+.ppt-context-menu {
+  --ctx-bg: #2b2b3a;
+  --ctx-bg-hover: rgba(99, 102, 241, 0.15);
+  --ctx-text: #e1e1e8;
+  --ctx-text-dim: rgba(255, 255, 255, 0.45);
+  --ctx-border: rgba(99, 102, 241, 0.2);
+  --ctx-accent: #818cf8;
+  --ctx-shadow: rgba(0, 0, 0, 0.45);
+
+  display: none;
+  position: fixed;
+  z-index: 999999;
+  min-width: 240px;
+  background: var(--ctx-bg);
+  border: 1px solid var(--ctx-border);
+  border-radius: 8px;
+  padding: 6px 0;
+  box-shadow: 0 8px 32px var(--ctx-shadow), 0 0 0 1px rgba(99, 102, 241, 0.08);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  user-select: none;
+  overflow: hidden;
+}
+
+body:not(.dark-theme) .ppt-context-menu {
+  --ctx-bg: #ffffff;
+  --ctx-bg-hover: rgba(99, 102, 241, 0.08);
+  --ctx-text: #1a1a2e;
+  --ctx-text-dim: rgba(0, 0, 0, 0.4);
+  --ctx-border: rgba(0, 0, 0, 0.12);
+  --ctx-accent: #6366f1;
+  --ctx-shadow: rgba(0, 0, 0, 0.15);
+}
+
+.ppt-context-menu.visible {
+  display: block;
+  animation: ctxMenuIn 0.08s ease-out;
+}
+
+@keyframes ctxMenuIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px 7px 14px;
+  cursor: pointer;
+  color: var(--ctx-text);
+  font-size: 12.5px;
+  font-weight: 400;
+  transition: background 0.1s ease, color 0.1s ease;
+  position: relative;
+}
+
+.ctx-item:hover {
+  background: var(--ctx-bg-hover);
+  color: var(--ctx-accent);
+}
+
+.ctx-item svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+.ctx-item:hover svg {
+  opacity: 1;
+}
+
+.ctx-item span:first-of-type {
+  flex: 1;
+}
+
+.ctx-shortcut {
+  color: var(--ctx-text-dim);
+  font-size: 11px;
+  font-family: 'Segoe UI', monospace;
+  margin-left: auto;
+  flex: none !important;
+}
+
+.ctx-divider {
+  height: 1px;
+  background: var(--ctx-border);
+  margin: 4px 12px;
+}
+
+/* ---- Toast Notification ---- */
+.ctx-toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: linear-gradient(135deg, #2b2b3a 0%, #1e1e2e 100%);
+  color: #e1e1e8;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.1);
+  z-index: 9999999;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+body:not(.dark-theme) .ctx-toast {
+  background: linear-gradient(135deg, #fff 0%, #f5f5ff 100%);
+  color: #1a1a2e;
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+.ctx-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.ctx-toast.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* Hide context menu on mobile */
+@media (max-width: 768px) {
+  .ppt-context-menu {
+    display: none !important;
+  }
+}
+
+/* ============================
+       RESPONSIVE: SMALL MONITOR HEIGHTS (13" MacBooks, Laptops)
+       Fixes overflow, clipping, and missing scroll in presentation mode
+    ============================ */
+@media (max-height: 850px) {
+
+  /* Ensure scrollable slides don't clip at top when overflowing */
+  #presentation-mode .pres-slide.s-about,
+  #presentation-mode .pres-slide.s-skills,
+  #presentation-mode .pres-slide.s-projects,
+  #presentation-mode .pres-slide.s-contact {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    justify-content: flex-start !important;
+    padding-top: 50px !important;
+    padding-bottom: 60px !important;
+  }
+
+}
+
+/* ---- DARK MODE VISIBILITY FIXES ---- */
+body.dark-theme .stat-num {
+  color: #ffffff !important;
+}
+
+body.dark-theme .stat-label {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .s-skills .stat-card h3 {
+  color: #ffffff !important;
+}
+
+body.dark-theme .s-skills .stat-card p {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .nb-project-card h2 {
+  color: #ffffff !important;
+}
+
+body.dark-theme .nb-project-card p {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .contact-title {
+  color: #ffffff !important;
+}
+
+body.dark-theme .contact-subtitle {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .contact-row i {
+  color: #ffffff !important;
+}
+
+body.dark-theme .contact-row .label {
+  color: #e2e6f0 !important;
+}
+
+body.dark-theme .contact-row .value {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .contact-row svg,
+body.dark-theme #presentation-mode .contact-row svg {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+/* Force Dark Mode UI inside Presentation Mode overrides */
+body.dark-theme #presentation-mode .stat-num,
+body.dark-theme #presentation-mode .s-skills .stat-card h3,
+body.dark-theme #presentation-mode .nb-project-card h2,
+body.dark-theme #presentation-mode .contact-title,
+body.dark-theme #presentation-mode .contact-row i {
+  color: #ffffff !important;
+}
+body.dark-theme #presentation-mode .stat-label,
+body.dark-theme #presentation-mode .s-skills .stat-card p,
+body.dark-theme #presentation-mode .nb-project-card p,
+body.dark-theme #presentation-mode .contact-subtitle,
+body.dark-theme #presentation-mode .contact-row .value,
+body.dark-theme #presentation-mode .contact-row .label {
+  color: #e2e6f0 !important;
+}
+body.dark-theme #presentation-mode .contact-row svg {
+   stroke: #ffffff !important; color: #ffffff !important;
+}
+
+body.dark-theme #presentation-mode #pres-slide-0 .hero-logo-large {
+  opacity: 0.15 !important;
+  mix-blend-mode: overlay;
+}
+
+body.dark-theme #presentation-mode .hero-text h1.text-gradient {
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Force presentation slides to be transparent ONLY IN DARK THEME so scrub canvas shows */
+body.dark-theme #presentation-mode .pres-slide,
+body.dark-theme #presentation-mode .pres-slide.s-title,
+body.dark-theme #presentation-mode .pres-slide.s-about,
+body.dark-theme #presentation-mode .pres-slide.s-skills,
+body.dark-theme #presentation-mode .pres-slide.s-projects,
+body.dark-theme #presentation-mode .pres-slide.s-contact {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Light Mode Canvas Overlay - Only visible during transition */
+body:not(.dark-theme) #hero-scrub-canvas {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 100; /* Stays above the slide background to be visible during transition */
+}
+
+body:not(.dark-theme) #presentation-mode.is-transitioning #hero-scrub-canvas {
+  opacity: 0.6; /* Vibrant colorful frame overlay */
+  mix-blend-mode: multiply;
+}
+
+/* Cinematic Glass Glare Fix: Dim the main background canvas slightly in Dark Mode to balance the reflection on the glasses */
+body.dark-theme #hero-scrub-canvas {
+  filter: brightness(0.8) contrast(1.05) saturate(1.1);
+  transition: filter 0.5s ease;
+  will-change: transform; /* GPU acceleration hint for canvas rendering */
+}
+
+/* ============================
+   MOBILE: Frame-based canvas background for presentation mode
+   Uses the same scrubber canvas as desktop, with progressive loading
+============================ */
+@media (max-width: 768px) {
+  /* Let the canvas show through — no solid gradient backgrounds */
+  body.dark-theme #presentation-mode {
+    background: #000000 !important;
+    overflow: hidden;
+  }
+
+  /* Remove pseudo-element glow effects — real frames look better */
+  body.dark-theme #presentation-mode::before,
+  body.dark-theme #presentation-mode::after {
+    display: none !important;
+  }
+
+  /* Canvas: SHOW on mobile, full bleed behind everything.
+     JS controls the pixel buffer dimensions (set once, never changes).
+     CSS only does visual positioning — NO height values here to avoid
+     fighting with JS and causing mota/patla jitter. */
+  #hero-scrub-canvas {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important; /* visual only — JS pixel buffer is locked to screen.availHeight */
+    z-index: 0 !important;
+    pointer-events: none !important;
+    object-fit: cover !important;
+  }
+
+  /* Mobile dark mode canvas — slightly dim for readability */
+  body.dark-theme #hero-scrub-canvas {
+    filter: brightness(0.65) contrast(1.1) saturate(1.15) !important;
+  }
+
+  /* Hero slide: fully transparent to show frames */
+  body.dark-theme #presentation-mode .pres-slide.s-title {
+    background: transparent !important;
+  }
+
+  /* Content slides: semi-transparent dark overlay so text is readable over the frames */
+  body.dark-theme #presentation-mode .pres-slide.s-about,
+  body.dark-theme #presentation-mode .pres-slide.s-skills,
+  body.dark-theme #presentation-mode .pres-slide.s-projects,
+  body.dark-theme #presentation-mode .pres-slide.s-contact {
+    background: rgba(0, 0, 0, 0.55) !important;
+  }
+}
+
+/* ============================
+   PRESENTATION MODE FONT OVERRIDE
+   Match exact Space Grotesk typography from deep-scanned friend's project
+============================ */
+#presentation-mode, 
+#presentation-mode .pres-slide, 
+#presentation-mode .pres-slide * {
+  font-family: 'Space Grotesk', sans-serif !important;
+}

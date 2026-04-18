@@ -1,0 +1,178 @@
+/* ============================
+   ABOUT SLIDE (Slide 2) + Shared Okta Slide Styles
+   ============================ */
+
+/* ---- Shared slide base ---- */
+.s-about,
+.s-skills,
+.s-projects,
+.s-contact {
+  flex-direction: column;
+  background: var(--okta-bg);
+  padding: 0;
+  color: var(--okta-text-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Removed heavy animated pseudo-element gradients to improve performance */
+.s-about::before,
+.s-projects::before,
+.s-contact::before {
+  display: none;
+}
+
+body:not(.dark-theme) .s-about,
+body:not(.dark-theme) .s-skills,
+body:not(.dark-theme) .s-projects,
+body:not(.dark-theme) .s-contact {
+  background: var(--okta-bg);
+  backdrop-filter: none;
+}
+
+/* ---- Okta-style slide heading ---- */
+.slide-heading {
+  width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.slide-heading-bar {
+  display: none;
+}
+
+.slide-heading .okta-heading {
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(24px, 4vw, 52px);
+  font-weight: 700;
+  color: var(--okta-heading-color);
+  letter-spacing: -0.5px;
+  text-align: center;
+  padding: 5% 8% 2% 8%;
+  line-height: 1.2;
+}
+
+body.dark-theme .slide-heading .okta-heading {
+  color: var(--okta-heading-color);
+}
+
+.slide-heading .underline-bar {
+  display: none;
+}
+
+.slide-content-pad {
+  padding: 2% 6% 4% 6%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+/* ---- Lotus & Feather Animations ---- */
+@keyframes lotusBreathe {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 0 8px var(--okta-accent));
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+    filter: drop-shadow(0 0 15px var(--okta-accent-warm));
+  }
+}
+
+.premium-lotus {
+  width: clamp(28px, 3.5vw, 48px);
+  height: clamp(28px, 3.5vw, 48px);
+  animation: lotusBreathe 4s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+
+.premium-feather {
+  stroke: var(--okta-accent);
+  width: clamp(24px, 3vw, 42px);
+  height: clamp(24px, 3vw, 42px);
+  margin-bottom: 8px;
+}
+
+/* ---- About Layout ---- */
+.about-layout {
+  display: flex;
+  gap: 5%;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.about-left {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-left h1 {
+  margin-bottom: 20px;
+  line-height: 1.1;
+  color: var(--okta-heading-color);
+}
+
+.about-left p {
+  font-size: clamp(10px, 1.3vw, 15px);
+  color: var(--okta-text-dim);
+  line-height: 1.8;
+  margin-bottom: 15px;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.about-right {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* ---- Stat Cards ---- */
+.stat-card {
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  padding: 20px 24px;
+  border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .stat-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 246, 255, 0.08);
+}
+
+.stat-num {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--okta-accent);
+  line-height: 1;
+  margin-bottom: 5px;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: clamp(10px, 1.1vw, 13px);
+  color: var(--okta-text-dim);
+  font-weight: 500;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  letter-spacing: 0.2px;
+}

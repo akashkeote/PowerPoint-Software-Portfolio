@@ -1,0 +1,22 @@
+@media (max-width: 768px) {
+  /* ---- SKILLS SLIDE ---- */
+  #presentation-mode [style*="grid-template-columns:repeat(4,1fr)"],
+  #presentation-mode [style*="grid-template-columns: repeat(4,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .stat-card {
+    padding: 12px 8px !important;
+  }
+
+  .stat-card h3 {
+    font-size: 12px !important;
+  }
+
+  .stat-card p {
+    font-size: 10px !important;
+  }
+}

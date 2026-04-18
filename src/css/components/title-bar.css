@@ -1,0 +1,19 @@
+/* ============================
+   TITLE BAR
+   ============================ */
+
+@import url('./title-bar-left.css');
+@import url('./title-bar-center.css');
+@import url('./title-bar-right.css');
+
+.title-bar {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 6px;
+  flex-shrink: 0;
+}

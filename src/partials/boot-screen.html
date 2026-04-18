@@ -1,0 +1,44 @@
+<div id="boot-screen">
+  <div class="boot-card"
+    style="background: white; border-radius: 5px; width: 440px; height: 290px; padding: 0; display: flex; flex-direction: column; overflow: hidden; position: relative; box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.2);">
+
+    <!-- Top Left Label -->
+    <div
+      style="position: absolute; top: 14px; left: 14px; background: #f7e0d8; color: #b7381e; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.2px; font-family: 'Segoe UI', sans-serif;">
+      Office 2024
+    </div>
+
+    <!-- Window controls -->
+    <div
+      style="position: absolute; top: 12px; right: 14px; display: flex; gap: 18px; color: #aaa; font-size: 13px; font-family: 'Segoe UI', sans-serif;">
+      <span style="line-height: 1; margin-top: 2px;">─</span>
+      <span>✕</span>
+    </div>
+
+    <!-- Center Logo & Microsoft -->
+    <div
+      style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding-top: 24px;">
+      <!-- PowerPoint 365 Logo -->
+      <img src="/images/pptlogo.png" alt="PowerPoint Logo" width="80" height="80" style="object-fit: contain;">
+
+      <!-- Microsoft 4-Color Logo -->
+      <div style="display: flex; align-items: center; gap: 7px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5px; width: 18px; height: 18px;">
+          <div style="background: #f25022; border-radius: 1px;"></div>
+          <div style="background: #7fba00; border-radius: 1px;"></div>
+          <div style="background: #00a4ef; border-radius: 1px;"></div>
+          <div style="background: #ffb900; border-radius: 1px;"></div>
+        </div>
+        <span
+          style="font-size: 13px; font-weight: 600; color: #444; font-family: 'Segoe UI', sans-serif; letter-spacing: 0.2px;">Microsoft</span>
+      </div>
+    </div>
+
+    <!-- Loading Text -->
+    <div
+      style="padding: 10px 16px 12px; border-top: 1px solid #ebebeb; display: flex; align-items: center; justify-content: space-between;">
+      <span id="boot-status" style="font-size: 11px; color: #777; font-family: 'Segoe UI', sans-serif;">Starting
+        Microsoft PowerPoint...</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,158 @@
+/* ============================
+   RIBBON TABS & TOOLBAR
+   ============================ */
+.ribbon-tabs {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 6px;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.ribbon-tabs::-webkit-scrollbar {
+  height: 0;
+}
+
+.ribbon-tab {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--text-main);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  border-radius: 3px 3px 0 0;
+  transition: color 0.1s, background 0.1s;
+  font-weight: 400;
+}
+
+.ribbon-tab:hover {
+  color: var(--highlight);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.ribbon-tab.active {
+  color: var(--highlight);
+  font-weight: 600;
+}
+
+.ribbon-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: var(--ppt-red);
+  border-radius: 3px 3px 0 0;
+}
+
+/* ---- Toolbar Container ---- */
+.ribbon-toolbar {
+  background: var(--bg-ribbon);
+  backdrop-filter: var(--glass-blur);
+  height: 88px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.ribbon-tab-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 12px;
+  gap: 4px;
+  width: max-content;
+}
+
+.ribbon-toolbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ribbon-toolbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ribbon-toolbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.5);
+  border-radius: 3px;
+}
+
+.ribbon-toolbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.8);
+}
+
+/* ---- Ribbon Groups & Buttons ---- */
+.ribbon-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 12px;
+  margin-right: 8px;
+  border-right: 1px solid rgba(99, 102, 241, 0.15);
+  height: 72px;
+}
+
+.ribbon-group:last-child {
+  border-right: none;
+}
+
+.ribbon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  color: var(--text-main);
+  transition: background 0.2s;
+  min-width: 44px;
+  cursor: pointer;
+}
+
+.ribbon-btn svg {
+  flex-shrink: 0;
+}
+
+.ribbon-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.ribbon-btn .icon {
+  font-size: 32px;
+  color: var(--text-main);
+}
+
+.ribbon-btn .label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-main);
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.ribbon-btn.primary {
+  cursor: pointer;
+}
+
+.ribbon-btn.primary .icon {
+  color: var(--ppt-red);
+}
+
+.ribbon-btn.primary .label {
+  color: var(--ppt-red);
+  font-weight: 600;
+  font-size: 10.5px;
+}
+
+.ribbon-btn.primary:hover {
+  background: rgba(192, 57, 43, 0.15);
+}

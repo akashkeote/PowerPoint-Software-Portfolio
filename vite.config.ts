@@ -3,27 +3,24 @@ import react from '@vitejs/plugin-react'
 import fs from 'fs'
 import path from 'path'
 
+function processIncludes(content: string, basePath: string): string {
+  return content.replace(/<include\s+src="([^"]+)"\s*\/>/g, (_, srcPath) => {
+    try {
+      const filePath = path.resolve(basePath, srcPath);
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      return processIncludes(fileContent, path.dirname(filePath));
+    } catch (e) {
+      console.error(`Error including ${srcPath} from ${basePath}:`, e);
+      return `<!-- Error including ${srcPath} -->`;
+    }
+  });
+}
+
 function htmlPartialsPlugin(): Plugin {
   return {
     name: 'html-partials',
-    transformIndexHtml(html) {
-      // Support nested includes by running it recursively if needed,
-      // but for now simple regex works since we only do one level of `<include src="..."/>`
-      let transformed = html;
-      let previous = '';
-      while (transformed !== previous) {
-        previous = transformed;
-        transformed = transformed.replace(/<include\s+src="([^"]+)"\s*\/>/g, (_, srcPath) => {
-          try {
-            const filePath = path.resolve(process.cwd(), srcPath);
-            return fs.readFileSync(filePath, 'utf-8');
-          } catch (e) {
-            console.error(`Error including ${srcPath}:`, e);
-            return `<!-- Error including ${srcPath} -->`;
-          }
-        });
-      }
-      return transformed;
+    transformIndexHtml(html, ctx) {
+      return processIncludes(html, path.dirname(ctx.filename || path.join(process.cwd(), 'index.html')));
     }
   }
 }

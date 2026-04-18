@@ -1,0 +1,210 @@
+/* ============================
+   RESPONSIVE: TABLET (≤1024px)
+   ============================ */
+@media (max-width: 1024px) {
+
+  .search-box {
+    display: none;
+  }
+
+  .ribbon-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .ribbon-tab {
+    flex-shrink: 0;
+  }
+
+  .ribbon-toolbar {
+    overflow-x: auto;
+  }
+
+  .ribbon-tab-content {
+    width: max-content;
+    flex-shrink: 0;
+  }
+
+  .ribbon-group {
+    flex-shrink: 0;
+  }
+
+  .sidebar {
+    width: 130px;
+    padding: 6px 4px;
+  }
+
+  .status-bar {
+    height: 22px;
+    font-size: 9px;
+  }
+
+  .zoom-bar {
+    width: 50px;
+  }
+
+  .about-layout {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .about-right {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .about-right .stat-card {
+    flex: 1 1 45% !important;
+    min-width: 120px;
+  }
+
+  .nb-projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  #ai-chatbot-window {
+    width: 300px !important;
+    height: 420px !important;
+    right: 10px !important;
+    bottom: 50px !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: SMALL TABLET (≤900px)
+   ============================ */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: MOBILE (≤768px) — PPT chrome hidden
+   ============================ */
+@media (max-width: 768px) {
+
+  .title-bar,
+  .ribbon-tabs,
+  .ribbon-toolbar,
+  .sidebar,
+  .status-bar,
+  .canvas-area,
+  .main-content {
+    display: none !important;
+  }
+
+  #pres-hero-canvas,
+  #hero-canvas {
+    display: none !important;
+  }
+
+  #presentation-mode {
+    z-index: 9999;
+  }
+
+  #presentation-mode .pres-slide {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    padding: 5% 5% 10% 5% !important;
+  }
+
+  .boot-card {
+    width: 90vw;
+    height: auto;
+    min-height: 200px;
+    padding: 16px 18px;
+  }
+
+  .boot-center h1 {
+    font-size: 32px;
+  }
+
+  .boot-center p {
+    font-size: 13px;
+  }
+
+  .pres-exit-hint {
+    display: none !important;
+  }
+
+  .slide-heading .okta-heading {
+    font-size: 1.5rem !important;
+    padding: 4% 5% 2% 5% !important;
+  }
+
+  #ai-chatbot-window {
+    width: calc(100vw - 20px) !important;
+    height: 60vh !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  .premium-lotus {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .premium-feather {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  /* Hide context menu on mobile */
+  .ppt-context-menu {
+    display: none !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: SMALL MOBILE (≤480px)
+   ============================ */
+@media (max-width: 480px) {
+  #pres-slide-0 .hero-text h1 {
+    font-size: 1.8rem !important;
+  }
+
+  #pres-slide-0 .hero-text p {
+    font-size: 0.75rem !important;
+    letter-spacing: 1px !important;
+  }
+
+  #pres-slide-0 .hero-graphic {
+    max-width: 180px !important;
+    opacity: 0.1 !important;
+  }
+
+  .about-left h1 {
+    font-size: 1.3rem !important;
+  }
+
+  .slide-heading .okta-heading {
+    font-size: 1.3rem !important;
+  }
+
+  .s-contact .contact-title {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: SHORT MONITORS (≤850px height)
+   ============================ */
+@media (max-height: 850px) {
+  #presentation-mode .pres-slide.s-about,
+  #presentation-mode .pres-slide.s-skills,
+  #presentation-mode .pres-slide.s-projects,
+  #presentation-mode .pres-slide.s-contact {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    justify-content: flex-start !important;
+    padding-top: 50px !important;
+    padding-bottom: 60px !important;
+  }
+}

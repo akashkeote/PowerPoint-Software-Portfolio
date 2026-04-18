@@ -1,0 +1,159 @@
+/* ============================
+   DARK MODE VISIBILITY FIXES & OVERRIDES
+   ============================ */
+
+/* ---- Dark mode slide text visibility ---- */
+body.dark-theme .s-contact .contact-title {
+  color: #fff !important;
+}
+
+body.dark-theme .s-contact .contact-subtitle {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.dark-theme .contact-row .label {
+  color: #c0c0d0 !important;
+}
+
+body.dark-theme .contact-row .value {
+  color: #a599ff !important;
+}
+
+body.dark-theme .contact-row {
+  background: var(--okta-card-bg) !important;
+  backdrop-filter: var(--okta-card-blur) !important;
+  -webkit-backdrop-filter: var(--okta-card-blur) !important;
+  border: var(--okta-card-border) !important;
+}
+
+body.dark-theme .resume-btn {
+  background: var(--okta-accent, #7b61ff) !important;
+}
+
+body.dark-theme .about-left h1 {
+  color: #f0f0f0 !important;
+}
+
+body.dark-theme .about-left p,
+body.dark-theme .about-left p strong {
+  color: rgba(220, 220, 235, 0.9) !important;
+}
+
+body.dark-theme .tag {
+  background: rgba(123, 97, 255, 0.15) !important;
+  color: #c8c5f8 !important;
+}
+
+body.dark-theme .stat-num {
+  color: #ffffff !important;
+}
+
+body.dark-theme .stat-label {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .s-skills .stat-card h3 {
+  color: #ffffff !important;
+}
+
+body.dark-theme .s-skills .stat-card p {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .nb-project-card h2 {
+  color: #ffffff !important;
+}
+
+body.dark-theme .nb-project-card p {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .contact-title {
+  color: #ffffff !important;
+}
+
+body.dark-theme .contact-subtitle {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .contact-row i {
+  color: #ffffff !important;
+}
+
+body.dark-theme .contact-row .label {
+  color: #e2e6f0 !important;
+}
+
+body.dark-theme .contact-row .value {
+  color: #a1abc4 !important;
+}
+
+body.dark-theme .contact-row svg,
+body.dark-theme #presentation-mode .contact-row svg {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* ---- Force Dark Mode inside Presentation Mode ---- */
+body.dark-theme #presentation-mode .stat-num,
+body.dark-theme #presentation-mode .s-skills .stat-card h3,
+body.dark-theme #presentation-mode .nb-project-card h2,
+body.dark-theme #presentation-mode .contact-title,
+body.dark-theme #presentation-mode .contact-row i {
+  color: #ffffff !important;
+}
+
+body.dark-theme #presentation-mode .stat-label,
+body.dark-theme #presentation-mode .s-skills .stat-card p,
+body.dark-theme #presentation-mode .nb-project-card p,
+body.dark-theme #presentation-mode .contact-subtitle,
+body.dark-theme #presentation-mode .contact-row .value,
+body.dark-theme #presentation-mode .contact-row .label {
+  color: #e2e6f0 !important;
+}
+
+body.dark-theme #presentation-mode .contact-row svg {
+   stroke: #ffffff !important; color: #ffffff !important;
+}
+
+body.dark-theme #presentation-mode #pres-slide-0 .hero-logo-large {
+  opacity: 0.15 !important;
+  mix-blend-mode: overlay;
+}
+
+body.dark-theme #presentation-mode .hero-text h1.text-gradient {
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Force pres slides transparent in dark so scrub canvas shows */
+body.dark-theme #presentation-mode .pres-slide,
+body.dark-theme #presentation-mode .pres-slide.s-title,
+body.dark-theme #presentation-mode .pres-slide.s-about,
+body.dark-theme #presentation-mode .pres-slide.s-skills,
+body.dark-theme #presentation-mode .pres-slide.s-projects,
+body.dark-theme #presentation-mode .pres-slide.s-contact {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ---- Scrub Canvas Overrides ---- */
+body:not(.dark-theme) #hero-scrub-canvas {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 100;
+}
+
+body:not(.dark-theme) #presentation-mode.is-transitioning #hero-scrub-canvas {
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+
+body.dark-theme #hero-scrub-canvas {
+  filter: brightness(0.8) contrast(1.05) saturate(1.1);
+  transition: filter 0.5s ease;
+  will-change: transform;
+}

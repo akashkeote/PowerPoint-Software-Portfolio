@@ -1,0 +1,30 @@
+/* ============================
+   GLOBAL RESET
+   ============================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Instant dark mode preload — prevents white flash before body.dark-theme is applied */
+html.dark-theme-preload {
+  background: #141414;
+}
+html.dark-theme-preload body {
+  background: #141414;
+}
+html.dark-theme-preload #boot-screen {
+  background: #141414;
+}
+
+body::before {
+  display: none;
+}
+
+body.dark-theme::before {
+  display: none;
+  /* Disable noisy radial gradient that ruined standard PPT dark mode */
+}

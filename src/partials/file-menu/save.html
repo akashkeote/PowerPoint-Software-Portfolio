@@ -1,0 +1,27 @@
+<!-- ==================== SAVE PANEL ==================== -->
+<div class="file-main" id="file-panel-save" style="display:none">
+  <h2 class="file-title">Save a Copy</h2>
+  <div style="display:flex; gap:32px;">
+    <!-- Left: Locations -->
+    <div style="min-width:220px;">
+      <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--bg-hover); border-radius:6px; margin-bottom:8px; cursor:pointer;">
+        <span style="color:#0078d4; font-size:20px;">&#9729;</span>
+        <div><span style="font-size:13px; font-weight:500; color:var(--text-main); display:block;">OneDrive &ndash; Personal</span><span style="font-size:11px; color:var(--text-muted);">keoteakash179@gmail.com</span></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:6px; margin-bottom:8px; cursor:pointer;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background='transparent'">
+        <i data-feather="monitor" style="color:var(--text-muted); width:20px; height:20px;"></i>
+        <span style="font-size:13px; font-weight:500; color:var(--text-main);">This PC</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:6px; margin-bottom:8px; cursor:pointer;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background='transparent'">
+        <i data-feather="plus-circle" style="color:var(--text-muted); width:20px; height:20px;"></i>
+        <span style="font-size:13px; font-weight:500; color:var(--text-main);">Add a Place</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px; padding:12px 16px; border-radius:6px; cursor:pointer;" onmouseover="this.style.background='var(--bg-hover)'" onmouseout="this.style.background='transparent'">
+        <i data-feather="folder" style="color:var(--text-muted); width:20px; height:20px;"></i>
+        <span style="font-size:13px; font-weight:500; color:var(--text-main);">Browse</span>
+      </div>
+    </div>
+    <!-- Right: Recent folders -->
+    <include src="./save.recent.html" />
+  </div>
+</div>

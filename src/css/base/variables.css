@@ -1,0 +1,84 @@
+/* ============================
+   DESIGN TOKENS & CSS VARIABLES
+   ============================ */
+:root {
+  /* Base / Core PPT Colors */
+  --ppt-red: #c0392b;
+  --ppt-orange: #e55039;
+
+  /* Light Theme (Glassy + Pastel) Defaults */
+  --bg-dark: rgba(255, 255, 255, 0.85);
+  --bg-darker: #FEFFF0;
+  /* Pastel Cream */
+  --bg-ribbon: rgba(245, 247, 255, 0.9);
+  --bg-sidebar: rgba(240, 242, 250, 0.8);
+  --border: rgba(99, 102, 241, 0.12);
+  --text-main: #232946;
+  --text-dim: #555;
+  --text-muted: #888;
+  --slide-bg: #FEFFF0;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-blur: blur(12px);
+  --highlight: #6366f1;
+  --box-shadow: rgba(99, 102, 241, 0.15);
+
+  /* Pastel Brutalist Slide Token (Light Mode) */
+  --brutal-bg: #fff;
+  --brutal-border: 3px solid #111;
+  --brutal-shadow: 6px 6px 0px 0px #111;
+  --brutal-hover-shadow: 8px 8px 0px 0px #111;
+  --brutal-text: #111;
+  --brutal-text-dim: #444;
+
+  /* Okta-style Design Tokens */
+  --okta-bg: linear-gradient(180deg, #f8faff 0%, #f0f4ff 50%, #ebe8ff 100%);
+  --okta-card-bg: rgba(255, 255, 255, 0.8);
+  --okta-card-border: 1px solid rgba(99, 102, 241, 0.1);
+  --okta-card-shadow: 0 4px 24px rgba(99, 102, 241, 0.06);
+  --okta-card-radius: 18px;
+  --okta-card-blur: blur(18px);
+  --okta-heading-color: #1a1a2e;
+  --okta-text-color: #232946;
+  --okta-text-dim: #555;
+  --okta-accent: #6366f1;
+  --okta-accent-warm: #e8956a;
+}
+
+body.dark-theme {
+  /* Dark Theme (HooBank Cyberpunk) Overrides */
+  --bg-dark: #1f1f1f;
+  --bg-darker: #141414;
+  --bg-ribbon: #2d2d2d;
+  --bg-sidebar: #252525;
+  --border: #3a3a3a;
+  --text-main: #e8e8e8;
+  --text-dim: #ccc;
+  --text-muted: #aaa;
+  --slide-bg: #00040f;
+  --glass-bg: rgba(0, 0, 0, 0.7);
+  --glass-blur: blur(0px);
+  /* Remove blur for dark mode to save performance / match old dark mode */
+  --highlight: #00f6ff;
+  --box-shadow: rgba(0, 246, 255, 0.1);
+
+  /* Reset Brutalist tokens for dark mode */
+  --brutal-bg: rgba(255, 255, 255, 0.03);
+  --brutal-border: 3px solid #00f6ff;
+  --brutal-shadow: 6px 6px 0px 0px #00f6ff;
+  --brutal-hover-shadow: 6px 6px 0px 0px #00f6ff;
+  --brutal-text: #fff;
+  --brutal-text-dim: rgba(255, 255, 255, 0.6);
+
+  /* Ultra-Premium Dark Mode Overrides */
+  --okta-bg: radial-gradient(circle at 10% 20%, #0d0a18, #050409 50%, #020104 100%);
+  --okta-card-bg: rgba(20, 25, 40, 0.4);
+  --okta-card-border: 1px solid rgba(255, 255, 255, 0.05);
+  --okta-card-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.03);
+  --okta-card-blur: 24px;
+  --okta-heading-color: #f0f0f5;
+  --okta-text-color: #e2e6f0;
+  --okta-text-dim: #a1abc4;
+  --okta-accent: #9a86ff;
+  --okta-accent-warm: #ff917e;
+  animation: none;
+}

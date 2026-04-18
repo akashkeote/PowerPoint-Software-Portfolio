@@ -1,0 +1,31 @@
+@media (max-width: 768px) {
+  /* ---- CONTACT SLIDE ---- */
+  .s-contact .contact-title {
+    font-size: 1.8rem !important;
+  }
+
+  .s-contact .contact-subtitle {
+    font-size: 13px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-stack {
+    max-width: 100% !important;
+    margin-bottom: 24px !important;
+  }
+
+  .contact-row {
+    padding: 12px 16px !important;
+    gap: 10px !important;
+  }
+
+  .contact-row .label,
+  .contact-row .value {
+    font-size: 12px !important;
+  }
+
+  .resume-btn {
+    padding: 10px 24px !important;
+    font-size: 13px !important;
+  }
+}

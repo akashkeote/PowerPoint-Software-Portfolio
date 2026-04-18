@@ -1,0 +1,50 @@
+/* ============================
+   MOBILE CANVAS & PRES MODE FONT OVERRIDE
+   ============================ */
+@media (max-width: 768px) {
+  body.dark-theme #presentation-mode {
+    background: #000000 !important;
+    overflow: hidden;
+  }
+
+  body.dark-theme #presentation-mode::before,
+  body.dark-theme #presentation-mode::after {
+    display: none !important;
+  }
+
+  #hero-scrub-canvas {
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    object-fit: cover !important;
+  }
+
+  body.dark-theme #hero-scrub-canvas {
+    filter: brightness(0.65) contrast(1.1) saturate(1.15) !important;
+  }
+
+  body.dark-theme #presentation-mode .pres-slide.s-title {
+    background: transparent !important;
+  }
+
+  body.dark-theme #presentation-mode .pres-slide.s-about,
+  body.dark-theme #presentation-mode .pres-slide.s-skills,
+  body.dark-theme #presentation-mode .pres-slide.s-projects,
+  body.dark-theme #presentation-mode .pres-slide.s-contact {
+    background: rgba(0, 0, 0, 0.55) !important;
+  }
+}
+
+/* ============================
+   PRESENTATION MODE FONT OVERRIDE
+   ============================ */
+#presentation-mode, 
+#presentation-mode .pres-slide, 
+#presentation-mode .pres-slide * {
+  font-family: 'Space Grotesk', sans-serif !important;
+}

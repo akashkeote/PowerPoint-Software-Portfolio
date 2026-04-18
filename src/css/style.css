@@ -1,6 +1,44 @@
-/* 
-  MODULARIZED STYLE.CSS 
-  Following Single Responsibility Principle
-*/
+/* ============================
+   MASTER CSS — BARREL IMPORTS
+   All modules follow Single Responsibility Principle
+   Each file is ≤150 lines
+   ============================ */
 
-@import "./modules/variables.css";
+/* ---- Base ---- */
+@import './base/reset.css';
+@import './base/variables.css';
+@import './base/gradients.css';
+
+/* ---- Components ---- */
+@import './components/boot-screen.css';
+@import './components/title-bar.css';
+@import './components/ribbon.css';
+@import './components/ribbon-dark.css';
+@import './components/sidebar.css';
+@import './components/canvas.css';
+@import './components/status-bar.css';
+@import './components/file-menu.css';
+@import './components/file-menu-light.css';
+@import '../features/presentation/presentation.css';
+@import '../features/context-menu/context.menu.css';
+@import './components/buttons.css';
+
+/* ---- Slide Styles ---- */
+@import './slides/hero.css';
+@import './slides/hero-cta.css';
+@import './slides/about.css';
+@import './slides/skills.css';
+@import './slides/projects.css';
+@import './slides/contact.css';
+
+/* ---- Responsive ---- */
+@import './responsive/responsive.css';
+@import '../features/sections/hero/hero.mobile.css';
+@import '../features/sections/about/about.mobile.css';
+@import '../features/sections/skills/skills.mobile.css';
+@import '../features/sections/projects/projects.mobile.css';
+@import '../features/sections/contact/contact.mobile.css';
+
+/* ---- Overrides ---- */
+@import './overrides/dark-mode-fixes.css';
+@import './overrides/mobile-canvas.css';

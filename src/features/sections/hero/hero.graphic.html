@@ -1,0 +1,27 @@
+<div class="hero-graphic">
+  <svg viewBox="0 0 416 368" fill="none" class="hero-logo-large" xmlns="http://www.w3.org/2000/svg"
+    style="overflow: visible;">
+    <defs>
+      <linearGradient id="presElegantGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4f46e5" />
+        <stop offset="50%" stop-color="#3b82f6" />
+        <stop offset="100%" stop-color="#8b5cf6" />
+      </linearGradient>
+      <filter id="presElegantShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#4f46e5" flood-opacity="0.2" />
+      </filter>
+    </defs>
+    <style>
+      .pres-elegant-logo-anim { animation: presElegantFloat 6s ease-in-out infinite; transform-origin: center; }
+      @keyframes presElegantFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
+      .pres-elegant-path { stroke-dasharray: 4000; stroke-dashoffset: 4000; animation: presElegantDraw 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+      @keyframes presElegantDraw { to { stroke-dashoffset: 0; } }
+    </style>
+    <g class="pres-elegant-logo-anim">
+      <path class="pres-elegant-path"
+        d="M324.632 203.212L324.632 349.142L172.233 208.765M324.632 203.212L292.769 203.298M324.632 203.212L347.614 203.298L390.733 170.82L324.632 170.82M172.233 208.765L127.777 170.672L167.233 170.82M172.233 208.765L65.0568 317.038L20.1163 317.038L147.215 188.868M210.233 170.82L292.769 96.2119L292.769 170.82M210.233 170.82L292.769 170.82M210.233 170.82L167.233 170.82M292.769 203.298L220.578 202.834L292.769 270.798L292.769 203.298ZM292.769 170.82L324.632 170.82M167.233 170.82L325.868 20.1441L324.632 170.82"
+        stroke="url(#presElegantGradient)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"
+        filter="url(#presElegantShadow)" />
+    </g>
+  </svg>
+</div>

@@ -1,0 +1,100 @@
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.ppt-icon {
+  width: 22px;
+  height: 22px;
+  background: var(--ppt-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  color: white;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.autosave-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.autosave-btn:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+body.dark-theme .autosave-btn {
+  color: #ccc;
+}
+
+.toggle {
+  width: 28px;
+  height: 14px;
+  background: #bbb;
+  border-radius: 7px;
+  position: relative;
+}
+
+.toggle::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #6366f1;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: left 0.15s;
+}
+
+.sep {
+  color: #aaa;
+  padding: 0 4px;
+}
+
+body.dark-theme .sep {
+  color: #666;
+}
+
+.tb-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.tb-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #555;
+  font-size: 12px;
+}
+
+.tb-icon:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+body.dark-theme .tb-icon {
+  color: #ccc;
+}
+
+body.dark-theme .tb-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

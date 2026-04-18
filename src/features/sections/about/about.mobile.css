@@ -1,0 +1,39 @@
+@media (max-width: 768px) {
+  /* ---- ABOUT SLIDE ---- */
+  .about-layout {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .about-left h1 {
+    font-size: 1.6rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .about-left p {
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  .about-right {
+    flex-direction: column !important;
+  }
+
+  .about-right .stat-card {
+    flex: unset !important;
+    min-width: unset !important;
+  }
+
+  .stat-num {
+    font-size: 22px !important;
+  }
+
+  .stat-label {
+    font-size: 11px !important;
+  }
+
+  .tag {
+    font-size: 9px !important;
+    padding: 4px 10px !important;
+  }
+}

@@ -1,4 +1,5 @@
 export function initThemeController() {
+    window.toggleTheme = toggleTheme; // Expose for inline handlers
     document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
         btn.addEventListener('click', toggleTheme);
     });

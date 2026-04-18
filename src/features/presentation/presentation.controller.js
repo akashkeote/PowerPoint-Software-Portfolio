@@ -4,5 +4,6 @@ import { bindPresentationEvents } from './presentation.events.js';
 export { startPresentation, exitPresentation, goToPresSlide };
 
 export function initPresentationController() {
+    window.goToPresSlide = goToPresSlide; // Expose for inline handlers
     bindPresentationEvents();
 }

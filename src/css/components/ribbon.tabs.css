@@ -1,0 +1,54 @@
+/* ============================
+   RIBBON TABS & TOOLBAR
+   ============================ */
+.ribbon-tabs {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 6px;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow-x: auto;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.ribbon-tabs::-webkit-scrollbar {
+  height: 0;
+}
+
+.ribbon-tab {
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--text-main);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  border-radius: 3px 3px 0 0;
+  transition: color 0.1s, background 0.1s;
+  font-weight: 400;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ribbon-tab:hover {
+  color: var(--highlight);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.ribbon-tab.active {
+  color: var(--highlight);
+  font-weight: 600;
+}
+
+.ribbon-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  background: var(--ppt-red);
+  border-radius: 3px 3px 0 0;
+}

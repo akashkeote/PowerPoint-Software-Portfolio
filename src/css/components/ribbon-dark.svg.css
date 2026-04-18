@@ -1,0 +1,28 @@
+/* ============================
+   RIBBON: DARK MODE SVG OVERRIDES
+   ============================ */
+
+body.dark-theme .ribbon-btn svg [stroke="#bbb"],
+body.dark-theme .ribbon-btn svg [stroke="#ccc"],
+body.dark-theme .ribbon-btn svg [stroke="#aaa"],
+body.dark-theme .ribbon-btn svg [stroke="#555"],
+body.dark-theme .ribbon-btn svg [stroke="#777"] { stroke: #d0d0d0; }
+
+body.dark-theme .ribbon-btn svg [fill="#bbb"],
+body.dark-theme .ribbon-btn svg [fill="#ccc"],
+body.dark-theme .ribbon-btn svg [fill="#aaa"],
+body.dark-theme .ribbon-btn svg [fill="#555"],
+body.dark-theme .ribbon-btn svg [fill="#777"],
+body.dark-theme .ribbon-btn svg [fill="#888"],
+body.dark-theme .ribbon-btn svg [fill="#999"] { fill: #d0d0d0; }
+
+body.dark-theme .ribbon-btn svg [stroke="#e8e8e8"],
+body.dark-theme .ribbon-btn svg [stroke="#f0f0f0"] { stroke: #444; }
+
+body.dark-theme .ribbon-btn svg [fill="#e8e8e8"],
+body.dark-theme .ribbon-btn svg [fill="#f0f0f0"] { fill: #444; }
+
+body.dark-theme .ribbon-btn svg [fill="#d0d0d0"] { fill: #ccc; }
+
+body.dark-theme .ribbon-btn svg text[fill="#aaa"],
+body.dark-theme .ribbon-btn svg text[fill="#bbb"] { fill: #d0d0d0; }

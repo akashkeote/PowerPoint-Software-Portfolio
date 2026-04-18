@@ -1,0 +1,27 @@
+/* ============================
+   PRESENTATION MODE LAYOUT
+   ============================ */
+#presentation-mode {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  color: #1a1a1a;
+  z-index: 8888;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+body.dark-theme #presentation-mode { background: #000000; color: #ffffff; }
+
+#presentation-mode.active { display: flex; animation: fadeInPres 0.8s ease; }
+@keyframes fadeInPres { from { opacity: 0; } to { opacity: 1; } }
+
+#presentation-mode .pres-slide {
+  width: 100vw; height: 100vh; position: absolute; inset: 0; opacity: 0; visibility: hidden;
+  transform: scale(0.98); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.8s;
+  display: flex; align-items: center; justify-content: center;
+}
+
+#presentation-mode .pres-slide.active { opacity: 1; visibility: visible; transform: scale(1); z-index: 2; }

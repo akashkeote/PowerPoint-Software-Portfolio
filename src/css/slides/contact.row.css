@@ -1,0 +1,23 @@
+/* ---- Contact Rows ---- */
+.contact-row {
+  display: flex; align-items: center; padding: 16px 24px; background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur); -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border); border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow); text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease; gap: 16px;
+}
+
+.contact-row:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+body.dark-theme .contact-row:hover { box-shadow: 0 8px 32px rgba(0, 246, 255, 0.08); }
+
+.contact-row i { color: var(--okta-heading-color); width: 24px; height: 24px; }
+
+.contact-row .label {
+  font-size: 14px; color: var(--okta-text-dim); font-weight: 500; flex: 1;
+  text-align: left; font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.contact-row .value {
+  font-size: 14px; color: var(--okta-accent); font-weight: 600; text-align: right;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}

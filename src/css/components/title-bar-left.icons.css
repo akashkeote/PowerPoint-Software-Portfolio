@@ -1,0 +1,42 @@
+/* ============================
+   TITLE BAR LEFT ICONS
+   ============================ */
+
+.sep {
+  color: #aaa;
+  padding: 0 4px;
+}
+
+body.dark-theme .sep {
+  color: #666;
+}
+
+.tb-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.tb-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #555;
+  font-size: 12px;
+}
+
+.tb-icon:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+body.dark-theme .tb-icon {
+  color: #ccc;
+}
+
+body.dark-theme .tb-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

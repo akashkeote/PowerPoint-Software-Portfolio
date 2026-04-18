@@ -1,0 +1,27 @@
+/* ---- Feature Cards ---- */
+.feature-card {
+  background: var(--okta-card-bg);
+  backdrop-filter: var(--okta-card-blur);
+  -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border);
+  border-radius: var(--okta-card-radius);
+  padding: 16px;
+  box-shadow: var(--okta-card-shadow);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover { transform: translateY(-2px); }
+
+.feature-card h4 {
+  color: var(--okta-heading-color);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(10px, 1.1vw, 14px);
+}
+
+.feature-card p {
+  font-size: clamp(8px, 0.9vw, 11px);
+  color: var(--okta-text-dim);
+  margin-top: 4px;
+  line-height: 1.5;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}

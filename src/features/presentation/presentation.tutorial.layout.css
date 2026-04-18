@@ -1,0 +1,52 @@
+/* ---- Swipe Tutorial Overlay Layout ---- */
+.swipe-tutorial {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: tutorialFadeIn 0.4s ease;
+  cursor: pointer;
+}
+
+.swipe-tutorial.active { display: flex; }
+.swipe-tutorial.fade-out { animation: tutorialFadeOut 0.5s ease forwards; }
+
+.swipe-tutorial-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+}
+
+.swipe-hand { animation: swipeAnim 1.6s ease-in-out infinite; }
+
+.swipe-arrows {
+  display: flex;
+  gap: 40px;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.swipe-arrow-left { animation: arrowLeft 1.6s ease-in-out infinite; }
+.swipe-arrow-right { animation: arrowRight 1.6s ease-in-out infinite; }
+
+.swipe-text {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  margin: 0;
+}
+
+.swipe-subtext {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  margin: 0;
+}

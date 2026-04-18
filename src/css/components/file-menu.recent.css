@@ -1,0 +1,44 @@
+/* ---- Recent Items List ---- */
+.recent-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  gap: 8px;
+}
+
+.recent-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.recent-item:hover { background: rgba(255, 255, 255, 0.1); }
+
+.recent-item svg { width: 24px; height: 24px; color: #c0392b; }
+
+.recent-item-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.recent-item-info .title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e1e1e1;
+}
+
+.recent-item-info .path {
+  font-size: 12px;
+  color: #888;
+}
+
+.recent-item-time {
+  font-size: 12px;
+  color: #888;
+}

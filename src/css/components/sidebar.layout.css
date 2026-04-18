@@ -1,0 +1,35 @@
+/* ============================
+   SIDEBAR LAYOUT
+   ============================ */
+.sidebar {
+  width: 200px;
+  background: var(--bg-sidebar);
+  backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slide-thumb {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.slide-num {
+  font-size: 10px;
+  color: var(--text-muted);
+  width: 14px;
+  text-align: right;
+  padding-top: 8px;
+  flex-shrink: 0;
+}
+
+.slide-thumb.active .slide-num {
+  color: var(--ppt-red);
+}

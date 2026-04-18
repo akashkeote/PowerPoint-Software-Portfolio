@@ -1,0 +1,17 @@
+/* ---- Hero Responsive ---- */
+@media (max-width: 900px) {
+  .s-title .hero-content, #pres-slide-0 .hero-content { justify-content: center; }
+
+  .s-title .hero-text, #pres-slide-0 .hero-text {
+    flex: 1 1 100%; padding-left: 0; text-align: center;
+  }
+
+  .s-title .hero-text h1, .s-title .hero-text p,
+  #pres-slide-0 .hero-text h1, #pres-slide-0 .hero-text p {
+    text-align: center !important;
+  }
+
+  .s-title .hero-graphic, #pres-slide-0 .hero-graphic {
+    opacity: 0.2; width: 100%; justify-content: center; right: auto; left: 50%; transform: translate(-50%, -50%);
+  }
+}

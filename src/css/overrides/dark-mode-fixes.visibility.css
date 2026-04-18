@@ -1,0 +1,33 @@
+/* ============================
+   DARK MODE VISIBILITY FIXES
+   ============================ */
+
+/* ---- Dark mode slide text visibility ---- */
+body.dark-theme .s-contact .contact-title { color: #fff !important; }
+body.dark-theme .s-contact .contact-subtitle { color: rgba(255, 255, 255, 0.7) !important; }
+body.dark-theme .contact-row .label { color: #c0c0d0 !important; }
+body.dark-theme .contact-row .value { color: #a599ff !important; }
+
+body.dark-theme .contact-row {
+  background: var(--okta-card-bg) !important;
+  backdrop-filter: var(--okta-card-blur) !important;
+  -webkit-backdrop-filter: var(--okta-card-blur) !important;
+  border: var(--okta-card-border) !important;
+}
+
+body.dark-theme .resume-btn { background: var(--okta-accent, #7b61ff) !important; }
+body.dark-theme .about-left h1 { color: #f0f0f0 !important; }
+body.dark-theme .about-left p, body.dark-theme .about-left p strong { color: rgba(220, 220, 235, 0.9) !important; }
+body.dark-theme .tag { background: rgba(123, 97, 255, 0.15) !important; color: #c8c5f8 !important; }
+body.dark-theme .stat-num { color: #ffffff !important; }
+body.dark-theme .stat-label { color: #a1abc4 !important; }
+body.dark-theme .s-skills .stat-card h3 { color: #ffffff !important; }
+body.dark-theme .s-skills .stat-card p { color: #a1abc4 !important; }
+body.dark-theme .nb-project-card h2 { color: #ffffff !important; }
+body.dark-theme .nb-project-card p { color: #a1abc4 !important; }
+body.dark-theme .contact-title { color: #ffffff !important; }
+body.dark-theme .contact-subtitle { color: #a1abc4 !important; }
+body.dark-theme .contact-row i { color: #ffffff !important; }
+body.dark-theme .contact-row .label { color: #e2e6f0 !important; }
+body.dark-theme .contact-row .value { color: #a1abc4 !important; }
+body.dark-theme .contact-row svg { stroke: #ffffff !important; color: #ffffff !important; }

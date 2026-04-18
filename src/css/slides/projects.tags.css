@@ -1,0 +1,21 @@
+/* ---- Card Icons & Tags ---- */
+.nb-card-icons { display: flex; gap: 8px; margin-top: 12px; }
+
+.nb-icon-btn {
+  background: var(--okta-accent); color: white; width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+  cursor: pointer; border: none; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nb-icon-btn:hover { transform: scale(1.15); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+.nb-icon-btn.demo { background: var(--okta-accent-warm); color: white; }
+
+.tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+
+.tag {
+  padding: 5px 14px; border: none; border-radius: 20px; font-size: clamp(8px, 0.9vw, 11px);
+  color: var(--okta-heading-color); font-weight: 600; background: rgba(99, 102, 241, 0.08);
+  font-family: 'Segoe UI', 'Aptos', sans-serif; letter-spacing: 0.3px;
+}
+
+body.dark-theme .tag { background: rgba(0, 246, 255, 0.08); color: #e8e8e8; }

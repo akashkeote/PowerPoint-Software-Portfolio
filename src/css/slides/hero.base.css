@@ -1,0 +1,18 @@
+/* ============================
+   HERO SLIDE BASE
+   ============================ */
+
+/* Hero greeting & accent line — desktop: hidden, mobile pres: visible */
+.hero-greeting,
+.hero-accent-line { display: none; }
+
+.s-title {
+  flex-direction: column;
+  background: linear-gradient(135deg, #f5f7ff 0%, #e8ecf5 100%);
+  align-items: center; justify-content: center; text-align: center; color: #232946;
+  position: relative; overflow: hidden;
+}
+
+body.dark-theme .s-title { background: #00040f; color: var(--text-main); }
+body.dark-theme .s-title .hero-text p,
+body.dark-theme #pres-slide-0 .hero-text p { color: var(--text-muted); }

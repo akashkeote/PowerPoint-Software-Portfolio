@@ -1,0 +1,44 @@
+/* ============================
+   HERO SLIDE CTA BUTTON
+   ============================ */
+
+.hero-content .about-me-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--okta-accent, #6366f1);
+  border-radius: 30px;
+  padding: 0.7em 1.8em;
+  font-weight: 700;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  font-size: clamp(13px, 1.5vw, 16px);
+  color: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.3);
+}
+
+.hero-content .about-me-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.45);
+}
+
+body.dark-theme .hero-content .about-me-btn {
+  background: var(--okta-accent, #7b61ff);
+  box-shadow: 0 4px 18px rgba(123, 97, 255, 0.35);
+}
+
+.hero-content .about-me-btn .right-arrow {
+  display: none;
+}
+
+/* ---- Text gradient override in hero ---- */
+.text-gradient {
+  background: linear-gradient(157.81deg, #5ce1e6 0%, #33bbcf 50%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}

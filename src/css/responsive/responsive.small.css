@@ -1,0 +1,27 @@
+/* ============================
+   RESPONSIVE: SMALL MOBILE (≤480px)
+   ============================ */
+@media (max-width: 480px) {
+  #pres-slide-0 .hero-text h1 { font-size: 1.8rem !important; }
+  #pres-slide-0 .hero-text p { font-size: 0.75rem !important; letter-spacing: 1px !important; }
+  #pres-slide-0 .hero-graphic { max-width: 180px !important; opacity: 0.1 !important; }
+  .about-left h1 { font-size: 1.3rem !important; }
+  .slide-heading .okta-heading { font-size: 1.3rem !important; }
+  .s-contact .contact-title { font-size: 1.5rem !important; }
+}
+
+/* ============================
+   RESPONSIVE: SHORT MONITORS (≤850px height)
+   ============================ */
+@media (max-height: 850px) {
+  #presentation-mode .pres-slide.s-about,
+  #presentation-mode .pres-slide.s-skills,
+  #presentation-mode .pres-slide.s-projects,
+  #presentation-mode .pres-slide.s-contact {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    justify-content: flex-start !important;
+    padding-top: 50px !important;
+    padding-bottom: 60px !important;
+  }
+}

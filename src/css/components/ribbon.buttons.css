@@ -1,0 +1,56 @@
+/* ---- Ribbon Groups & Buttons ---- */
+.ribbon-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 12px;
+  margin-right: 8px;
+  border-right: 1px solid rgba(99, 102, 241, 0.15);
+  height: 72px;
+}
+
+.ribbon-group:last-child {
+  border-right: none;
+}
+
+.ribbon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  color: var(--text-main);
+  transition: background 0.2s;
+  min-width: 44px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ribbon-btn svg {
+  flex-shrink: 0;
+}
+
+.ribbon-btn:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.ribbon-btn .icon {
+  font-size: 32px;
+  color: var(--text-main);
+}
+
+.ribbon-btn .label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-main);
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.ribbon-btn.primary { cursor: pointer; }
+.ribbon-btn.primary .icon { color: var(--ppt-red); }
+.ribbon-btn.primary .label { color: var(--ppt-red); font-weight: 600; font-size: 10.5px; }
+.ribbon-btn.primary:hover { background: rgba(192, 57, 43, 0.15); }

@@ -1,0 +1,23 @@
+/* Dark Mode: Inline text color overrides for font group */
+body.dark-theme .ribbon-group [style*="color:#232946"],
+body.dark-theme .ribbon-group [style*="color: #232946"] {
+  color: #ddd !important;
+}
+
+body.dark-theme .ribbon-group [style*="background:rgba(255,255,255,0.6)"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ddd !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.dark-theme .ribbon-group label {
+  color: #ccc !important;
+}
+
+body.dark-theme .ribbon-group [style*="color:#bbb"] {
+  color: #ccc !important;
+}
+
+body.dark-theme .ribbon-group [style*="color:#666"] {
+  color: #999 !important;
+}

@@ -1,0 +1,19 @@
+/* ---- Stat Cards ---- */
+.stat-card {
+  background: var(--okta-card-bg); backdrop-filter: var(--okta-card-blur); -webkit-backdrop-filter: var(--okta-card-blur);
+  border: var(--okta-card-border); padding: 20px 24px; border-radius: var(--okta-card-radius);
+  box-shadow: var(--okta-card-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+body.dark-theme .stat-card:hover { box-shadow: 0 8px 32px rgba(0, 246, 255, 0.08); }
+
+.stat-num {
+  font-size: clamp(20px, 3vw, 32px); font-weight: 700; color: var(--okta-accent);
+  line-height: 1; margin-bottom: 5px; font-family: 'Segoe UI', 'Aptos', sans-serif; letter-spacing: -0.5px;
+}
+
+.stat-label {
+  font-size: clamp(10px, 1.1vw, 13px); color: var(--okta-text-dim); font-weight: 500;
+  font-family: 'Segoe UI', 'Aptos', sans-serif; letter-spacing: 0.2px;
+}

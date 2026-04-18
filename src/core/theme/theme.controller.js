@@ -9,6 +9,9 @@ export function initThemeController() {
 
 function toggleTheme() {
     const isDark = document.body.classList.toggle('dark-theme');
+    if (!isDark) {
+        document.documentElement.classList.remove('dark-theme-preload');
+    }
     localStorage.setItem('ppt-theme', isDark ? 'dark' : 'light');
     updateThemeIcon(isDark);
 }
@@ -17,6 +20,7 @@ function checkTheme() {
     const savedTheme = localStorage.getItem('ppt-theme');
     if (savedTheme === 'light') {
         document.body.classList.remove('dark-theme');
+        document.documentElement.classList.remove('dark-theme-preload');
         updateThemeIcon(false);
     } else {
         document.body.classList.add('dark-theme');

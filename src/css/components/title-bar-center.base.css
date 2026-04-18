@@ -1,0 +1,25 @@
+/* ============================
+   TITLE BAR CENTER BASE
+   ============================ */
+
+.title-bar-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
+.title-text {
+  color: var(--text-dim);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+body.dark-theme .title-text {
+  color: #e1e1e1;
+  font-weight: 600;
+}

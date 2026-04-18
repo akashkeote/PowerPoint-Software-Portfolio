@@ -1,5 +1,6 @@
 import { createSkillsBodies } from './skills.physics.bodies.js';
-import { getMatterModules, createResizeHandler } from '../../../core/physics.config.js';
+import { createResizeHandler } from '../../../core/physics.config.js';
+import { createMatterEngineAndRender } from './skills.physics.engine.js';
 
 export function initSkillsPhysics(containerId) {
   const canvasEl = document.getElementById(containerId);
@@ -13,25 +14,7 @@ export function initSkillsPhysics(containerId) {
   if (canvasEl.hasAttribute('data-matter-initialized')) return;
   canvasEl.setAttribute('data-matter-initialized', 'true');
 
-  const { Engine, Render, Runner, Events, Mouse, Body } = getMatterModules();
-
-  const engine = Engine.create();
-  engine.world.gravity.y = 0;
-  engine.world.gravity.x = 0;
-
-  const render = Render.create({
-    element: canvasEl,
-    engine: engine,
-    options: {
-      width: canvasEl.clientWidth,
-      height: canvasEl.clientHeight,
-      wireframes: false,
-      showAngleIndicator: false,
-      background: 'transparent',
-      pixelRatio: window.devicePixelRatio
-    }
-  });
-
+  const { engine, render, Runner, Events, Mouse, Body } = createMatterEngineAndRender(canvasEl);
   const { attractiveBody, domBodies, wrapBounds } = createSkillsBodies(engine, render, canvasEl);
 
   const mouse = Mouse.create(render.canvas);
@@ -49,19 +32,15 @@ export function initSkillsPhysics(containerId) {
     }
   });
 
-  const runner = Runner.create();
-  Runner.run(runner, engine);
+  Runner.run(Runner.create(), engine);
   Render.run(render);
 
   setTimeout(() => {
-    render.canvas.width = canvasEl.clientWidth;
-    render.canvas.height = canvasEl.clientHeight;
-    render.options.width = canvasEl.clientWidth;
-    render.options.height = canvasEl.clientHeight;
-    wrapBounds.max.x = canvasEl.clientWidth;
-    wrapBounds.max.y = canvasEl.clientHeight;
+    render.canvas.width = canvasEl.clientWidth; render.canvas.height = canvasEl.clientHeight;
+    render.options.width = canvasEl.clientWidth; render.options.height = canvasEl.clientHeight;
+    wrapBounds.max.x = canvasEl.clientWidth; wrapBounds.max.y = canvasEl.clientHeight;
   }, 50);
 
   createResizeHandler(canvasEl, render, wrapBounds);
-  return { engine, render, runner };
+  return { engine, render };
 }

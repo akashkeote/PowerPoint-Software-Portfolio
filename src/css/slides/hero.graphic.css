@@ -1,0 +1,17 @@
+/* ---- Hero Graphic / Logo ---- */
+.s-title .hero-graphic, #pres-slide-0 .hero-graphic {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 50%;
+  display: flex; justify-content: flex-end; z-index: 1; animation: floatLogo 6s ease-in-out infinite;
+}
+
+@keyframes floatLogo { 0%, 100% { margin-top: 0; } 50% { margin-top: -20px; } }
+
+.s-title .hero-logo-large, #pres-slide-0 .hero-logo-large {
+  width: clamp(300px, 50vw, 700px); height: auto; object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.1)); opacity: 0.9;
+}
+
+.s-title .hero-logo-large.dark, #pres-slide-0 .hero-logo-large.dark { display: none !important; }
+.s-title .hero-logo-large.light, #pres-slide-0 .hero-logo-large.light { display: block !important; }
+body.dark-theme .s-title .hero-logo-large.light, body.dark-theme #pres-slide-0 .hero-logo-large.light { display: none !important; }
+body.dark-theme .s-title .hero-logo-large.dark, body.dark-theme #pres-slide-0 .hero-logo-large.dark { display: block !important; }

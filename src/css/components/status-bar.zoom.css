@@ -1,0 +1,21 @@
+/* ============================
+   STATUS BAR ZOOM
+   ============================ */
+.zoom-bar {
+  width: 60px;
+  height: 3px;
+  background: #ccd;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.zoom-thumb {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  background: #6366f1;
+  border-radius: 2px;
+  top: -4.5px;
+  left: 65%;
+}

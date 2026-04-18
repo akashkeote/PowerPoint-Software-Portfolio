@@ -1,0 +1,22 @@
+/* ============================
+   DARK MODE SCRUB CANVAS FIXES
+   ============================ */
+
+/* ---- Scrub Canvas Overrides ---- */
+body:not(.dark-theme) #hero-scrub-canvas {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 100;
+}
+
+body:not(.dark-theme) #presentation-mode.is-transitioning #hero-scrub-canvas {
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+}
+
+body.dark-theme #hero-scrub-canvas {
+  filter: brightness(0.8) contrast(1.05) saturate(1.1);
+  transition: filter 0.5s ease;
+  will-change: transform;
+}

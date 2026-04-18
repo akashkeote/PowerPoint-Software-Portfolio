@@ -1,0 +1,31 @@
+/* ============================
+   FILE MENU OVERLAY
+   ============================ */
+
+#file-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1f1f1f;
+  color: white;
+  flex-direction: row;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.file-main {
+  flex: 1;
+  padding: 48px;
+  overflow-y: auto;
+  background: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+}
+
+.file-title {
+  font-size: 32px;
+  font-weight: 300;
+  margin-bottom: 32px;
+  color: #e1e1e1;
+  flex-shrink: 0;
+}

@@ -1,0 +1,20 @@
+/* Light Mode SVG Overrides */
+body:not(.dark-theme) .ribbon-btn svg [stroke="#bbb"],
+body:not(.dark-theme) .ribbon-btn svg [stroke="#ccc"] { stroke: #666; }
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#bbb"],
+body:not(.dark-theme) .ribbon-btn svg [fill="#ccc"] { fill: #666; }
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#e8e8e8"],
+body:not(.dark-theme) .ribbon-btn svg [fill="#f0f0f0"] { fill: #fff; }
+
+body:not(.dark-theme) .ribbon-btn svg [stroke="#e8e8e8"],
+body:not(.dark-theme) .ribbon-btn svg [stroke="#f0f0f0"] { stroke: #aaa; }
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#aaa"] { fill: #555; }
+body:not(.dark-theme) .ribbon-btn svg [stroke="#aaa"] { stroke: #555; }
+
+body:not(.dark-theme) .ribbon-btn svg [fill="#d0d0d0"] { fill: #888; }
+body:not(.dark-theme) .ribbon-btn svg [stroke="#d0d0d0"] { stroke: #888; }
+
+body:not(.dark-theme) .ribbon-btn svg circle[fill="#fff"] { fill: #f8f8f8; stroke: #666; }

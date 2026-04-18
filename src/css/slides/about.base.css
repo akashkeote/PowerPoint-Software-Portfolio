@@ -1,0 +1,21 @@
+/* ============================
+   ABOUT SLIDE & SHARED OKTA STYLES
+   ============================ */
+
+/* ---- Shared slide base ---- */
+.s-about, .s-skills, .s-projects, .s-contact {
+  flex-direction: column;
+  background: var(--okta-bg);
+  padding: 0;
+  color: var(--okta-text-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Removed heavy animated pseudo-element gradients to improve performance */
+.s-about::before, .s-projects::before, .s-contact::before { display: none; }
+
+body:not(.dark-theme) .s-about,
+body:not(.dark-theme) .s-skills,
+body:not(.dark-theme) .s-projects,
+body:not(.dark-theme) .s-contact { background: var(--okta-bg); backdrop-filter: none; }

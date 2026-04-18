@@ -1,0 +1,25 @@
+/* ============================
+   PROJECTS SLIDE BASE
+   ============================ */
+.s-projects {
+  background: var(--okta-bg);
+  color: var(--okta-text-color);
+  padding: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.dark-theme .s-projects {
+  background: var(--okta-bg) !important;
+}
+
+.s-projects .nb-header {
+  display: none;
+}
+
+/* Presentation Mode: Projects Slide — full page scroll */
+#presentation-mode .s-projects {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}

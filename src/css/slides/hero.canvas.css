@@ -1,0 +1,14 @@
+/* ---- Physics Canvas (Matter.js) ---- */
+#hero-canvas, #pres-hero-canvas, .physics-canvas {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: hidden;
+}
+
+.dom-bubble {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #ffffff 0%, #dcdcdc 20%, #a2a2a2 60%, #505050 100%);
+  box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.6), inset -10px -10px 30px rgba(0, 0, 0, 0.5), inset 5px 5px 15px rgba(255, 255, 255, 1);
+  pointer-events: auto; transform-origin: center center; z-index: 5;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.dom-bubble img { width: 55%; height: 55%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3)); }

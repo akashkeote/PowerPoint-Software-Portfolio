@@ -1,0 +1,9 @@
+/* ============================
+   SKILLS SLIDE GRID
+   ============================ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4%;
+  flex: 1;
+}

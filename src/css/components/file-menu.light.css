@@ -1,0 +1,16 @@
+/* ============================
+   FILE MENU: LIGHT MODE OVERRIDES
+   ============================ */
+
+/* File overlay light mode */
+body:not(.dark-theme) #file-menu-overlay { background: #fff; color: #1a1a1a; }
+body:not(.dark-theme) .file-sidebar { background: #c0392b; }
+body:not(.dark-theme) .file-main { background: #fff; }
+body:not(.dark-theme) .file-title { color: #1a1a1a; }
+body:not(.dark-theme) .recent-item { background: rgba(0, 0, 0, 0.05); }
+body:not(.dark-theme) .recent-item:hover { background: rgba(0, 0, 0, 0.1); }
+body:not(.dark-theme) .recent-item-info .title { color: #1a1a1a; }
+body:not(.dark-theme) .recent-item-info .path { color: #666; }
+body:not(.dark-theme) .account-col h4,
+body:not(.dark-theme) .account-col p { color: #1a1a1a; }
+body:not(.dark-theme) .account-col small { color: #666; }

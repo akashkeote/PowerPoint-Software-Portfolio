@@ -1,0 +1,19 @@
+/* ============================
+   PROJECTS SLIDE GRID
+   ============================ */
+
+.nb-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+#presentation-mode .s-projects .nb-projects-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: none;
+  padding-bottom: 40px;
+}

@@ -1,0 +1,40 @@
+/* ============================
+   SHARED BUTTONS
+   ============================ */
+
+.project-btns {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: clamp(9px, 1vw, 12px);
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: var(--okta-accent);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: var(--okta-card-bg);
+  color: var(--okta-heading-color);
+  border: var(--okta-card-border);
+  backdrop-filter: var(--okta-card-blur);
+}

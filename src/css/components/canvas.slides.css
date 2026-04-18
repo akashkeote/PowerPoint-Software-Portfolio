@@ -1,0 +1,35 @@
+/* ============================
+   SLIDE WRAPPER
+   ============================ */
+
+.slide-wrapper {
+  width: 82%;
+  max-width: 1400px;
+  aspect-ratio: 16/9;
+  background: white;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-theme .slide-wrapper {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.7);
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+
+.slide.active {
+  display: flex;
+  animation: slideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.99); }
+  to { opacity: 1; transform: none; }
+}

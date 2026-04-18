@@ -1,0 +1,47 @@
+/* ============================
+   STATUS BAR
+   ============================ */
+.status-bar {
+  background: var(--bg-dark);
+  backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border);
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-badge {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.status-icon {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.status-icon:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--text-main);
+}
+
+body.dark-theme .title-text { color: #e1e1e1; font-weight: 600; }
+body.dark-theme .status-bar { color: #e1e1e1; }

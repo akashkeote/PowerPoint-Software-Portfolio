@@ -1,0 +1,44 @@
+/* ============================
+   SIDEBAR PREVIEW
+   ============================ */
+
+.slide-preview {
+  flex: 1;
+  aspect-ratio: 16/9;
+  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: #555;
+  text-align: center;
+  padding: 4px;
+  line-height: 1.3;
+  transition: border-color 0.15s, background 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-thumb.active .slide-preview {
+  border-color: var(--ppt-orange);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  background: rgba(245, 247, 255, 0.7);
+}
+
+.slide-thumb:hover .slide-preview {
+  border-color: #6366f1;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Mini slide color bars */
+.slide-preview::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--ppt-red);
+}

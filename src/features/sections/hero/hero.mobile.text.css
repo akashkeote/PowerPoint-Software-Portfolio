@@ -1,0 +1,38 @@
+@media (max-width: 768px) {
+  #pres-slide-0 .hero-text {
+    flex: unset !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+    width: 100%;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+
+  #pres-slide-0 .hero-greeting { display: block !important; }
+  #pres-slide-0 .hero-accent-line { display: block !important; }
+  #pres-slide-0 .hero-text>div { justify-content: center !important; }
+
+  #pres-slide-0 .hero-text h1 {
+    font-size: 2.8rem !important;
+    text-align: center !important;
+    letter-spacing: -1px !important;
+    margin-bottom: 4px !important;
+  }
+
+  #pres-slide-0 .hero-text p {
+    font-size: 0.7rem !important;
+    text-align: center !important;
+    letter-spacing: 3px !important;
+    margin-bottom: 28px !important;
+    color: #666 !important;
+  }
+
+  body.dark-theme #pres-slide-0 .hero-text p {
+    color: rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .hero-content .about-me-btn {
+    font-size: 13px !important;
+    padding: 0.6em 1.4em !important;
+  }
+}

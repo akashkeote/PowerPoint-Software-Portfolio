@@ -1,0 +1,14 @@
+/* ---- Resume Button ---- */
+.resume-btn {
+  display: flex; align-items: center; gap: 10px; background: #ffffff; color: #000000;
+  border: none; border-radius: 50px; padding: 14px 32px; font-size: clamp(12px, 1.2vw, 15px);
+  font-weight: 600; cursor: pointer; position: relative; z-index: 2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  font-family: 'Segoe UI', 'Aptos', sans-serif;
+}
+
+.resume-btn svg, .resume-btn i { stroke: #000000 !important; }
+
+.resume-btn:hover {
+  transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
+}

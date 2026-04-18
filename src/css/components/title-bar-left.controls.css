@@ -1,0 +1,37 @@
+/* ============================
+   TITLE BAR LEFT CONTROLS
+   ============================ */
+
+.autosave-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.autosave-btn:hover { background: rgba(99, 102, 241, 0.08); }
+body.dark-theme .autosave-btn { color: #ccc; }
+
+.toggle {
+  width: 28px;
+  height: 14px;
+  background: #bbb;
+  border-radius: 7px;
+  position: relative;
+}
+
+.toggle::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #6366f1;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: left 0.15s;
+}

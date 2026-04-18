@@ -1,0 +1,49 @@
+/* ============================
+   RESPONSIVE: TABLET (≤1024px)
+   ============================ */
+@media (max-width: 1024px) {
+  .search-box { display: none; }
+  .ribbon-tabs { overflow-x: auto; flex-wrap: nowrap; }
+  .ribbon-tab { flex-shrink: 0; }
+  .ribbon-toolbar { overflow-x: auto; }
+  .ribbon-tab-content { width: max-content; flex-shrink: 0; }
+  .ribbon-group { flex-shrink: 0; }
+  .sidebar { width: 130px; padding: 6px 4px; }
+  .status-bar { height: 22px; font-size: 9px; }
+  .zoom-bar { width: 50px; }
+
+  .about-layout {
+    flex-direction: column !important;
+    gap: 15px !important;
+  }
+
+  .about-right {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+  }
+
+  .about-right .stat-card {
+    flex: 1 1 45% !important;
+    min-width: 120px;
+  }
+
+  .nb-projects-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  #ai-chatbot-window {
+    width: 300px !important;
+    height: 420px !important;
+    right: 10px !important;
+    bottom: 50px !important;
+  }
+}
+
+/* ============================
+   RESPONSIVE: SMALL TABLET (≤900px)
+   ============================ */
+@media (max-width: 900px) {
+  .sidebar { display: none !important; }
+}

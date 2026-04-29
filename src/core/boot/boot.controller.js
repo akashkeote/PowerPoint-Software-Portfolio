@@ -31,40 +31,51 @@ export function initBootSequence() {
         }
     }
 
-    // ── Background progress indicator in status bar ──
+    // ── VS Code-style thin progress bar on top of status bar ──
     function showBackgroundProgress() {
-        const statusBar = document.querySelector('.status-bar .status-left');
+        const statusBar = document.querySelector('.status-bar');
         if (!statusBar) return;
 
-        const indicator = document.createElement('span');
-        indicator.id = 'bg-cache-indicator';
-        indicator.style.cssText = 'display:inline-flex;align-items:center;gap:6px;color:#6366f1;font-size:10px;font-weight:500;transition:opacity 0.5s ease;';
+        // Make status bar position relative for the absolute bar
+        statusBar.style.position = 'relative';
+        statusBar.style.overflow = 'hidden';
 
-        const dot = document.createElement('span');
-        dot.style.cssText = 'width:5px;height:5px;border-radius:50%;background:#6366f1;animation:dotPulse 1.2s infinite;';
+        const bar = document.createElement('div');
+        bar.id = 'bg-cache-bar';
+        bar.style.cssText = 'position:absolute;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,#c43e1c,#e06030,#c43e1c);transition:width 0.4s ease,opacity 0.5s ease;z-index:1;';
 
-        const text = document.createElement('span');
-        text.id = 'bg-cache-text';
-        text.textContent = 'Optimizing...';
+        // Shimmer overlay for the active loading feel
+        const shimmer = document.createElement('div');
+        shimmer.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.3) 50%,transparent 100%);animation:bgShimmer 1.5s infinite;';
+        bar.appendChild(shimmer);
 
-        indicator.appendChild(dot);
-        indicator.appendChild(text);
-        statusBar.appendChild(indicator);
+        // Inject shimmer keyframes if not already present
+        if (!document.getElementById('bg-shimmer-style')) {
+            const style = document.createElement('style');
+            style.id = 'bg-shimmer-style';
+            style.textContent = '@keyframes bgShimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}';
+            document.head.appendChild(style);
+        }
+
+        statusBar.appendChild(bar);
     }
 
     function updateBackgroundIndicator(loaded, total) {
-        const textEl = document.getElementById('bg-cache-text');
-        if (textEl) {
+        const bar = document.getElementById('bg-cache-bar');
+        if (bar) {
             const pct = Math.round((loaded / total) * 100);
-            textEl.textContent = 'Caching frames ' + pct + '%';
+            bar.style.width = pct + '%';
         }
     }
 
     function hideBackgroundIndicator() {
-        const indicator = document.getElementById('bg-cache-indicator');
-        if (indicator) {
-            indicator.style.opacity = '0';
-            setTimeout(() => indicator.remove(), 500);
+        const bar = document.getElementById('bg-cache-bar');
+        if (bar) {
+            bar.style.width = '100%';
+            setTimeout(() => {
+                bar.style.opacity = '0';
+                setTimeout(() => bar.remove(), 500);
+            }, 300);
         }
     }
 

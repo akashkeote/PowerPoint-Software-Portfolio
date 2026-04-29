@@ -114,7 +114,7 @@ export function initBootSequence() {
                     }, 100);
                 }
             }
-        }, 5000); // 5 sec after keyframes are ready
+        }, 1200); // ~1.2s after keyframes → total boot ≈ 2-3 sec
     };
 
     // Boot screen progress display

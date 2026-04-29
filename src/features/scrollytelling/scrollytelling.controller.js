@@ -23,9 +23,14 @@ export function initScrollytellingController() {
         EXPECTED_FRAMES, slideAnchors, scrubImages,
         counter, BOOT_CONCURRENCY,
         () => {
+            // Keyframes are ready — first render + notify boot controller
             if (renderer) {
                 renderer.drawScrubFrame(slideAnchors[0]);
                 renderer.startRenderLoop();
+            }
+            // Signal boot controller that keyframes are loaded
+            if (typeof window.onKeyframesReady === 'function') {
+                window.onKeyframesReady();
             }
         },
         IS_MOBILE
